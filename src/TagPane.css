@@ -1,0 +1,21 @@
+.tag-pane {
+  background: white;
+  padding: 15px;
+  font-family: "Segoe UI",Arial,Helvetica,sans-serif;
+  margin-bottom: 12px;
+}
+
+.tag-pane a{
+  color: #222;
+  font-weight: 600;
+  margin-left: 1px;
+  padding: 4px 3px 3px;
+  font-size: 16px;
+  border: 1px solid transparent;
+}
+
+.tag-pane a:hover {
+  background: #eee;
+  color: #555;
+  border: 1px solid #b5b5b5;
+}

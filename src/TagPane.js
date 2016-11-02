@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './TagPane.css';
 
 class TagPane extends Component {
   
