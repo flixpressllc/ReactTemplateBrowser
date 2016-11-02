@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import TagPane from './TagPane';
 
 it('renders without crashing', () => {
- mount(<TagPane />);
+ shallow(<TagPane />);
 });
 
 it('displays all tags passed in', () => {
