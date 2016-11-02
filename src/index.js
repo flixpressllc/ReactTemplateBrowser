@@ -5,10 +5,12 @@ import './index.css';
 
 let templates = [{
   id: 1,
-  tags: ['fast']
+  tags: ['fast', 'white', 'pro', 'animal'],
+  name: 'Rabbit Runner Pro'
 },{
   id: 2,
-  tags: ['slow']
+  tags: ['slow', 'green', 'basic', 'animal'],
+  name: 'Turtle Walker'
 }];
 
 ReactDOM.render(

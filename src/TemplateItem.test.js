@@ -11,3 +11,8 @@ const VALID_TEMPLATE_ITEM = {
 it('renders without crashing', () => {
  shallow(<TemplateItem item={ VALID_TEMPLATE_ITEM } />);
 });
+
+it('renders the template name', () => {
+  const component = shallow(<TemplateItem item={ VALID_TEMPLATE_ITEM } />)
+  expect(component.text()).toContain(VALID_TEMPLATE_ITEM.name)
+});
