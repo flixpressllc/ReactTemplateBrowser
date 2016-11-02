@@ -6,7 +6,8 @@ const VALID_TEMPLATE_OBJECT = {
   id: 79,
   tags: ['pro', 'gags'],
   name: 'Sparky Pro Electrocutionator',
-  type: 'TextOnly'
+  type: 'TextOnly',
+  image: 'some/image.jpg'
 }
 
 it('renders without crashing', () => {
@@ -30,4 +31,13 @@ it('creates a correctly formatted link', () => {
   const component = shallow(<Template template={ templateObject } />);
 
   expect(component.find('a').first().prop('href')).toBe('/templates/Slides.aspx?tid=79');
+});
+
+it('displays an image thumbnail', () => {
+  let templateObject = VALID_TEMPLATE_OBJECT;
+  templateObject.image = 'an/image.jpg'
+  
+  const component = shallow(<Template template={ templateObject } />);
+
+  expect(component.find('img').first().prop('src')).toBe('an/image.jpg');
 });

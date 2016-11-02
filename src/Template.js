@@ -13,7 +13,9 @@ class Template extends Component {
     return (
       <div className='template'>
         <header>{ template.name }</header>
-        <a href={ link }>Click here</a>
+        <a href={ link }>
+          <img src={ template.image } alt={`Screenshot of template ${template.id}`} />
+        </a>
       </div>
     );
   }
