@@ -10,6 +10,11 @@ class Template extends Component {
   render(){
     const link = this.createLink();
     const template = this.props.template;
+    const cost = this.props.options.costType === 'plan' ? (
+      <span className='dispPlan'>Plan: { template.plan }</span>
+    ) : (
+      <span className='dispPrice'>Pay As You Go: { template.price }</span>
+    );
     return (
       <div className='template browserItem'>
         <header className='browserInnerItem'>
@@ -20,12 +25,17 @@ class Template extends Component {
         </a>
         <div className='browserSubTitleDiv'>
           <span className='tempDur'>Duration: { template.duration }</span>
-          <span className='dispPlan'>Plan: { template.plan }</span>
-          <span className='dispPrice'>Pay As You Go: { template.price }</span>
+          { cost }
         </div>
       </div>
     );
   }
 }
+
+Template.defaultProps = {
+  options: {
+    costType: 'plan'
+  }
+};
 
 export default Template;

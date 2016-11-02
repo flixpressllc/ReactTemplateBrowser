@@ -58,20 +58,33 @@ it('displays the duration', () => {
   expect(component.text()).toContain('1:00');
 });
 
-it('displays the lowest plan it is in', () => {
-  let templateObject = createTemplate();
-  templateObject.plan = 'Personal';
-  
-  const component = shallow(<Template template={ templateObject } />);
+describe('when asked, ', () => {
+  it('displays the lowest plan it is in', () => {
+    let templateObject = createTemplate();
+    templateObject.plan = 'Personal';
+    templateObject.price = '$30';
+    let opts = {
+      costType: 'plan'
+    }
+    
+    const component = shallow(<Template template={ templateObject } options={ opts } />);
 
-  expect(component.text()).toContain('Personal');
+    expect(component.text()).toContain('Personal');
+    expect(component.text()).not.toContain('$30');
+  });
+
+  it('displays the price', () => {
+    let templateObject = createTemplate();
+    templateObject.price = '$25';
+    templateObject.plan = 'Personal';
+    let opts = {
+      costType: 'price'
+    }
+    
+    const component = shallow(<Template template={ templateObject } options={ opts } />);
+
+    expect(component.text()).toContain('$25');
+    expect(component.text()).not.toContain('Personal');
+  });
 });
 
-it('displays the price', () => {
-  let templateObject = createTemplate();
-  templateObject.price = '$25';
-  
-  const component = shallow(<Template template={ templateObject } />);
-
-  expect(component.text()).toContain('$25');
-});
