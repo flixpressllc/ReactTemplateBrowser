@@ -9,7 +9,10 @@ class Browser extends Component {
   constructor(props){
     super(props);
     this.state = {
-      filter: {}
+      filter: {},
+      templateOptions: {
+        costType: 'plan'
+      }
     };
 
     this.setFilterTagName = this.setFilterTagName.bind(this);
@@ -51,7 +54,7 @@ class Browser extends Component {
   render() {
     const tags = this.getTags();
     const templates = this.getFilteredTemplates().map( (template, i) => {
-      return(<Template key={`template-item-${i}`} template={ template } />);
+      return(<Template key={`template-item-${i}`} template={ template } options={ this.state.templateOptions } />);
     });
 
     return (
