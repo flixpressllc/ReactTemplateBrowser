@@ -23,3 +23,8 @@ it('creates a tag pane with the right number of nodes', () => {
   expect(nodeLength).toBe(2);
 });
 
+it('displays templates', ()=>{
+  const templates = TEST_TEMPLATES;
+  const app = mount(<Browser templates={ templates } />);
+  expect(app.find('.template').length).toBe(templates.length);
+});
