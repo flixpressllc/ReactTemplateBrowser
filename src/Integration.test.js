@@ -31,5 +31,5 @@ it('changes displayed templates on tag click', () => {
 
   firstTag.simulate('click');
 
-  expect(app.find('.template').length).toBe(1);
+  expect(app.find('TemplateItem').length).toBe(1);
 });

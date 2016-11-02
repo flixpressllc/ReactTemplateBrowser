@@ -19,7 +19,7 @@ class Browser extends Component {
     const templates = this.props.templates;
     if (templates === undefined) return undefined;
     let tagNames = [];
-    templates.map( (template) =>{
+    templates.forEach( (template) =>{
       tagNames = union(tagNames, template.tags);
     });
     return tagNames;
