@@ -19,6 +19,7 @@ it('renders without crashing', () => {
 it('creates a tag pane with the right number of nodes', () => {
   const templates = TEST_TEMPLATES;
   const app = mount(<Browser templates={templates} />);
-  let nodeLength = app.find('.tag-pane a').length;
+  let nodeLength = app.find('TagPane a').length;
+  
   expect(nodeLength).toBe(2);
 });
