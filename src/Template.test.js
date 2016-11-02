@@ -48,3 +48,30 @@ it('displays an image thumbnail', () => {
 
   expect(component.find('img').first().prop('src')).toBe('an/image.jpg');
 });
+
+it('displays the duration', () => {
+  let templateObject = createTemplate();
+  templateObject.duration = '1:00';
+  
+  const component = shallow(<Template template={ templateObject } />);
+
+  expect(component.text()).toContain('1:00');
+});
+
+it('displays the lowest plan it is in', () => {
+  let templateObject = createTemplate();
+  templateObject.plan = 'Personal';
+  
+  const component = shallow(<Template template={ templateObject } />);
+
+  expect(component.text()).toContain('Personal');
+});
+
+it('displays the price', () => {
+  let templateObject = createTemplate();
+  templateObject.price = '$25';
+  
+  const component = shallow(<Template template={ templateObject } />);
+
+  expect(component.text()).toContain('$25');
+});

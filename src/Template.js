@@ -16,6 +16,11 @@ class Template extends Component {
         <a href={ link }>
           <img src={ template.image } alt={`Screenshot of template ${template.id}`} />
         </a>
+        <div>
+          Duration: { template.duration } <br />
+          Plan: { template.plan } <br />
+          Price: { template.price }
+        </div>
       </div>
     );
   }
