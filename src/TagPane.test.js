@@ -13,3 +13,12 @@ it('displays all tags passed in', () => {
     expect(pane.text()).toContain(value);
   } )
 });
+
+it('sets its state correctly when a tag is clicked', () => {
+  const tags = ['one', 'two', 'three']; 
+  const pane = mount(<TagPane tags={ tags } chooseTag={ jest.fn() } />);
+  
+  pane.find('a').first().simulate('click');
+
+  expect(pane.state('chosenTag')).toBe('one');
+});

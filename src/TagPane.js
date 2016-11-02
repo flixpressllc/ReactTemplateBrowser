@@ -2,8 +2,18 @@ import React, { Component } from 'react';
 
 class TagPane extends Component {
   
+  constructor(props){
+    super(props);
+
+    this.handleTagChoose = this.handleTagChoose.bind(this);
+  }
+  
   handleTagChoose(e) {
-    let clickedName = e.target.innerHtml;
+    const tagName = e.target.innerHTML.trim();
+    this.setState({
+      chosenTag: tagName
+    });
+    this.props.chooseTag(tagName);
   }
   
   createTagLinks(tagNamesArray) {
@@ -11,7 +21,7 @@ class TagPane extends Component {
       return (
         <a key={`tagNames-${i}`}
           href="#no-op"
-          onClick={this.handleTagChoose}> { tagName } </a>
+          onClick={this.handleTagChoose}>{ tagName }</a>
       );
     });
   }
