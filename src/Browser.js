@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Browser.css';
-import TagChooser from './TagPane';
+import TagPane from './TagPane';
 import { union } from 'lodash';
 import TemplateItem from './TemplateItem';
 
@@ -26,7 +26,7 @@ class Browser extends Component {
 
     return (
       <div className="Browser">
-        <TagChooser tags={ tags } />
+        <TagPane tags={ tags } />
         
         <div className='templates'>
           { templates }
