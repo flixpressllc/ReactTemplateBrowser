@@ -11,15 +11,17 @@ class Template extends Component {
     const link = this.createLink();
     const template = this.props.template;
     return (
-      <div className='template'>
-        <header>{ template.name }</header>
+      <div className='template browserItem'>
+        <header className='browserInnerItem'>
+          { `ID:${template.id} ${template.name}` }
+        </header>
         <a href={ link }>
           <img src={ template.image } alt={`Screenshot of template ${template.id}`} />
         </a>
-        <div>
-          Duration: { template.duration } <br />
-          Plan: { template.plan } <br />
-          Price: { template.price }
+        <div className='browserSubTitleDiv'>
+          <span className='tempDur'>Duration: { template.duration }</span>
+          <span className='dispPlan'>Plan: { template.plan }</span>
+          <span className='dispPrice'>Pay As You Go: { template.price }</span>
         </div>
       </div>
     );
