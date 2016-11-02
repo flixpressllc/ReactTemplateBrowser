@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Browser.css';
 import TagPane from './TagPane';
 import { union } from 'lodash';
-import TemplateItem from './TemplateItem';
+import Template from './Template';
 
 class Browser extends Component {
 
@@ -51,7 +51,7 @@ class Browser extends Component {
   render() {
     const tags = this.getTags();
     const templates = this.getFilteredTemplates().map( (template, i) => {
-      return(<TemplateItem key={`template-item-${i}`} item={ template } />);
+      return(<Template key={`template-item-${i}`} template={ template } />);
     });
 
     return (

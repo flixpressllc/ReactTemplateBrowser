@@ -26,5 +26,5 @@ it('creates a tag pane', () => {
 it('displays templates', ()=>{
   const templates = TEST_TEMPLATES;
   const app = shallow(<Browser templates={ templates } />);
-  expect(app.find('TemplateItem').length).toBe(templates.length);
+  expect(app.find('Template').length).toBe(templates.length);
 });
