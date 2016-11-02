@@ -23,3 +23,13 @@ it('creates a tag pane with the right number of nodes', () => {
   
   expect(nodeLength).toBe(2);
 });
+
+it('changes displayed templates on tag click', () => {
+  const templates = TEST_TEMPLATES;
+  const app = mount(<Browser templates={ templates } />);
+  const firstTag = app.find('TagPane a').first();
+
+  firstTag.simulate('click');
+
+  expect(app.find('.template').length).toBe(1);
+});
