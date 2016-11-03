@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "classnames": "^2.2.5",
     "enzyme": "^2.5.1",
     "lodash": "^4.16.6",
     "object-assign": "^4.1.0",

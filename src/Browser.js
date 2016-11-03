@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import './Browser.css';
-import TagPane from './TagPane';
 import { union } from 'lodash';
+import CostSwitch from './CostSwitch';
+import TagPane from './TagPane';
 import Template from './Template';
+import './Browser.css';
 
 class Browser extends Component {
 
@@ -16,6 +17,7 @@ class Browser extends Component {
     };
 
     this.setFilterTagName = this.setFilterTagName.bind(this);
+    this.handleCostTypeChange = this.handleCostTypeChange.bind(this);
   }
 
   getTags() {
@@ -45,6 +47,14 @@ class Browser extends Component {
     return filterableTemplates;
   }
 
+  handleCostTypeChange(newValue) {
+    let templateOptions = this.state.templateOptions;
+    templateOptions.costType = newValue;
+    this.setState({
+      templateOptions: templateOptions
+    })
+  }
+
   setFilterTagName(tagName) {
     let filter = this.state.filter;
     filter.tagName = tagName;
@@ -60,6 +70,7 @@ class Browser extends Component {
     return (
       <div className="Browser">
         <TagPane tags={ tags } chooseTag={ this.setFilterTagName } />
+        <CostSwitch value={ this.state.templateOptions.costType } onChange={ this.handleCostTypeChange } />
         
         <div className='templates'>
           { templates }
