@@ -1,28 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Template from './Template';
-
-function createTemplate() {
-  const VALID_TEMPLATE_OBJECT = {
-    id: 79,
-    tags: ['pro', 'gags'],
-    name: 'Sparky Pro Electrocutionator',
-    type: 'TextOnly',
-    image: 'some/image.jpg',
-    duration: '0:23',
-    plan: 'Expert',
-    price: '$5'
-  };
-
-  return VALID_TEMPLATE_OBJECT;
-}
+import create from './test-data/FaketoryGirl';
 
 it('renders without crashing', () => {
- shallow(<Template template={ createTemplate() } />);
+ shallow(<Template template={ create('template') } />);
 });
 
 it('renders the template name', () => {
-  let templateObject = createTemplate();
+  let templateObject = create('template');
   templateObject.name = 'Sparky'
   
   const component = shallow(<Template template={ templateObject } />)
@@ -31,9 +17,7 @@ it('renders the template name', () => {
 });
 
 it('creates a correctly formatted link', () => {
-  let templateObject = createTemplate();
-  templateObject.id = '79';
-  templateObject.type = 'Slides';
+  let templateObject = create('template', {id: 79, type: 'Slides'});
   
   const component = shallow(<Template template={ templateObject } />);
 
@@ -41,8 +25,7 @@ it('creates a correctly formatted link', () => {
 });
 
 it('displays an image thumbnail', () => {
-  let templateObject = createTemplate();
-  templateObject.image = 'an/image.jpg'
+  let templateObject = create('template', {image: 'an/image.jpg'});
   
   const component = shallow(<Template template={ templateObject } />);
 
@@ -50,8 +33,7 @@ it('displays an image thumbnail', () => {
 });
 
 it('displays the duration', () => {
-  let templateObject = createTemplate();
-  templateObject.duration = '1:00';
+  let templateObject = create('template', {duration: '1:00'});
   
   const component = shallow(<Template template={ templateObject } />);
 
@@ -60,12 +42,8 @@ it('displays the duration', () => {
 
 describe('when asked, ', () => {
   it('displays the lowest plan it is in', () => {
-    let templateObject = createTemplate();
-    templateObject.plan = 'Personal';
-    templateObject.price = '$30';
-    let opts = {
-      costType: 'plan'
-    }
+    let templateObject = create('template', {plan: 'Personal', price: '$30'});
+    let opts = { costType: 'plan' }
     
     const component = shallow(<Template template={ templateObject } options={ opts } />);
 
@@ -74,12 +52,8 @@ describe('when asked, ', () => {
   });
 
   it('displays the price', () => {
-    let templateObject = createTemplate();
-    templateObject.price = '$25';
-    templateObject.plan = 'Personal';
-    let opts = {
-      costType: 'price'
-    }
+    let templateObject = create('template', {plan: 'Personal', price: '$25'});
+    let opts = { costType: 'price' }
     
     const component = shallow(<Template template={ templateObject } options={ opts } />);
 
