@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Browser from './Browser';
-import './index.css';
+import Browser from './components/Browser';
 
 let templates = [{
   id: 1,

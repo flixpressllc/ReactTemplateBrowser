@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import TagPane from './TagPane';
+import TagPane from '../../src/components/TagPane';
 
 it('renders without crashing', () => {
  shallow(<TagPane />);

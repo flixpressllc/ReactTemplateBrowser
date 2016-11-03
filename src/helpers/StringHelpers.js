@@ -1,4 +1,4 @@
-class Helpers {
+class StringHelpers {
   static slugify (str) {
     const CAMELCASE_BOUNDS = /([a-z])([A-Z])/g;
     const NON_WORD_CHARS = /\W+/g;
@@ -7,4 +7,4 @@ class Helpers {
     return separatedCamels.replace(NON_WORD_CHARS, '-').toLowerCase();
   }
 }
-export {Helpers as default};
+export {StringHelpers as default};

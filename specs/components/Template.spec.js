@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Template from './Template';
-import create from './test-data/FaketoryGirl';
+import Template from '../../src/components/Template';
+import create from '../spec-helpers/FaketoryGirl';
 
 it('renders without crashing', () => {
  shallow(<Template template={ create('template') } />);

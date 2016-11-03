@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Helpers from './Helpers';
-import './TagPane.css';
+import StringHelpers from '../helpers/StringHelpers';
+import '../css/TagPane.css';
 
-const slugify = Helpers.slugify;
+const slugify = StringHelpers.slugify;
 
 const allTemplatesTag = 'All Templates';
 

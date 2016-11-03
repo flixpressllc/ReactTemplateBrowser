@@ -1,7 +1,7 @@
-import Helpers from './Helpers';
+import StringHelpers from '../../src/helpers/StringHelpers';
 
 describe('slugify', () => {
-  const slugify = Helpers.slugify;
+  const slugify = StringHelpers.slugify;
   
   it('replaces spaces with hyphens', () => {
     const str = 'simple text';

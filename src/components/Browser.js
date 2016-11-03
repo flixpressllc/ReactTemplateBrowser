@@ -3,7 +3,7 @@ import { union } from 'lodash';
 import CostSwitch from './CostSwitch';
 import TagPane from './TagPane';
 import Template from './Template';
-import './Browser.css';
+import '../css/Browser.css';
 
 class Browser extends Component {
 
@@ -68,7 +68,7 @@ class Browser extends Component {
     });
 
     return (
-      <div className="Browser">
+      <div className="browser">
         <TagPane tags={ tags } chooseTag={ this.setFilterTagName } />
         <CostSwitch value={ this.state.templateOptions.costType } onChange={ this.handleCostTypeChange } />
         

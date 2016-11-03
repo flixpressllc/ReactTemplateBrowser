@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import Browser from './Browser';
-import create from './test-data/FaketoryGirl';
+import Browser from '../../src/components/Browser';
+import create from '../spec-helpers/FaketoryGirl';
 
 it('renders without crashing', () => {
   mount(<Browser />);
