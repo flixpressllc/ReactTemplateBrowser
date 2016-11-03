@@ -29,5 +29,5 @@ it('creates an "all" category along side the tags', () => {
   
   pane.find('a').first().simulate('click');
 
-  expect(pane.state('chosenTag')).toBe('all');
+  expect(pane.state('chosenTag')).toBe('All Templates');
 });

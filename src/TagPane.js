@@ -1,20 +1,52 @@
 import React, { Component } from 'react';
+import Helpers from './Helpers';
 import './TagPane.css';
+
+const slugify = Helpers.slugify;
+
+const allTemplatesTag = 'All Templates';
 
 class TagPane extends Component {
   
   constructor(props){
     super(props);
-
+    this.createTagMap(props.tags);
     this.handleTagChoose = this.handleTagChoose.bind(this);
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.tags !== this.props.tags) {
+      this.createTagMap(newProps.tags);
+    }
+  }
+
+  createTagMap(tags) {
+    this.tagMap = {};
+    tags.unshift( allTemplatesTag );
+    tags.forEach( (tag) => {
+      this.setTag(tag)
+    });
+  }
+
+  setTag(tag) {
+    this.tagMap[ this.getTagSlugFromName(tag) ] = tag;
+  }
+
+  getTagNameFromSlug(tagSlug) {
+    return this.tagMap[ tagSlug ];
+  }
+
+  getTagSlugFromName(tagName) {
+    return slugify(tagName);
   }
   
   handleTagChoose(e) {
-    const tagName = e.target.innerHTML.trim();
+    const tagSlug = e.target.hash.substr(1);
+    const tagName = this.getTagNameFromSlug(tagSlug);
     this.setState({
       chosenTag: tagName
     });
-    if (tagName === 'all') {
+    if (tagName === allTemplatesTag) {
       this.props.chooseTag(null);
       return;
     }
@@ -23,11 +55,12 @@ class TagPane extends Component {
   
   createTagLinks(tagNamesArray) {
    return tagNamesArray.map( (tagName, i) => {
+      let className = (tagName === allTemplatesTag) ? 'tag-all' : 'tag'
       return (
         <a key={`tagNames-${i}`}
-          className='tag'
-          href="#no-op"
-          onClick={this.handleTagChoose}>{ tagName }</a>
+          className={className}
+          href={ `#${ this.getTagSlugFromName(tagName) }` }
+          onClick={ this.handleTagChoose }>{ tagName }</a>
       );
     });
   }
@@ -36,9 +69,6 @@ class TagPane extends Component {
     let tags = this.createTagLinks(this.props.tags);
     return (
       <div className='tag-pane'>
-        <a className='tag-all'
-          href="#no-op"
-          onClick={this.handleTagChoose}>all</a>
         { tags }
       </div>
     )
