@@ -14,13 +14,20 @@ it('displays all tags passed in', () => {
   } )
 });
 
-it('sets its state correctly when a tag is clicked', () => {
-  const tags = ['one', 'two', 'three']; 
-  const pane = mount(<TagPane tags={ tags } chooseTag={ jest.fn() } />);
+it('reports correctly when a tag is clicked', () => {
+  const tags = ['one', 'two', 'three'];
+  let choose = jest.fn();
+  const pane = mount(<TagPane tags={ tags } chooseTag={ choose } />);
   
   pane.find('.tag').at(0).simulate('click');
 
-  expect(pane.state('chosenTag')).toBe('one');
+  expect(choose.mock.calls[0]).toEqual(['one']);
+});
+
+it('identifies the chosen tag', () => {
+  const pane = mount(<TagPane tags={['one']} activeTag='one' />);
+
+  expect(pane.find('.active-tag').get(0).hash).toBe('#one');
 });
 
 it('creates an "all" category along side the tags', () => {
@@ -29,5 +36,5 @@ it('creates an "all" category along side the tags', () => {
   
   pane.find('a').first().simulate('click');
 
-  expect(pane.state('chosenTag')).toBe('All Templates');
+  expect(pane.text()).toContain('All Templates');
 });

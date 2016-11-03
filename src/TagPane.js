@@ -43,9 +43,6 @@ class TagPane extends Component {
   handleTagChoose(e) {
     const tagSlug = e.target.hash.substr(1);
     const tagName = this.getTagNameFromSlug(tagSlug);
-    this.setState({
-      chosenTag: tagName
-    });
     if (tagName === allTemplatesTag) {
       this.props.chooseTag(null);
       return;
@@ -55,7 +52,10 @@ class TagPane extends Component {
   
   createTagLinks(tagNamesArray) {
    return tagNamesArray.map( (tagName, i) => {
-      let className = (tagName === allTemplatesTag) ? 'tag-all' : 'tag'
+      let className = (tagName === allTemplatesTag) ? 'tag-all' : 'tag';
+      if (tagName === this.props.activeTag) {
+        className += ' active-tag';
+      }
       return (
         <a key={`tagNames-${i}`}
           className={className}
