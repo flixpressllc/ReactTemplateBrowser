@@ -24,6 +24,11 @@ end`;
     expect(slugify(str)).toBe('title');
   });
 
+  it('converts camel case to kabob style', () => {
+    const str = 'camelCase';
+    expect(slugify(str)).toBe('camel-case');
+  });
+
   it('does not overload hyphens', () => {
     const str = 'simple---text';
     expect(slugify(str)).toBe('simple-text');
