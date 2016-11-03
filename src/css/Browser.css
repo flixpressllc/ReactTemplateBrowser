@@ -1,3 +1,9 @@
 .browser {
   background-color: #eaeaea;
 }
+
+.browser:after {
+  content: "";
+  display: table;
+  clear: both;
+}
