@@ -9,14 +9,19 @@ describe('slugify', () => {
   });
 
   it('replaces many whitespaces with hypens', () => {
-    const str = `tab	lineReturn
+    const str = `tab	linereturn
 end`;
-    expect(slugify(str)).toBe('tab-lineReturn-end');
+    expect(slugify(str)).toBe('tab-linereturn-end');
   });
 
   it('compresses multiple spaces into one hyphen', () => {
     const str = 'simple     text';
     expect(slugify(str)).toBe('simple-text');
+  });
+
+  it('converts capitals to lowercase', () => {
+    const str = 'Title';
+    expect(slugify(str)).toBe('title');
   });
 
   it('does not overload hyphens', () => {
