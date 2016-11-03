@@ -3,7 +3,7 @@ import assign from 'object-assign';
 const faketories = {
   template: {
     id: 79,
-    tags: ['pro', 'gags'],
+    tags: ['Pro', 'Gags'],
     name: 'Sparky Pro Electrocutionator',
     type: 'TextOnly',
     image: 'some/image.jpg',

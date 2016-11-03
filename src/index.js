@@ -4,7 +4,7 @@ import Browser from './components/Browser';
 
 let templates = [{
   id: 1,
-  tags: ['fast', 'white', 'pro', 'animal'],
+  tags: ['Fast', 'White', 'Pro Templates', 'Animal'],
   name: 'Rabbit Runner Pro',
   image: 'http://don.digital-edge.biz/tempImages/67.jpg',
   type: "Images",
@@ -13,7 +13,7 @@ let templates = [{
   price: '$3'
 },{
   id: 2,
-  tags: ['slow', 'green', 'basic', 'animal'],
+  tags: ['Slow', 'Green', 'Basic', 'Animal'],
   name: 'Turtle Walker',
   image: 'http://don.digital-edge.biz/tempImages/66.jpg',
   type: "Images",
