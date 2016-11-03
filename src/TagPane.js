@@ -14,6 +14,10 @@ class TagPane extends Component {
     this.setState({
       chosenTag: tagName
     });
+    if (tagName === 'all') {
+      this.props.chooseTag(null);
+      return;
+    }
     this.props.chooseTag(tagName);
   }
   
@@ -21,6 +25,7 @@ class TagPane extends Component {
    return tagNamesArray.map( (tagName, i) => {
       return (
         <a key={`tagNames-${i}`}
+          className='tag'
           href="#no-op"
           onClick={this.handleTagChoose}>{ tagName }</a>
       );
@@ -31,6 +36,9 @@ class TagPane extends Component {
     let tags = this.createTagLinks(this.props.tags);
     return (
       <div className='tag-pane'>
+        <a className='tag-all'
+          href="#no-op"
+          onClick={this.handleTagChoose}>all</a>
         { tags }
       </div>
     )
