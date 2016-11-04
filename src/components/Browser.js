@@ -48,12 +48,12 @@ class Browser extends Component {
   }
 
   setFilterTagName(tagName) {
-    this.filter.setFilterTagName(tagName);
+    this.filter.setFilter('tags', tagName);
     this.forceUpdate();
   }
 
   setFilterPlanName(planName) {
-    this.filter.setFilterPlanName(planName);
+    this.filter.setFilter('plan', planName);
     this.forceUpdate();
   }
 

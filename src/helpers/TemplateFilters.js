@@ -5,26 +5,37 @@ export default class TemplateFilters {
   }
 
   runFilter () {
-    let filteredTemplates = this.allTemplates;
+    let filteredTemplates = [].concat(this.allTemplates);
     let filter = this.filter;
     
-    filteredTemplates = this.filterByTagName(filteredTemplates)
-    filteredTemplates = this.filterByPlanName(filteredTemplates)
+    for (let name in this.filter) {
+      if (!this.filter.hasOwnProperty(name)) { continue; }
+      filteredTemplates = this.filterBy(name, filteredTemplates);
+    }
 
     return filteredTemplates;
   }
+
+  filterBy (name, templates) {
+    switch (name) {
+      case 'plan':
+        return this.filterByPlanName(templates);
+      default:
+        return this.filterByArbitrary(name, templates);
+    }
+  }
   
-  filterByTagName (templates) {
-    if (this.filter.tagName) {
+  filterByArbitrary (name, templates) {
+    if (this.filter[name]) {
       templates = templates.filter( (template) => {
-        return template.tags.indexOf(this.filter.tagName) !== -1;
+        return template[name].indexOf(this.filter[name]) !== -1;
       });
     }
     return templates;
   }
 
   filterByPlanName (templates) {
-    if (this.filter.planName) {
+    if (this.filter.plan) {
       let planValues = {
         'All Plans': 100,
         'Free': 0,
@@ -33,7 +44,7 @@ export default class TemplateFilters {
         'Business': 3,
         'Enterprise': 4
       };
-      let filterValue = planValues[this.filter.planName];
+      let filterValue = planValues[this.filter.plan];
       templates = templates.filter( (template) => {
         let thisTemplateValue = planValues[template.plan]
         return thisTemplateValue <= filterValue;
@@ -42,17 +53,22 @@ export default class TemplateFilters {
     return templates
   }
 
-  setFilterTagName(tagName) {
-    this.filter.tagName = tagName;
+  setArbitraryFilter (name, data) {
+    this.filter[name] = data;
     return this.filter;
   }
 
-  setFilterPlanName(planName) {
-    this.filter.planName = planName;
-    return this.filter;
+  setFilter (name, data) {
+    switch (name) {
+      default:
+        return this.setArbitraryFilter(name, data);
+    }
   }
 
-  getFilter() {
+  getFilter (name) {
+    if (name && this.filter[name]) {
+      return this.filter[name];
+    }
     return this.filter;
   }
 }
