@@ -8,36 +8,38 @@ export default class TemplateFilters {
     let filteredTemplates = this.allTemplates;
     let filter = this.filter;
     
-    if (filter.tagName) {
-      filteredTemplates = this.byTagName(filter.tagName, filteredTemplates)
-    }
-    if (filter.planName) {
-      filteredTemplates = this.byPlanName(filter.planName, filteredTemplates)
-    }
+    filteredTemplates = this.filterByTagName(filteredTemplates)
+    filteredTemplates = this.filterByPlanName(filteredTemplates)
 
     return filteredTemplates;
   }
   
-  byTagName (tagName, templates) {
-    return templates.filter( (template) => {
-      return template.tags.indexOf(tagName) !== -1;
-    });
+  filterByTagName (templates) {
+    if (this.filter.tagName) {
+      templates = templates.filter( (template) => {
+        return template.tags.indexOf(this.filter.tagName) !== -1;
+      });
+    }
+    return templates;
   }
 
-  byPlanName (planName, templates) {
-    let planValues = {
-      'All Plans': 100,
-      'Free': 0,
-      'Personal': 1,
-      'Expert': 2,
-      'Business': 3,
-      'Enterprise': 4
-    };
-    let filterValue = planValues[planName];
-    return templates.filter( (template) => {
-      let thisTemplateValue = planValues[template.plan]
-      return thisTemplateValue <= filterValue;
-    });
+  filterByPlanName (templates) {
+    if (this.filter.planName) {
+      let planValues = {
+        'All Plans': 100,
+        'Free': 0,
+        'Personal': 1,
+        'Expert': 2,
+        'Business': 3,
+        'Enterprise': 4
+      };
+      let filterValue = planValues[this.filter.planName];
+      templates = templates.filter( (template) => {
+        let thisTemplateValue = planValues[template.plan]
+        return thisTemplateValue <= filterValue;
+      });
+    }
+    return templates
   }
 
   setFilterTagName(tagName) {
