@@ -3,6 +3,7 @@ import { union } from 'lodash';
 import CostSwitch from './CostSwitch';
 import TagPane from './TagPane';
 import Template from './Template';
+import PlanFilter from './PlanFilter';
 import '../css/Browser.css';
 
 class Browser extends Component {
@@ -18,6 +19,7 @@ class Browser extends Component {
 
     this.setFilterTagName = this.setFilterTagName.bind(this);
     this.handleCostTypeChange = this.handleCostTypeChange.bind(this);
+    this.setFilterPlanName = this.setFilterPlanName.bind(this);
   }
 
   getTags() {
@@ -36,12 +38,31 @@ class Browser extends Component {
     });
   }
   
+  filterByPlanName(planName, templates) {
+    let planValues = {
+      'All Plans': 100,
+      'Free': 0,
+      'Personal': 1,
+      'Expert': 2,
+      'Business': 3,
+      'Enterprise': 4
+    };
+    let filterValue = planValues[planName];
+    return templates.filter( (template) => {
+      let thisTemplateValue = planValues[template.plan]
+      return thisTemplateValue <= filterValue;
+    });
+  }
+  
   getFilteredTemplates() {
     const filter = this.state.filter;
     let filterableTemplates = this.props.templates;
     
     if (filter.tagName) {
       filterableTemplates = this.filterByTagName(filter.tagName, filterableTemplates);
+    }
+    if (filter.planName) {
+      filterableTemplates = this.filterByPlanName(filter.planName, filterableTemplates);
     }
     
     return filterableTemplates;
@@ -61,6 +82,12 @@ class Browser extends Component {
     this.setState({filter: filter});
   }
 
+  setFilterPlanName(planName) {
+    let filter = this.state.filter;
+    filter.planName = planName;
+    this.setState({filter: filter});
+  }
+
   render() {
     const tags = this.getTags();
     const templates = this.getFilteredTemplates().map( (template, i) => {
@@ -71,6 +98,7 @@ class Browser extends Component {
       <div className="browser">
         <TagPane tags={ tags } chooseTag={ this.setFilterTagName } />
         <CostSwitch value={ this.state.templateOptions.costType } onChange={ this.handleCostTypeChange } />
+        <PlanFilter onChange={ this.setFilterPlanName } value={ this.state.templateOptions.planType } />
         
         <div className='templates'>
           { templates }

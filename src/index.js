@@ -9,7 +9,7 @@ let templates = [{
   image: 'http://don.digital-edge.biz/tempImages/67.jpg',
   type: "Images",
   duration: '0:10',
-  plan: 'personal',
+  plan: 'Expert',
   price: '$3'
 },{
   id: 2,
@@ -18,7 +18,7 @@ let templates = [{
   image: 'http://don.digital-edge.biz/tempImages/66.jpg',
   type: "Images",
   duration: '0:10',
-  plan: 'personal',
+  plan: 'Personal',
   price: '$5'
 }];
 

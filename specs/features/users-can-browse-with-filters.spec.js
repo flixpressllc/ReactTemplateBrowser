@@ -19,5 +19,22 @@ describe('Feature: Users can browse with filters', () => {
       plansSwitch.simulate('change');
       expect(app.find('Template').first().text()).toContain('Personal');
     });
+
+    it('changes displayed templates by plan choice', () => {
+      const templates = [ 
+        create('template', {plan: 'Personal'}),
+        create('template', {plan: 'Expert'})
+      ];
+      const expertEvent = {target: {value: 'Expert'}};
+      const personalEvent = {target: {value: 'Personal'}}
+      const app = mount(<Browser templates={ templates } />);
+      const selectElement = app.find('select').at(0);
+
+      selectElement.simulate('change', expertEvent);
+      expect(app.find('Template').length).toEqual(2);
+
+      selectElement.simulate('change', personalEvent);
+      expect(app.find('Template').length).toEqual(1);
+    });
   });
 });
