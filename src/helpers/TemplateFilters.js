@@ -1,13 +1,23 @@
 export default class TemplateFilters {
   constructor (filterObject, templatesArray) {
-    if (filterObject.tagName) {
-      templatesArray = this.byTagName(filterObject.tagName, templatesArray)
+    this.filter = filterObject;
+    this.allTemplates = templatesArray;
+
+    return this.runFilter();
+  }
+
+  runFilter () {
+    let filteredTemplates = this.allTemplates;
+    let filter = this.filter;
+    
+    if (filter.tagName) {
+      filteredTemplates = this.byTagName(filter.tagName, filteredTemplates)
     }
-    if (filterObject.planName) {
-      templatesArray = this.byPlanName(filterObject.planName, templatesArray)
+    if (filter.planName) {
+      filteredTemplates = this.byPlanName(filter.planName, filteredTemplates)
     }
 
-    return templatesArray;
+    return filteredTemplates;
   }
   
   byTagName (tagName, templates) {
