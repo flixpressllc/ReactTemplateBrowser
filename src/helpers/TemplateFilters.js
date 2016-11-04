@@ -4,6 +4,22 @@ export default class TemplateFilters {
     this.allTemplates = templatesArray;
   }
 
+  filterBy (name, templates) {
+    switch (name) {
+      case 'plan':
+        return this._filterByPlan(templates);
+      default:
+        return this._filterByArbitrary(name, templates);
+    }
+  }
+  
+  getFilter (name) {
+    if (name && this.filter[name]) {
+      return this.filter[name];
+    }
+    return this.filter;
+  }
+
   runFilter () {
     let filteredTemplates = [].concat(this.allTemplates);
     let filter = this.filter;
@@ -16,16 +32,14 @@ export default class TemplateFilters {
     return filteredTemplates;
   }
 
-  filterBy (name, templates) {
+  setFilter (name, data) {
     switch (name) {
-      case 'plan':
-        return this.filterByPlanName(templates);
       default:
-        return this.filterByArbitrary(name, templates);
+        return this._setArbitraryFilter(name, data);
     }
   }
-  
-  filterByArbitrary (name, templates) {
+
+  _filterByArbitrary (name, templates) {
     if (this.filter[name]) {
       templates = templates.filter( (template) => {
         return template[name].indexOf(this.filter[name]) !== -1;
@@ -34,7 +48,7 @@ export default class TemplateFilters {
     return templates;
   }
 
-  filterByPlanName (templates) {
+  _filterByPlan (templates) {
     if (this.filter.plan) {
       let planValues = {
         'All Plans': 100,
@@ -53,22 +67,9 @@ export default class TemplateFilters {
     return templates
   }
 
-  setArbitraryFilter (name, data) {
+  _setArbitraryFilter (name, data) {
     this.filter[name] = data;
     return this.filter;
   }
 
-  setFilter (name, data) {
-    switch (name) {
-      default:
-        return this.setArbitraryFilter(name, data);
-    }
-  }
-
-  getFilter (name) {
-    if (name && this.filter[name]) {
-      return this.filter[name];
-    }
-    return this.filter;
-  }
 }
