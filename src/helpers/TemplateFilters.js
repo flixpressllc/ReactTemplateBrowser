@@ -52,5 +52,7 @@ export default class TemplateFilters {
     return this.filter;
   }
 
-
+  getFilter() {
+    return this.filter;
+  }
 }

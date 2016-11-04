@@ -11,16 +11,18 @@ class Browser extends Component {
 
   constructor(props){
     super(props);
+
+    this.filter = new Filter({}, props.templates);
+    this.setFilterTagName = this.setFilterTagName.bind(this);
+    this.handleCostTypeChange = this.handleCostTypeChange.bind(this);
+    this.setFilterPlanName = this.setFilterPlanName.bind(this);
+
     this.state = {
-      filter: {},
+      filter: this.filter.getFilter(),
       templateOptions: {
         costType: 'plan'
       }
     };
-
-    this.setFilterTagName = this.setFilterTagName.bind(this);
-    this.handleCostTypeChange = this.handleCostTypeChange.bind(this);
-    this.setFilterPlanName = this.setFilterPlanName.bind(this);
   }
 
   getTags() {
@@ -34,7 +36,7 @@ class Browser extends Component {
   }
 
   getFilteredTemplates() {
-    return new Filter(this.state.filter, this.props.templates).runFilter(); 
+    return this.filter.runFilter(); 
   }
 
   handleCostTypeChange(newValue) {
@@ -46,13 +48,13 @@ class Browser extends Component {
   }
 
   setFilterTagName(tagName) {
-    let filter = new Filter(this.state.filter).setFilterTagName(tagName);
-    this.setState({filter: filter});
+    this.filter.setFilterTagName(tagName);
+    this.forceUpdate();
   }
 
   setFilterPlanName(planName) {
-    let filter = new Filter(this.state.filter).setFilterPlanName(planName);
-    this.setState({filter: filter});
+    this.filter.setFilterPlanName(planName);
+    this.forceUpdate();
   }
 
   render() {
