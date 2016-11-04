@@ -1,14 +1,14 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import PlanFilter from '../../src/components/PlanFilter';
+import PlanChooser from '../../src/components/PlanChooser';
 import PLAN_NAMES from '../../src/stores/plans';
 
 it('renders without crashing', () => {
- shallow(<PlanFilter />);
+ shallow(<PlanChooser />);
 });
 
 it('displays all plans', () => {
-  const pane = shallow(<PlanFilter />);
+  const pane = shallow(<PlanChooser />);
   PLAN_NAMES.forEach( (value) => {
     expect(pane.text()).toContain(value);
   } )
@@ -16,7 +16,7 @@ it('displays all plans', () => {
 
 it('reports an event when an option is clicked', () => {
   const choose = jest.fn();
-  const pane = mount(<PlanFilter onChange={ choose } />);
+  const pane = mount(<PlanChooser onChange={ choose } />);
   
   pane.find('select').at(0).simulate('change');
 
@@ -25,7 +25,7 @@ it('reports an event when an option is clicked', () => {
 
 it('identifies the chosen plan', () => {
   const choose = jest.fn();
-  const pane = mount(<PlanFilter onChange={ choose } />);
+  const pane = mount(<PlanChooser onChange={ choose } />);
   
   pane.find('option').at(1).simulate('change');
 
@@ -33,6 +33,6 @@ it('identifies the chosen plan', () => {
 });
 
 it('creates an "all" plan along side the other plans', () => {
-  const pane = mount(<PlanFilter />);
+  const pane = mount(<PlanChooser />);
   expect(pane.text()).toContain('All Plans');
 });
