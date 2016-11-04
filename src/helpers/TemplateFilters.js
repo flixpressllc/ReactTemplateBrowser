@@ -2,8 +2,6 @@ export default class TemplateFilters {
   constructor (filterObject, templatesArray) {
     this.filter = filterObject;
     this.allTemplates = templatesArray;
-
-    return this.runFilter();
   }
 
   runFilter () {
@@ -41,5 +39,16 @@ export default class TemplateFilters {
       return thisTemplateValue <= filterValue;
     });
   }
+
+  setFilterTagName(tagName) {
+    this.filter.tagName = tagName;
+    return this.filter;
+  }
+
+  setFilterPlanName(planName) {
+    this.filter.planName = planName;
+    return this.filter;
+  }
+
 
 }

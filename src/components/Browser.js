@@ -34,7 +34,7 @@ class Browser extends Component {
   }
 
   getFilteredTemplates() {
-    return new Filter(this.state.filter, this.props.templates);
+    return new Filter(this.state.filter, this.props.templates).runFilter(); 
   }
 
   handleCostTypeChange(newValue) {
@@ -46,14 +46,12 @@ class Browser extends Component {
   }
 
   setFilterTagName(tagName) {
-    let filter = this.state.filter;
-    filter.tagName = tagName;
+    let filter = new Filter(this.state.filter).setFilterTagName(tagName);
     this.setState({filter: filter});
   }
 
   setFilterPlanName(planName) {
-    let filter = this.state.filter;
-    filter.planName = planName;
+    let filter = new Filter(this.state.filter).setFilterPlanName(planName);
     this.setState({filter: filter});
   }
 

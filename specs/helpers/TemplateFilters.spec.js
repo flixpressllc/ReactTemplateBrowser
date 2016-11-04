@@ -14,7 +14,7 @@ describe('Template Filters:', () => {
       create('template', {tags: ['green', 'red']}),
     ];
 
-    let results = new Filter({tagName:'green'}, templates);
+    let results = new Filter({tagName:'green'}, templates).runFilter();
 
     expect(results.length).toBe(3);
     results.forEach((result) => {
@@ -31,7 +31,7 @@ describe('Template Filters:', () => {
       create('template', {plan: 'Enterprise'}),
     ];
 
-    let results = new Filter({planName:'Expert'}, templates);
+    let results = new Filter({planName:'Expert'}, templates).runFilter();
 
     expect(results.length).toBe(3);
     results.forEach((result) => {
