@@ -1,11 +1,22 @@
 export default class TemplateFilters {
-  static byTagName(tagName, templates) {
+  constructor (filterObject, templatesArray) {
+    if (filterObject.tagName) {
+      templatesArray = this.byTagName(filterObject.tagName, templatesArray)
+    }
+    if (filterObject.planName) {
+      templatesArray = this.byPlanName(filterObject.planName, templatesArray)
+    }
+
+    return templatesArray;
+  }
+  
+  byTagName (tagName, templates) {
     return templates.filter( (template) => {
       return template.tags.indexOf(tagName) !== -1;
     });
   }
 
-  static byPlanName(planName, templates) {
+  byPlanName (planName, templates) {
     let planValues = {
       'All Plans': 100,
       'Free': 0,

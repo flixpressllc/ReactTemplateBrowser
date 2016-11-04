@@ -34,17 +34,7 @@ class Browser extends Component {
   }
 
   getFilteredTemplates() {
-    const filter = this.state.filter;
-    let filterableTemplates = this.props.templates;
-    
-    if (filter.tagName) {
-      filterableTemplates = Filter.byTagName(filter.tagName, filterableTemplates);
-    }
-    if (filter.planName) {
-      filterableTemplates = Filter.byPlanName(filter.planName, filterableTemplates);
-    }
-    
-    return filterableTemplates;
+    return new Filter(this.state.filter, this.props.templates);
   }
 
   handleCostTypeChange(newValue) {

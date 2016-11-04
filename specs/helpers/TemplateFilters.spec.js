@@ -5,7 +5,7 @@ import Browser from '../../src/components/Browser';
 import create from '../spec-helpers/FaketoryGirl';
 
 describe('Template Filters:', () => {
-  it('filters with the given tag', ()=>{
+  it('filters with the given tag', () => {
     const templates = [ 
       create('template', {tags: ['green']}),
       create('template', {tags: ['red']}),
@@ -14,15 +14,15 @@ describe('Template Filters:', () => {
       create('template', {tags: ['green', 'red']}),
     ];
 
-    let results = Filter.byTagName('green', templates);
+    let results = new Filter({tagName:'green'}, templates);
 
     expect(results.length).toBe(3);
-    results.forEach((result) =>{
+    results.forEach((result) => {
       expect(result.tags).toContain('green');
     });
   });
 
-  it('filters with the given plan name', ()=>{
+  it('filters with the given plan name', () => {
     const templates = [ 
       create('template', {plan: 'Free'}),
       create('template', {plan: 'Personal'}),
@@ -31,12 +31,12 @@ describe('Template Filters:', () => {
       create('template', {plan: 'Enterprise'}),
     ];
 
-    let results = Filter.byPlanName('Expert', templates);
+    let results = new Filter({planName:'Expert'}, templates);
 
     expect(results.length).toBe(3);
-    results.forEach((result) =>{
+    results.forEach((result) => {
       // Reversed Expectation and Actual here!!!
-      // Would not be necessary with a `.toBe(something).or.(soemthinfElse)
+      // Would not be necessary with a `.toBe(something).or(somethingElse)`
       expect(['Free','Personal','Expert']).toContain(result.plan);
     });
   });
