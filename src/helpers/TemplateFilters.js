@@ -1,18 +1,11 @@
+import { clone } from './ObjectHelpers'
+
 export default class TemplateFilters {
   constructor (filterObject, templatesArray) {
-    this.filter = filterObject;
-    this.allTemplates = templatesArray;
+    this.filter = clone(filterObject);
+    this.allTemplates = clone(templatesArray);
   }
 
-  filterBy (name, templates) {
-    switch (name) {
-      case 'plan':
-        return this._filterByPlan(templates);
-      default:
-        return this._filterByArbitrary(name, templates);
-    }
-  }
-  
   getFilter (name) {
     if (name && this.filter[name]) {
       return this.filter[name];
@@ -21,12 +14,12 @@ export default class TemplateFilters {
   }
 
   runFilter () {
-    let filteredTemplates = [].concat(this.allTemplates);
+    let filteredTemplates = clone(this.allTemplates);
     let filter = this.filter;
     
     for (let name in this.filter) {
       if (!this.filter.hasOwnProperty(name)) { continue; }
-      filteredTemplates = this.filterBy(name, filteredTemplates);
+      filteredTemplates = this._filterBy(name, filteredTemplates);
     }
 
     return filteredTemplates;
@@ -35,7 +28,16 @@ export default class TemplateFilters {
   setFilter (name, data) {
     switch (name) {
       default:
-        return this._setArbitraryFilter(name, data);
+        return this._setArbitraryFilter(name, clone(data));
+    }
+  }
+
+  _filterBy (name, templates) {
+    switch (name) {
+      case 'plan':
+        return this._filterByPlan(templates);
+      default:
+        return this._filterByArbitrary(name, templates);
     }
   }
 
