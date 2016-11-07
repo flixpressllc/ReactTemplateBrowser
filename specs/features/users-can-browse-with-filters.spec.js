@@ -37,4 +37,8 @@ describe('Feature: Users can browse with filters', () => {
       expect(app.find('Template').length).toEqual(1);
     });
   });
+
+  describe('while logged in', () => {
+    pending();
+  });
 });
