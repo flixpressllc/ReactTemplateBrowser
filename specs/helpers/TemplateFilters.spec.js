@@ -1,7 +1,4 @@
 import Filter from '../../src/helpers/TemplateFilters';
-import React from 'react';
-import { mount } from 'enzyme';
-import Browser from '../../src/components/Browser';
 import create from '../spec-helpers/FaketoryGirl';
 
 describe('Template Filters:', () => {
