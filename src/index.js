@@ -10,7 +10,10 @@ let templates = [{
   type: "Images",
   duration: '0:10',
   plan: 'Expert',
-  price: '$3'
+  price: '$3',
+  features: {
+    has4k: true
+  }
 },{
   id: 2,
   tags: ['Slow', 'Green', 'Basic', 'Animal'],

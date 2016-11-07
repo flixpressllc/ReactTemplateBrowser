@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import TemplateFeatures from './TemplateFeatures';
+import '../css/Template.css';
 
 class Template extends Component {
   
@@ -20,9 +22,12 @@ class Template extends Component {
         <header className='browserInnerItem'>
           { `ID:${template.id} ${template.name}` }
         </header>
-        <a href={ link }>
-          <img src={ template.image } alt={`Screenshot of template ${template.id}`} />
-        </a>
+        <div className='reactTemplateBrowser-Template-interactiveRegion'>
+          <a href={ link }>
+            <img src={ template.image } alt={`Screenshot of template ${template.id}`} />
+          </a>
+          <TemplateFeatures features={ this.props.template.features } />
+        </div>
         <div className='browserSubTitleDiv'>
           <span className='tempDur'>Duration: { template.duration }</span>
           { cost }
