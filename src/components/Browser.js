@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { union } from 'lodash';
 import Filter from '../helpers/TemplateFilters';
+import TemplateSorter from '../helpers/TemplateSorter';
+
 import CostSwitch from './CostSwitch';
 import TagPane from './TagPane';
 import Template from './Template';
 import PlanChooser from './PlanChooser';
+import SortSelector from './SortSelector';
+
 import '../css/Browser.css';
 
 class Browser extends Component {
@@ -16,6 +20,7 @@ class Browser extends Component {
     this.setFilterTagName = this.setFilterTagName.bind(this);
     this.handleCostTypeChange = this.handleCostTypeChange.bind(this);
     this.setFilterPlanName = this.setFilterPlanName.bind(this);
+    this.sortTemplates = this.sortTemplates.bind(this);
 
     this.state = {
       filter: this.filter.getFilter(),
@@ -36,7 +41,9 @@ class Browser extends Component {
   }
 
   getFilteredTemplates() {
-    return this.filter.runFilter(); 
+    let filteredTemplates = this.filter.runFilter();
+    filteredTemplates = new TemplateSorter(this.state.sortTemplatesBy, filteredTemplates);
+    return filteredTemplates;
   }
 
   handleCostTypeChange(newValue) {
@@ -57,6 +64,10 @@ class Browser extends Component {
     this.forceUpdate();
   }
 
+  sortTemplates (sortType) {
+    this.setState({sortTemplatesBy: sortType});
+  }
+
   render() {
     const tags = this.getTags();
     const templates = this.getFilteredTemplates().map( (template, i) => {
@@ -68,6 +79,7 @@ class Browser extends Component {
         <TagPane tags={ tags } chooseTag={ this.setFilterTagName } />
         <CostSwitch value={ this.state.templateOptions.costType } onChange={ this.handleCostTypeChange } />
         <PlanChooser onChange={ this.setFilterPlanName } value={ this.state.templateOptions.planType } />
+        <SortSelector onChange={ this.sortTemplates } value={ this.state.sortTemplatesBy } />
         
         <div className='templates'>
           { templates }
