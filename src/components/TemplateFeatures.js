@@ -4,8 +4,20 @@ import '../css/TemplateFeatures.css';
 
 class TemplateFeatures extends Component {
   
+  constructor (props) {
+    super(props);
+
+    this.canDisplayBadges = this.canDisplayBadges.bind(this);
+  }
+
+  canDisplayBadges () {
+    const shouldHideBadges = this.props.hideBadges === true;
+    const canShowBadges = !shouldHideBadges;
+    return canShowBadges;
+  }
+
   render(){
-    let badge = ( this.props.features.has4k ) ? 
+    let badge = ( this.canDisplayBadges() && this.props.features.has4k ) ? 
       <img src={ UHD_IMAGE_URL } className='reactTemplateBrowser-TemplateFeatures-4kBadge' /> : null ;
     return (
       <div className='reactTemplateBrowser-TemplateFeatures'>

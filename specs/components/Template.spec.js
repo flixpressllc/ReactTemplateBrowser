@@ -62,3 +62,26 @@ describe('when asked, ', () => {
   });
 });
 
+describe('hover interactions', () => {
+  it('changes the title to a message on hover', () => {
+    const template = create('template');
+    const component = shallow(<Template template={ template } />);
+
+    component.simulate('mouseEnter');
+
+    expect(component.text()).toContain('Click to');
+    expect(component.text()).not.toContain('ID:');
+  });
+
+  it('changes the image to a video on hover', () => {
+    const template = create('template');
+    const component = shallow(<Template template={ template } />);
+
+    component.simulate('mouseEnter');
+
+    expect(component.find('video').length).toEqual(1);
+  });
+
+});
+
+

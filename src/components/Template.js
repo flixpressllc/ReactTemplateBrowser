@@ -4,35 +4,63 @@ import '../css/Template.css';
 
 class Template extends Component {
   
-  createLink() {
+  constructor (props) {
+    super(props)
+    this.state = {
+      isHovered: false
+    }
+
+    this.handleHoverOn = this.handleHoverOn.bind(this)
+    this.handleHoverOff = this.handleHoverOff.bind(this)
+  }
+
+  createLink () {
     const t = this.props.template;
     return `/templates/${t.type}.aspx?tid=${t.id}`;
   }
+
+  handleHoverOn () {
+    this.setState({isHovered: true})
+  }
+
+  handleHoverOff () {
+    this.setState({isHovered: false})
+  }
   
-  render(){
+  render (){
     const link = this.createLink();
     const template = this.props.template;
     const cost = this.props.options.costType === 'plan' ? (
       <span className='dispPlan'>Plan: { template.plan }</span>
-    ) : (
+      ) : (
       <span className='dispPrice'>Pay As You Go: { template.price }</span>
-    );
+      );
+    const imageOrMovie = !this.state.isHovered ? (
+      <img src={ template.image } alt={`Screenshot of template ${template.id}`} />
+      ) : (
+      <video src={'https://mediarobotvideo.s3.amazonaws.com/sm/Template' + template.id + '.mp4'}
+        poster={ template.image }
+        autoPlay={true}
+        loop={true}/>
+      );
+
+    const headerText = (this.state.isHovered) ? 'Click to edit' : `ID:${template.id} ${template.name}`;
     return (
-      <div className='template browserItem'>
+      <a className='reactTemplateBrowser-Template template browserItem' href={ link }
+        onMouseEnter={ this.handleHoverOn } 
+        onMouseLeave={ this.handleHoverOff} >
         <header className='browserInnerItem'>
-          { `ID:${template.id} ${template.name}` }
+          { headerText }
         </header>
         <div className='reactTemplateBrowser-Template-interactiveRegion'>
-          <a href={ link }>
-            <img src={ template.image } alt={`Screenshot of template ${template.id}`} />
-          </a>
-          <TemplateFeatures features={ this.props.template.features } />
+          { imageOrMovie }
+          <TemplateFeatures features={ this.props.template.features } hideBadges={ this.state.isHovered }/>
         </div>
         <div className='browserSubTitleDiv'>
           <span className='tempDur'>Duration: { template.duration }</span>
           { cost }
         </div>
-      </div>
+      </a>
     );
   }
 }

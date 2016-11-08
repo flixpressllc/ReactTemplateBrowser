@@ -34,4 +34,11 @@ describe('displaying 4k badge', () => {
       expect(images.at(i).prop('src')).not.toBe(UHD_IMAGE_URL);
     }
   });
+  it('hides badges when asked', () => {
+    let templateObject = create('template', {features: {has4k: true}});
+    
+    const component = mount(<TemplateFeatures features={ templateObject.features } hideBadges={ true } />);
+
+    expect(component.find('img').length).toBe(0);
+  });
 });
