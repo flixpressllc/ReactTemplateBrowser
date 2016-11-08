@@ -83,16 +83,22 @@ class Browser extends Component {
     const templates = PaginationPane.paginate(filteredTemplates, page)
 
     return (
-      <div className="browser">
+      <div className='reactTemplateBrowser-Browser browser'>
         <TagPane tags={ tags } chooseTag={ this.setFilterTagName } />
-        <CostSwitch value={ this.state.templateOptions.costType } onChange={ this.handleCostTypeChange } />
-        <PlanChooser onChange={ this.setFilterPlanName } value={ this.state.templateOptions.planType } />
-        <SortSelector onChange={ this.sortTemplates } value={ this.state.sortTemplatesBy } />
+        
+        <div className='reactTemplateBrowser-Browser-filterContainer'>
+          <SortSelector onChange={ this.sortTemplates } value={ this.state.sortTemplatesBy } />
+          <PlanChooser onChange={ this.setFilterPlanName } value={ this.state.templateOptions.planType } />
+          <CostSwitch value={ this.state.templateOptions.costType } onChange={ this.handleCostTypeChange } />
+        </div>
         
         <PaginationPane currentPage={ page } numItems={ filteredTemplates.length } onChange={ this.handlePageChange }/>
-        <div className='templates'>
+        
+        <div className='reactTemplateBrowser-Browser-templateContainer'>
           { templates }
         </div>
+        
+        <PaginationPane currentPage={ page } numItems={ filteredTemplates.length } onChange={ this.handlePageChange }/>
       </div>
     );
   }

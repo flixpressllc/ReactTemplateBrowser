@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
 import PLAN_NAMES from '../stores/plans';
+import '../css/PlanChooser.css'
 
 class PlanFilter extends Component {
   
@@ -22,9 +23,12 @@ class PlanFilter extends Component {
       return (<option key={i} value={ name }>{ name }</option>);
     });
     return (
-      <select onChange={ this.handleChange } value={ this.props.value } >
-        { options }
-      </select>
+      <div className='reactTemplateBrowser-PlanChooser'>
+        <span>Show for plan </span>
+        <select onChange={ this.handleChange } value={ this.props.value } >
+          { options }
+        </select>
+      </div>
     );
   }
 }

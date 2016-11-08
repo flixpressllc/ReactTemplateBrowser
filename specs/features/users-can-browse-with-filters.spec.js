@@ -28,7 +28,8 @@ describe('Feature: Users can browse with filters', () => {
       const expertEvent = {target: {value: 'Expert'}};
       const personalEvent = {target: {value: 'Personal'}}
       const app = mount(<Browser templates={ templates } />);
-      const selectElement = app.find('select').at(0);
+      // not sure why 'SortSelector select' dosen't work
+      const selectElement = app.find('select').at(1);
 
       selectElement.simulate('change', expertEvent);
       expect(app.find('Template').length).toEqual(2);

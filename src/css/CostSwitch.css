@@ -1,0 +1,25 @@
+.reactTemplateBrowser-CostSwitch {
+  line-height: 1;
+}
+
+.reactTemplateBrowser-CostSwitch-pricingSwitcher {
+  vertical-align: middle;
+  display: inline-block;
+  border: 1px solid white;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.reactTemplateBrowser-CostSwitch-pricingSwitcher > label {
+  font-weight: normal;
+  padding: 3px 5px;
+  margin: 0;
+}
+
+.reactTemplateBrowser-CostSwitch-pricingSwitcher > label.active {
+  background: white;
+}
+
+.reactTemplateBrowser-CostSwitch-pricingSwitcher > label > input {
+  display: none;
+}

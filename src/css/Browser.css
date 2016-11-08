@@ -1,9 +1,22 @@
-.browser {
+.reactTemplateBrowser-Browser {
   background-color: #eaeaea;
 }
 
-.browser:after {
+.reactTemplateBrowser-Browser:after,
+.reactTemplateBrowser-Browser-templateContainer:after,
+.reactTemplateBrowser-Browser-filterContainer:after {
   content: "";
   display: table;
   clear: both;
+}
+
+.reactTemplateBrowser-Browser-templateContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.reactTemplateBrowser-Browser-filterContainer > div {
+  float: right;
+  margin: 12px 5px;
 }

@@ -1,11 +1,11 @@
-.tag-pane {
+.reactTemplateBrowser-TagPane {
   background: white;
   padding: 15px;
   font-family: "Segoe UI",Arial,Helvetica,sans-serif;
   margin-bottom: 12px;
 }
 
-.tag-pane a{
+.reactTemplateBrowser-TagPane > a{
   color: #222;
   font-weight: 600;
   margin-left: 1px;
@@ -14,7 +14,7 @@
   border: 1px solid transparent;
 }
 
-.tag-pane a:hover {
+.reactTemplateBrowser-TagPane > a:hover {
   background: #eee;
   color: #555;
   border: 1px solid #b5b5b5;

@@ -22,7 +22,8 @@ describe('Feature: Users can sort the template list', () => {
     ];
     const lowestPriceSortEvent = {target: {value: 'lowest-value'}};
     const app = mount(<Browser templates={ templates } />);
-    const selectElement = app.find('SortSelector').at(0);
+    // not sure why 'SortSelector select' dosen't work
+    const selectElement = app.find('select').at(0);
 
     selectElement.simulate('change', lowestPriceSortEvent);
     expect(app.find('Template').first().text()).toContain('Lowest Price Temp');

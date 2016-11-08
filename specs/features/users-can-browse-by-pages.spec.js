@@ -43,7 +43,7 @@ describe('Feature: Users can browse by pages', () => {
     ];
     const app = mount(<Browser templates={ templates } />);
 
-    app.find('PaginationPane a[rel="next"]').simulate('click');
+    app.find('PaginationPane a[rel="next"]').at(0).simulate('click');
 
     expect(app.find('Template').length).toEqual(1);
   });

@@ -1,3 +1,7 @@
+.reactTemplateBrowser-PaginationPane {
+  display: block;
+  text-align: center;
+}
 .reactTemplateBrowser-PaginationPane-nav {
   display: inline-block;
   margin: 12px;

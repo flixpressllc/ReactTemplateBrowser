@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Sorter from '../helpers/TemplateSorter';
+import '../css/SortSelector.css';
 
 const SORT_OPTIONS = Sorter.getSortList();
 
@@ -21,9 +22,12 @@ class SortSelector extends Component {
       return (<option key={i} value={ option.value }>{ option.name }</option>);
     });
     return (
-      <select onChange={ this.handleChange } value={ this.props.value } >
-        { options }
-      </select>
+      <div className='reactTemplateBrowser-SortSelector'>
+        <span>Sort by: </span>
+        <select onChange={ this.handleChange } value={ this.props.value } >
+          { options }
+        </select>
+      </div>
     );
   }
 }

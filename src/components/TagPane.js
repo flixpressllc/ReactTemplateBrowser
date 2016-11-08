@@ -58,7 +58,7 @@ class TagPane extends Component {
       }
       return (
         <a key={`tagNames-${i}`}
-          className={className}
+          className={ className }
           href={ `#${ this.getTagSlugFromName(tagName) }` }
           onClick={ this.handleTagChoose }>{ tagName }</a>
       );
@@ -68,7 +68,7 @@ class TagPane extends Component {
   render() {
     let tags = this.createTagLinks(this.props.tags);
     return (
-      <div className='tag-pane'>
+      <div className='reactTemplateBrowser-TagPane'>
         { tags }
       </div>
     )

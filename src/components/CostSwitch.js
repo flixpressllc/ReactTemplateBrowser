@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
+import '../css/CostSwitch.css';
 
 class CostSwitch extends Component {
   
@@ -17,24 +18,27 @@ class CostSwitch extends Component {
   render(){
     const costType = this.props.value;
     return (
-      <div id='pricing-switcher' className='option-switcher-frame'>
-        <label className={cx('option-switcher-switch', {active: costType === 'plan'})}>
-          <input
-            type='radio'
-            value='plan'
-            onChange={ this.handleChange }
-            checked={ costType === 'plan' } />
-          Plans
-        </label>
-        <label className={cx('option-switcher-switch', {active: costType === 'price'})}>
-          <input
-            type='radio'
-            value='price'
-            onChange={ this.handleChange }
-            checked={ costType === 'price' } />
-          Prices
-        </label>
-      </div>
+      <div className='reactTemplateBrowser-CostSwitch'>
+        <span>Pricing shown as </span>
+        <div className='reactTemplateBrowser-CostSwitch-pricingSwitcher'>
+          <label className={cx('option-switcher-switch', {active: costType === 'plan'})}>
+            <input
+              type='radio'
+              value='plan'
+              onChange={ this.handleChange }
+              checked={ costType === 'plan' } />
+            Plans
+          </label>
+          <label className={cx('option-switcher-switch', {active: costType === 'price'})}>
+            <input
+              type='radio'
+              value='price'
+              onChange={ this.handleChange }
+              checked={ costType === 'price' } />
+            Prices
+          </label>
+        </div>
+        </div>
     );
   }
 }
