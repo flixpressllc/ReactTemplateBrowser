@@ -8,6 +8,7 @@ import TagPane from './TagPane';
 import Template from './Template';
 import PlanChooser from './PlanChooser';
 import SortSelector from './SortSelector';
+import PaginationPane from './PaginationPane';
 
 import '../css/Browser.css';
 
@@ -21,6 +22,7 @@ class Browser extends Component {
     this.handleCostTypeChange = this.handleCostTypeChange.bind(this);
     this.setFilterPlanName = this.setFilterPlanName.bind(this);
     this.sortTemplates = this.sortTemplates.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
 
     this.state = {
       filter: this.filter.getFilter(),
@@ -54,6 +56,10 @@ class Browser extends Component {
     })
   }
 
+  handlePageChange (newPageData) {
+    this.setState({page: newPageData.onPage});
+  }
+
   setFilterTagName(tagName) {
     this.filter.setFilter('tags', tagName);
     this.forceUpdate();
@@ -70,9 +76,11 @@ class Browser extends Component {
 
   render() {
     const tags = this.getTags();
-    const templates = this.getFilteredTemplates().map( (template, i) => {
+    const filteredTemplates = this.getFilteredTemplates().map( (template, i) => {
       return(<Template key={`template-item-${i}`} template={ template } options={ this.state.templateOptions } />);
     });
+    const page = this.state.page || 1;
+    const templates = PaginationPane.paginate(filteredTemplates, page)
 
     return (
       <div className="browser">
@@ -81,6 +89,7 @@ class Browser extends Component {
         <PlanChooser onChange={ this.setFilterPlanName } value={ this.state.templateOptions.planType } />
         <SortSelector onChange={ this.sortTemplates } value={ this.state.sortTemplatesBy } />
         
+        <PaginationPane currentPage={ page } numItems={ filteredTemplates.length } onChange={ this.handlePageChange }/>
         <div className='templates'>
           { templates }
         </div>
