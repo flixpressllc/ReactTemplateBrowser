@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Template from '../../src/components/Template';
 import create from '../spec-helpers/FaketoryGirl';
 
@@ -80,6 +80,38 @@ describe('hover interactions', () => {
     component.simulate('mouseEnter');
 
     expect(component.find('video').length).toEqual(1);
+  });
+
+  it('displays loading feedback before video plays', () => {
+    const template = create('template');
+    const component = mount(<Template template={ template } />);
+    component.simulate('mouseEnter');
+
+    component.find('video').simulate('loadstart');
+    
+    expect(component.find('.reactTemplateBrowser-LoadingSpinner-spinner').length).toEqual(1);
+  });
+
+  it('removes loading spinner when video plays', () => {
+    const template = create('template');
+    const component = mount(<Template template={ template } />);
+    component.simulate('mouseEnter');
+    
+    component.find('video').simulate('loadstart');
+    component.find('video').simulate('playing');
+
+    expect(component.find('.reactTemplateBrowser-LoadingSpinner-spinner').length).toEqual(0);
+  });
+
+  it('removes loading spinner when video is unloaded', () => {
+    const template = create('template');
+    const component = mount(<Template template={ template } />);
+    component.simulate('mouseEnter');
+    
+    component.find('video').simulate('loadstart');
+    component.simulate('mouseLeave');
+
+    expect(component.find('.reactTemplateBrowser-LoadingSpinner-spinner').length).toEqual(0);
   });
 
 });

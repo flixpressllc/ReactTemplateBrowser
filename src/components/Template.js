@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TemplateFeatures from './TemplateFeatures';
+import LoadingSpinner from './LoadingSpinner';
 import '../css/Template.css';
 
 class Template extends Component {
@@ -7,11 +8,14 @@ class Template extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      isHovered: false
+      isHovered: false,
+      videoIsLoading: false
     }
 
-    this.handleHoverOn = this.handleHoverOn.bind(this)
-    this.handleHoverOff = this.handleHoverOff.bind(this)
+    this.handleHoverOn = this.handleHoverOn.bind(this);
+    this.handleHoverOff = this.handleHoverOff.bind(this);
+    this.handleVideoLoadStart = this.handleVideoLoadStart.bind(this);
+    this.handleVideoLoadEnd = this.handleVideoLoadEnd.bind(this);
   }
 
   createLink () {
@@ -24,9 +28,20 @@ class Template extends Component {
   }
 
   handleHoverOff () {
-    this.setState({isHovered: false})
+    this.setState({
+      isHovered: false,
+      videoIsLoading: false
+    })
   }
   
+  handleVideoLoadStart () {
+    this.setState({videoIsLoading: true})
+  }
+
+  handleVideoLoadEnd () {
+    this.setState({videoIsLoading: false})
+  }
+
   render (){
     const link = this.createLink();
     const template = this.props.template;
@@ -40,6 +55,8 @@ class Template extends Component {
       ) : (
       <video src={'https://mediarobotvideo.s3.amazonaws.com/sm/Template' + template.id + '.mp4'}
         poster={ template.image }
+        onLoadStart={ this.handleVideoLoadStart }
+        onPlaying={ this.handleVideoLoadEnd }
         autoPlay={true}
         loop={true}/>
       );
@@ -48,13 +65,14 @@ class Template extends Component {
     return (
       <a className='reactTemplateBrowser-Template template browserItem' href={ link }
         onMouseEnter={ this.handleHoverOn } 
-        onMouseLeave={ this.handleHoverOff} >
+        onMouseLeave={ this.handleHoverOff } >
         <header className='browserInnerItem'>
           { headerText }
         </header>
         <div className='reactTemplateBrowser-Template-previewArea'>
           { imageOrMovie }
           <TemplateFeatures features={ this.props.template.features } hideBadges={ this.state.isHovered }/>
+          <LoadingSpinner active={ this.state.videoIsLoading } />
         </div>
         <div className='browserSubTitleDiv'>
           <span className='tempDur'>Duration: { template.duration }</span>
