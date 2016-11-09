@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { clone } from '../helpers/ObjectHelpers'
+import cx from 'classnames';
 import './PaginationPane.css';
 
 const DEFAULT_PAGE_SIZE = 12;
@@ -9,7 +10,8 @@ class PaginationPane extends Component {
   constructor(props){
     super(props);
 
-    this.handlePageChange = this.handlePageChange.bind(this);
+    this.handleActionButtonClick = this.handleActionButtonClick.bind(this);
+    this.renderPageLinks = this.renderPageLinks.bind(this);
   }
 
   beginningItemForPage (pageNumber) {
@@ -30,7 +32,16 @@ class PaginationPane extends Component {
     return array.splice( (page * pageSize - pageSize), pageSize )
   }
 
-  dataFor (relString) {
+  dataForPageNumber (pageNumber) {
+    return {
+      begin: this.beginningItemForPage(pageNumber),
+      end: this.endingItemForPage(pageNumber),
+      onPage: pageNumber,
+      pages: this.totalPages()
+    };
+  }
+
+  dataForActionButton (relString) {
     let pageNumber;
     switch (relString) {
       case 'next':
@@ -47,29 +58,49 @@ class PaginationPane extends Component {
         break;
     }
 
-    return {
-      begin: this.beginningItemForPage(pageNumber),
-      end: this.endingItemForPage(pageNumber),
-      onPage: pageNumber,
-      pages: this.totalPages()
-    };
+    return this.dataForPageNumber(pageNumber);
   }
 
-  handlePageChange(e) {
+  handleActionButtonClick(e) {
     let buttonRel = e.target.rel;
-    let currentPaginationData = this.props;
-    let paginationData = this.dataFor(buttonRel);
+    let paginationData = this.dataForActionButton(buttonRel);
     this.props.onChange(paginationData);
+  }
+
+  handleClickPageLink (pageNumber) {
+    let paginationData = this.dataForPageNumber(pageNumber);
+    this.props.onChange(paginationData);
+  }
+
+  renderPageLinks () {
+    const currentPage = this.props.currentPage;
+    const totalPages = this.totalPages();
+    let pageLinks = [];
+    
+    for (let i = 1; i <= totalPages; i++) {
+      let isActivePage = i == currentPage;
+      let handleClick = () => { this.handleClickPageLink(i) };
+      
+      pageLinks.push(
+        <a key={ i }
+          className={cx('reactTemplateBrowser-PaginationPane-pageLink', {'active-page': isActivePage})}
+          onClick={ handleClick }>
+          { i }
+        </a>
+      );
+    }
+    
+    return pageLinks;
   }
   
   render() {
-    const page = this.props.currentPage;
+    const pages = this.renderPageLinks();
     const total = this.totalPages();
 
     const disableFirstPrev = this.props.currentPage === 1;
-    const handleFirstPrev = disableFirstPrev ? () => {} : this.handlePageChange;
+    const handleFirstPrev = disableFirstPrev ? () => {} : this.handleActionButtonClick;
     const disableLastNext = this.props.currentPage === total;
-    const handleLastNext = disableLastNext ? () => {} : this.handlePageChange;
+    const handleLastNext = disableLastNext ? () => {} : this.handleActionButtonClick;
 
     return (
       <div className='reactTemplateBrowser-PaginationPane'>
@@ -81,7 +112,7 @@ class PaginationPane extends Component {
           className='reactTemplateBrowser-PaginationPane-nav'
           disabled={ disableFirstPrev }
           onClick={ handleFirstPrev }>Previous</a>
-        Page { page } of { total }
+        { pages }
         <a rel='next'
           className='reactTemplateBrowser-PaginationPane-nav'
           disabled={ disableLastNext }

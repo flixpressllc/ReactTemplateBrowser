@@ -42,6 +42,25 @@ it('reports correctly when "first" is clicked', () => {
   expect(paginate.mock.calls[0]).toEqual([{pages: 3, onPage: 1, begin: 0, end: 11}]);
 });
 
+describe('individual page navigation', () => {
+  it('displays each page as links to click',() => {
+    let paginate = jest.fn();
+    const pane = mount(<PaginationPane numItems={ 30 } onChange={ paginate } pageSize={ 12 } currentPage={ 2 } />);
+
+    expect(pane.find('.reactTemplateBrowser-PaginationPane-pageLink').length).toEqual(3);
+  });
+  
+  it('each page link loads the correct templates on click',() => {
+    let paginate = jest.fn();
+    const pane = mount(<PaginationPane numItems={ 30 } onChange={ paginate } pageSize={ 12 } currentPage={ 2 } />);
+    
+    pane.find('.reactTemplateBrowser-PaginationPane-pageLink').at(0).simulate('click');
+
+    expect(paginate.mock.calls[0]).toEqual([{pages: 3, onPage: 1, begin: 0, end: 11}]);
+  });
+  
+});
+
 describe('static method .paginate()', () => {
   it('returns an array of correct length', () => {
     const array = [1,2,3,4,5,6];
