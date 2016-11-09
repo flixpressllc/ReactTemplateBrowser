@@ -5,7 +5,7 @@
   margin-bottom: 12px;
 }
 
-.reactTemplateBrowser-TagPane > a{
+.reactTemplateBrowser-TagPane-tag{
   color: #222;
   font-weight: 600;
   margin-left: 1px;
@@ -14,8 +14,15 @@
   border: 1px solid transparent;
 }
 
-.reactTemplateBrowser-TagPane > a:hover {
+.reactTemplateBrowser-TagPane-tag:hover {
   background: #eee;
   color: #555;
   border: 1px solid #b5b5b5;
+}
+
+.reactTemplateBrowser-TagPane-tag.active-tag,
+.reactTemplateBrowser-TagPane-tag.active-tag:hover {
+  background: #008db4;
+  color: #fff;
+  border-color: #008db4;
 }

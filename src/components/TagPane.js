@@ -12,7 +12,9 @@ class TagPane extends Component {
   constructor(props){
     super(props);
     this.createTagMap(props.tags);
+    
     this.handleTagChoose = this.handleTagChoose.bind(this);
+    this.isActiveTag = this.isActiveTag.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
@@ -50,11 +52,20 @@ class TagPane extends Component {
     }
     this.props.chooseTag(tagName);
   }
+
+  isActiveTag (tagName) {
+    const isAllTempsTag = this.isAllTemplatesTag(tagName);
+    return tagName === this.props.activeTag || (!this.props.activeTag && isAllTempsTag);
+  }
   
+  isAllTemplatesTag (tagName) {
+    return tagName === ALL_TEMPLATES_TAG_NAME;
+  }
+
   createTagLinks(tagNamesArray) {
-   return tagNamesArray.map( (tagName, i) => {
-      const isAllTempsTag = tagName === ALL_TEMPLATES_TAG_NAME;
-      const isActiveTag = tagName === this.props.activeTag;
+    return tagNamesArray.map( (tagName, i) => {
+      const isAllTempsTag = this.isAllTemplatesTag(tagName);
+      const isActiveTag = this.isActiveTag(tagName);
       const baseName = 'reactTemplateBrowser-TagPane-tag'; 
       let className = cx(baseName, {'all-tag': isAllTempsTag, 'active-tag': isActiveTag});
       return (
