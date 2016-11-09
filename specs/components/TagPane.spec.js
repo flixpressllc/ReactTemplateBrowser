@@ -2,6 +2,8 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import TagPane from '../../src/components/TagPane';
 
+const TAG_SELECTOR = '.reactTemplateBrowser-TagPane-tag';
+
 it('renders without crashing', () => {
  shallow(<TagPane />);
 });
@@ -19,7 +21,7 @@ it('reports correctly when a tag is clicked', () => {
   let choose = jest.fn();
   const pane = mount(<TagPane tags={ tags } chooseTag={ choose } />);
   
-  pane.find('.tag').at(0).simulate('click');
+  pane.find(TAG_SELECTOR).not('.all-tag').at(0).simulate('click');
 
   expect(choose.mock.calls[0]).toEqual(['one']);
 });

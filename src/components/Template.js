@@ -52,7 +52,7 @@ class Template extends Component {
         <header className='browserInnerItem'>
           { headerText }
         </header>
-        <div className='reactTemplateBrowser-Template-interactiveRegion'>
+        <div className='reactTemplateBrowser-Template-previewArea'>
           { imageOrMovie }
           <TemplateFeatures features={ this.props.template.features } hideBadges={ this.state.isHovered }/>
         </div>

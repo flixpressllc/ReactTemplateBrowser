@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import StringHelpers from '../helpers/StringHelpers';
+import cx from 'classnames';
 import '../css/TagPane.css';
 
 const slugify = StringHelpers.slugify;
 
-const allTemplatesTag = 'All Templates';
+const ALL_TEMPLATES_TAG_NAME = 'All Templates';
 
 class TagPane extends Component {
   
@@ -22,7 +23,7 @@ class TagPane extends Component {
 
   createTagMap(tags) {
     this.tagMap = {};
-    tags.unshift( allTemplatesTag );
+    tags.unshift( ALL_TEMPLATES_TAG_NAME );
     tags.forEach( (tag) => {
       this.setTag(tag)
     });
@@ -43,7 +44,7 @@ class TagPane extends Component {
   handleTagChoose(e) {
     const tagSlug = e.target.hash.substr(1);
     const tagName = this.getTagNameFromSlug(tagSlug);
-    if (tagName === allTemplatesTag) {
+    if (tagName === ALL_TEMPLATES_TAG_NAME) {
       this.props.chooseTag(null);
       return;
     }
@@ -52,10 +53,10 @@ class TagPane extends Component {
   
   createTagLinks(tagNamesArray) {
    return tagNamesArray.map( (tagName, i) => {
-      let className = (tagName === allTemplatesTag) ? 'tag-all' : 'tag';
-      if (tagName === this.props.activeTag) {
-        className += ' active-tag';
-      }
+      const isAllTempsTag = tagName === ALL_TEMPLATES_TAG_NAME;
+      const isActiveTag = tagName === this.props.activeTag;
+      const baseName = 'reactTemplateBrowser-TagPane-tag'; 
+      let className = cx(baseName, {'all-tag': isAllTempsTag, 'active-tag': isActiveTag});
       return (
         <a key={`tagNames-${i}`}
           className={ className }
