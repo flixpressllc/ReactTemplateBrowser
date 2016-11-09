@@ -18,29 +18,6 @@ class PaginationPane extends Component {
     return this.props.pageSize * (pageNumber - 1)
   }
 
-  endingItemForPage (pageNumber) {
-    return this.props.pageSize * (pageNumber - 1) + this.props.pageSize - 1
-  }
-
-  totalPages () {
-    return Math.ceil( this.props.numItems / this.props.pageSize );
-  }
-
-  static paginate(array, page, pageSize) {
-    array = [].concat(array);
-    pageSize = pageSize ? pageSize : DEFAULT_PAGE_SIZE;
-    return array.splice( (page * pageSize - pageSize), pageSize )
-  }
-
-  dataForPageNumber (pageNumber) {
-    return {
-      begin: this.beginningItemForPage(pageNumber),
-      end: this.endingItemForPage(pageNumber),
-      onPage: pageNumber,
-      pages: this.totalPages()
-    };
-  }
-
   dataForActionButton (relString) {
     let pageNumber;
     switch (relString) {
@@ -59,6 +36,19 @@ class PaginationPane extends Component {
     }
 
     return this.dataForPageNumber(pageNumber);
+  }
+
+  dataForPageNumber (pageNumber) {
+    return {
+      begin: this.beginningItemForPage(pageNumber),
+      end: this.endingItemForPage(pageNumber),
+      onPage: pageNumber,
+      pages: this.totalPages()
+    };
+  }
+
+  endingItemForPage (pageNumber) {
+    return this.props.pageSize * (pageNumber - 1) + this.props.pageSize - 1
   }
 
   handleActionButtonClick(e) {
@@ -93,6 +83,10 @@ class PaginationPane extends Component {
     return pageLinks;
   }
   
+  totalPages () {
+    return Math.ceil( this.props.numItems / this.props.pageSize );
+  }
+
   render() {
     const pages = this.renderPageLinks();
     const total = this.totalPages();
@@ -124,6 +118,13 @@ class PaginationPane extends Component {
       </div>
     )
   }
+
+  static paginate(array, page, pageSize) {
+    array = [].concat(array);
+    pageSize = pageSize ? pageSize : DEFAULT_PAGE_SIZE;
+    return array.splice( (page * pageSize - pageSize), pageSize )
+  }
+
 }
 
 PaginationPane.defaultProps = {
