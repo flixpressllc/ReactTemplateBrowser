@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { clone } from '../helpers/ObjectHelpers'
-import '../css/PaginationPane.css';
+import './PaginationPane.css';
 
 const DEFAULT_PAGE_SIZE = 12;
 

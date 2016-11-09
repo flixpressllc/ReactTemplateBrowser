@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Browser from '../../src/components/Browser';
-import create from '../spec-helpers/FaketoryGirl';
+import create from '../spec-helpers';
 
 describe('Feature: Users can browse with filters', () => {
   describe('while logged out', () => {

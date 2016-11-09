@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
-import '../css/LoadingSpinner.css';
+import './LoadingSpinner.css';
 
 class LoadingSpinner extends Component {
   

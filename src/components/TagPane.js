@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import StringHelpers from '../helpers/StringHelpers';
 import cx from 'classnames';
-import '../css/TagPane.css';
+import './TagPane.css';
 
 const slugify = StringHelpers.slugify;
 

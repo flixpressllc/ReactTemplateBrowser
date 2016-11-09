@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { UHD_IMAGE_URL } from '../stores/external-asset-locations';
-import '../css/TemplateFeatures.css';
+import './TemplateFeatures.css';
 
 class TemplateFeatures extends Component {
   

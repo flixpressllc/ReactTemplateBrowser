@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import TemplateFeatures from '../../src/components/TemplateFeatures';
+import TemplateFeatures from './TemplateFeatures';
 import { UHD_IMAGE_URL } from '../../src/stores/external-asset-locations';
-import create from '../spec-helpers/FaketoryGirl';
+import create from '../../specs/spec-helpers';
 
 it('renders without crashing', () => {
   shallow(<TemplateFeatures/>);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import TemplateFeatures from './TemplateFeatures';
 import LoadingSpinner from './LoadingSpinner';
-import '../css/Template.css';
+import './Template.css';
 
 class Template extends Component {
   

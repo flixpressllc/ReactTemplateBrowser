@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import TagPane from '../../src/components/TagPane';
+import TagPane from './TagPane';
 
 const TAG_SELECTOR = '.reactTemplateBrowser-TagPane-tag';
 

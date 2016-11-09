@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import PaginationPane from '../../src/components/PaginationPane';
+import PaginationPane from './PaginationPane';
 
 it('renders without crashing', () => {
   shallow(<PaginationPane />);

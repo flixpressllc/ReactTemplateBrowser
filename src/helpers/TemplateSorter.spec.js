@@ -1,5 +1,5 @@
 import Sorter from '../../src/helpers/TemplateSorter';
-import create from '../spec-helpers/FaketoryGirl';
+import create from '../../specs/spec-helpers';
 
 describe('Template Sorter:', () => {
   it('sorts by oldest first', () => {

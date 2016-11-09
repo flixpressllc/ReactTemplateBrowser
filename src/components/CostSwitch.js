@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
-import '../css/CostSwitch.css';
+import './CostSwitch.css';
 
 class CostSwitch extends Component {
   

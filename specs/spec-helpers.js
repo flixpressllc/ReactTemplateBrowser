@@ -17,7 +17,7 @@ function getFaketory (faketory) {
   return faketories[faketory];
 }
 
-function create (faketory, overrides) {
+export function create (faketory, overrides) {
   let obj = getFaketory(faketory);
   overrides = overrides || {};
   return assign({}, obj, overrides);

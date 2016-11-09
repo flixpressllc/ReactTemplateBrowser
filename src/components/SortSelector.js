@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Sorter from '../helpers/TemplateSorter';
-import '../css/SortSelector.css';
+import './SortSelector.css';
 
 const SORT_OPTIONS = Sorter.getSortList();
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Browser from '../../src/components/Browser';
-import create from '../spec-helpers/FaketoryGirl';
+import create from '../spec-helpers';
 
 describe('Feature: Users can sort the template list', () => {
   it('shows newest templates by default', () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import PlanChooser from '../../src/components/PlanChooser';
+import PlanChooser from './PlanChooser';
 import PLAN_NAMES from '../../src/stores/plans';
 
 it('renders without crashing', () => {

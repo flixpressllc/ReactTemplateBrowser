@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Browser from '../../src/components/Browser';
-import create from '../spec-helpers/FaketoryGirl';
+import create from '../spec-helpers';
 
 const TAG_SELECTOR = '.reactTemplateBrowser-TagPane-tag';
 

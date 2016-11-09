@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
 import PLAN_NAMES from '../stores/plans';
-import '../css/PlanChooser.css'
+import './PlanChooser.css'
 
 class PlanFilter extends Component {
   

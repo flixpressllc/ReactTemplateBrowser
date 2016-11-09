@@ -10,7 +10,7 @@ import PlanChooser from './PlanChooser';
 import SortSelector from './SortSelector';
 import PaginationPane from './PaginationPane';
 
-import '../css/Browser.css';
+import './Browser.css';
 
 class Browser extends Component {
 

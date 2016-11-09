@@ -1,5 +1,5 @@
 import Filter from '../../src/helpers/TemplateFilters';
-import create from '../spec-helpers/FaketoryGirl';
+import create from '../../specs/spec-helpers';
 
 describe('Template Filters:', () => {
   it('filters with the given tag', () => {
