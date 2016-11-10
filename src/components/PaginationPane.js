@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import cx from 'classnames';
 import './PaginationPane.css';
 
-const DEFAULT_PAGE_SIZE = 12;
+const DEFAULT_PAGE_SIZE = 20;
 
 class PaginationPane extends Component {
   
