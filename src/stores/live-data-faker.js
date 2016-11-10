@@ -73,6 +73,8 @@ const copyPasteVal = `1	Lots of Text	0	Free Plan Templates	Intro	26 seconds	Free
 
 const individualLines = copyPasteVal.match(/[^\r\n]+/g);
 
+const tempsWith4k = [85,84,83,79,65,64,51,50];
+
 function getParams (line) {
   return line.match(/[^\t]+/g);
 }
@@ -86,16 +88,20 @@ function createTemplate (id, name, priceInt, cat1, cat2, duration, plan, type) {
     id: id,
     tags: [cat1, cat2],
     name: name,
-    type: type || 'TextOnly',
+    type: type,
     image: 'https://flixpress.com/tempImages/' + id + '.jpg',
     duration: duration,
-    plan: plan || 'Free',
+    plan: plan,
     price: '$' + priceInt,
     features: {
-      has4k: false
+      has4k: has4k(id)
     }
   }
 };
+
+function has4k (id) {
+  return tempsWith4k.indexOf(parseInt(id,10)) !== -1;
+}
 
 function durString (string) {
   if (string.indexOf('econds') !== -1) {
