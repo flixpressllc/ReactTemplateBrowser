@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import TemplateFeatures from './TemplateFeatures';
-import { UHD_IMAGE_URL } from '../../src/stores/external-asset-locations';
+import { UHD_IMAGE_URL } from '../../src/stores/app-settings';
 import create from '../../specs/spec-helpers';
 
 it('renders without crashing', () => {

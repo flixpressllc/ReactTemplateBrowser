@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PLAN_NAMES from '../stores/plans';
+import { PLAN_NAMES_IN_ORDER } from '../stores/app-settings';
 import './PlanChooser.css'
 
 class PlanFilter extends Component {
@@ -16,7 +16,7 @@ class PlanFilter extends Component {
   }
 
   render(){
-    const originalPlanNames = PLAN_NAMES;
+    const originalPlanNames = PLAN_NAMES_IN_ORDER;
     const planNames = originalPlanNames.concat(['All Plans']);
     const options = planNames.map( (name, i) => {
       return (<option key={i} value={ name }>{ name }</option>);
