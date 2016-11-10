@@ -63,56 +63,69 @@ describe('when asked, ', () => {
 });
 
 describe('hover interactions', () => {
-  pending('hover intent screws all the tests up');
+  // Because of using HoverIntent, interactions/expectations after `mouseover`
+  // must be wrapped in `setTimeout` to work properly.
+  
   it('changes the title to a message on hover', () => {
     const template = create('template');
     const component = shallow(<Template template={ template } />);
 
-    component.simulate('mouseEnter');
+    component.simulate('mouseover');
+    setTimeout( () => {
 
-    expect(component.text()).toContain('Click to');
-    expect(component.text()).not.toContain('ID:');
+      expect(component.text()).toContain('Click to');
+      expect(component.text()).not.toContain('ID:');
+    },0);
   });
 
   it('changes the image to a video on hover', () => {
     const template = create('template');
     const component = shallow(<Template template={ template } />);
 
-    component.simulate('mouseEnter');
-
-    expect(component.find('video').length).toEqual(1);
+    component.simulate('mouseover');
+    
+    setTimeout( () => {
+      expect(component.find('video').length).toEqual(1);
+    },0);
   });
 
   it('displays loading feedback before video plays', () => {
     const template = create('template');
     const component = mount(<Template template={ template } />);
-    component.simulate('mouseEnter');
 
-    component.find('video').simulate('loadstart');
+    component.simulate('mouseover');
+    setTimeout( () => {
+      component.find('video').simulate('loadstart');
     
-    expect(component.find('.reactTemplateBrowser-LoadingSpinner-spinner').length).toEqual(1);
+      expect(component.find('.reactTemplateBrowser-LoadingSpinner-spinner').length).toEqual(1);
+    },0);
   });
 
   it('removes loading spinner when video plays', () => {
     const template = create('template');
     const component = mount(<Template template={ template } />);
-    component.simulate('mouseEnter');
     
-    component.find('video').simulate('loadstart');
-    component.find('video').simulate('playing');
 
-    expect(component.find('.reactTemplateBrowser-LoadingSpinner-spinner').length).toEqual(0);
+    component.simulate('mouseover');
+    setTimeout( () => {
+      component.find('video').simulate('loadstart');
+      component.find('video').simulate('playing');
+      
+      expect(component.find('.reactTemplateBrowser-LoadingSpinner-spinner').length).toEqual(0);
+    },0);
   });
 
   it('removes loading spinner when video is unloaded', () => {
     const template = create('template');
     const component = mount(<Template template={ template } />);
-    component.simulate('mouseEnter');
     
-    component.find('video').simulate('loadstart');
-    component.simulate('mouseLeave');
+    component.simulate('mouseover');
+    setTimeout( () => {
+      component.find('video').simulate('loadstart');
+      component.simulate('mouseout');
 
-    expect(component.find('.reactTemplateBrowser-LoadingSpinner-spinner').length).toEqual(0);
+      expect(component.find('.reactTemplateBrowser-LoadingSpinner-spinner').length).toEqual(0);
+    },0);
   });
 
 });
