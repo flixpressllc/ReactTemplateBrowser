@@ -51,7 +51,7 @@ class PaginationPane extends Component {
   }
 
   handleActionButtonClick(e) {
-    let buttonRel = e.target.rel;
+    let buttonRel = e.target.rel || e.target.getAttribute('rel')
     let paginationData = this.dataForActionButton(buttonRel);
     this.props.onChange(paginationData);
   }
@@ -71,11 +71,11 @@ class PaginationPane extends Component {
       let handleClick = () => { this.handleClickPageLink(i) };
       
       pageLinks.push(
-        <a key={ i }
+        <button key={ i }
           className={cx('reactTemplateBrowser-PaginationPane-pageLink', {'active-page': isActivePage})}
           onClick={ handleClick }>
           { i }
-        </a>
+        </button>
       );
     }
     
@@ -97,23 +97,23 @@ class PaginationPane extends Component {
 
     return (
       <div className='reactTemplateBrowser-PaginationPane'>
-        <a rel='first'
+        <button rel='first'
           className='reactTemplateBrowser-PaginationPane-nav'
           disabled={ disableFirstPrev }
-          onClick={ handleFirstPrev }>First</a>
-        <a rel='prev'
+          onClick={ handleFirstPrev }>First</button>
+        <button rel='prev'
           className='reactTemplateBrowser-PaginationPane-nav'
           disabled={ disableFirstPrev }
-          onClick={ handleFirstPrev }>Previous</a>
+          onClick={ handleFirstPrev }>Previous</button>
         { pages }
-        <a rel='next'
+        <button rel='next'
           className='reactTemplateBrowser-PaginationPane-nav'
           disabled={ disableLastNext }
-          onClick={ handleLastNext }>Next</a>
-        <a rel='last'
+          onClick={ handleLastNext }>Next</button>
+        <button rel='last'
           className='reactTemplateBrowser-PaginationPane-nav'
           disabled={ disableLastNext }
-          onClick={ handleLastNext }>Last</a>
+          onClick={ handleLastNext }>Last</button>
       </div>
     )
   }
