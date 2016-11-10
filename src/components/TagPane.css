@@ -9,9 +9,10 @@
   color: #222;
   font-weight: 600;
   margin-left: 1px;
-  padding: 4px 3px 3px;
+  padding: 4px 8px;
   font-size: 16px;
   border: 1px solid transparent;
+  display: inline-block;
 }
 
 .reactTemplateBrowser-TagPane-tag:hover {
