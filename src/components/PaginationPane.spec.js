@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import PaginationPane from './PaginationPane';
+import { DEFAULT_PAGE_SIZE } from '../stores/app-settings';
 
 it('renders without crashing', () => {
   shallow(<PaginationPane />);
@@ -42,6 +43,18 @@ it('reports correctly when "first" is clicked', () => {
   expect(paginate.mock.calls[0]).toEqual([{pages: 3, onPage: 1, begin: 0, end: 11}]);
 });
 
+it('reports the correct default size of items', () => {
+  let paginate = jest.fn();
+  const numItems = DEFAULT_PAGE_SIZE + 1;
+  const pane = mount(<PaginationPane numItems={ numItems } onChange={ paginate } currentPage={ 1 } />);
+  const expectedBegin = DEFAULT_PAGE_SIZE;
+  const expectedEnd = DEFAULT_PAGE_SIZE * 2 - 1;
+  
+  pane.find('[rel="next"]').at(0).simulate('click');
+
+  expect(paginate.mock.calls[0]).toEqual([{pages: 2, onPage: 2, begin: expectedBegin, end: expectedEnd}]);
+});
+
 describe('individual page navigation', () => {
   it('displays each page as links to click',() => {
     let paginate = jest.fn();
@@ -68,6 +81,18 @@ describe('static method .paginate()', () => {
     const result = PaginationPane.paginate(array, 2, 2);
 
     expect(result.length).toEqual(2);
+  });
+
+  it('returns expected results when falling back to defaults', () => {
+    let array = [];
+    const numItems = DEFAULT_PAGE_SIZE + 1
+    for (var i = 0; i < numItems; i++) {
+      array.push('anything');
+    }
+
+    const result = PaginationPane.paginate(array, 2);
+
+    expect(result.length).toEqual(1);
   });
 
   it('returns an array with expected contents (REVERSE EXPECTATION)', () => {
