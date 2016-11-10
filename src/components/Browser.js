@@ -84,7 +84,7 @@ class Browser extends Component {
 
     return (
       <div className='reactTemplateBrowser-Browser browser'>
-        <TagPane tags={ tags } chooseTag={ this.setFilterTagName } />
+        <TagPane tags={ tags } chooseTag={ this.setFilterTagName } activeTag={ this.state.filter.tags } />
         
         <div className='reactTemplateBrowser-Browser-filterContainer'>
           <SortSelector onChange={ this.sortTemplates } value={ this.state.sortTemplatesBy } />

@@ -31,6 +31,19 @@ describe('Feature: Users can browse by tag', () => {
     expect(app.find('Template').length).toBe(1);
   });
 
+  it('changes the active tag on click', () => {
+    const templates = [ 
+      create('template', {tags: ['green']}),
+      create('template', {tags: ['red']})
+    ];
+    const app = mount(<Browser templates={ templates } />);
+    const firstTag = app.find(TAG_SELECTOR).at(1);
+
+    firstTag.simulate('click');
+
+    expect(app.find(TAG_SELECTOR + '.active-tag').get(0).innerHTML).toEqual('green');
+  });
+
   it('displays all templates on "all" tag click', () => {
     const templates = [ 
       create('template', {tags: ['green']}),
