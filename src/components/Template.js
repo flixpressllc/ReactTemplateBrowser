@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TemplateFeatures from './TemplateFeatures';
 import LoadingSpinner from './LoadingSpinner';
+import hoverIntent from 'hoverintent';
 import './Template.css';
 
 class Template extends Component {
@@ -16,6 +17,18 @@ class Template extends Component {
     this.handleHoverOff = this.handleHoverOff.bind(this);
     this.handleVideoLoadStart = this.handleVideoLoadStart.bind(this);
     this.handleVideoLoadEnd = this.handleVideoLoadEnd.bind(this);
+  }
+
+  componentDidMount () {
+    this.hoverIntentListener = hoverIntent(this.mountedInstance, () => {
+      this.handleHoverOn();
+    }, () => {
+      this.handleHoverOff();
+    });
+  }
+
+  componentWillUnmount () {
+    this.hoverIntentListener.remove();
   }
 
   createLink () {
@@ -63,9 +76,9 @@ class Template extends Component {
 
     const headerText = (this.state.isHovered) ? 'Click to edit' : `ID:${template.id} ${template.name}`;
     return (
-      <a className='reactTemplateBrowser-Template template browserItem' href={ link }
-        onMouseEnter={ this.handleHoverOn } 
-        onMouseLeave={ this.handleHoverOff } >
+      <a className='reactTemplateBrowser-Template template browserItem'
+        href={ link }
+        ref={ (el) => this.mountedInstance = el } >
         <header className='browserInnerItem'>
           { headerText }
         </header>
