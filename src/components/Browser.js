@@ -62,12 +62,12 @@ class Browser extends Component {
 
   setFilterTagName(tagName) {
     this.filter.setFilter('tags', tagName);
-    this.forceUpdate();
+    this.setState({page: 1});
   }
 
   setFilterPlanName(planName) {
     this.filter.setFilter('plan', planName);
-    this.forceUpdate();
+    this.setState({page: 1});
   }
 
   sortTemplates (sortType) {
