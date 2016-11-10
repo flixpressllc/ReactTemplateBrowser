@@ -1,5 +1,3 @@
-import assign from 'object-assign';
-
 const templateData = [
   // {
   //   name: 'NAME',

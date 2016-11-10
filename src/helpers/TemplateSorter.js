@@ -19,7 +19,7 @@ export default class TemplateSorter {
 
   _newest () {
     return this.allTemplates.sort( (a, b) => {
-      if (parseInt(a.id) > parseInt(b.id)) {
+      if (parseInt(a.id, 10) > parseInt(b.id, 10)) {
         return -1;
       } else {
         return 1;
@@ -30,7 +30,7 @@ export default class TemplateSorter {
   _highestValue () {
     return this.allTemplates.sort( (a, b) => {
       let prep = function(stringVal) {
-        return parseInt(stringVal.replace('$',''));
+        return parseInt(stringVal.replace('$',''), 10);
       }
 
       a = prep(a.price);

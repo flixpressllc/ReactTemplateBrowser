@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { clone } from '../helpers/ObjectHelpers'
 import cx from 'classnames';
 import './PaginationPane.css';
 
@@ -33,6 +32,7 @@ class PaginationPane extends Component {
       case 'first':
         pageNumber = 1;
         break;
+      default: //no op.
     }
 
     return this.dataForPageNumber(pageNumber);
@@ -68,7 +68,7 @@ class PaginationPane extends Component {
     let pageLinks = [];
     
     for (let i = 1; i <= totalPages; i++) {
-      let isActivePage = i == currentPage;
+      let isActivePage = i === currentPage;
       let handleClick = () => { this.handleClickPageLink(i) };
       
       pageLinks.push(

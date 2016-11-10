@@ -18,7 +18,7 @@ class TemplateFeatures extends Component {
 
   render(){
     let badge = ( this.canDisplayBadges() && this.props.features.has4k ) ? 
-      <img src={ UHD_IMAGE_URL } className='reactTemplateBrowser-TemplateFeatures-4kBadge' /> : null ;
+      <img src={ UHD_IMAGE_URL } className='reactTemplateBrowser-TemplateFeatures-4kBadge' alt='badge indicating this template supports 4K resolution' /> : null ;
     return (
       <div className='reactTemplateBrowser-TemplateFeatures'>
         { badge }

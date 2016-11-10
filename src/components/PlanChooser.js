@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import cx from 'classnames';
 import PLAN_NAMES from '../stores/plans';
 import './PlanChooser.css'
 

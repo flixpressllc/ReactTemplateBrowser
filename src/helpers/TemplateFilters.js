@@ -17,8 +17,8 @@ export default class TemplateFilters {
     let filteredTemplates = clone(this.allTemplates);
     let filter = this.filter;
     
-    for (let name in this.filter) {
-      if (!this.filter.hasOwnProperty(name)) { continue; }
+    for (let name in filter) {
+      if (!filter.hasOwnProperty(name)) { continue; }
       filteredTemplates = this._filterBy(name, filteredTemplates);
     }
 
