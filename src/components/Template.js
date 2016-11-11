@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TemplateFeatures from './TemplateFeatures';
 import LoadingSpinner from './LoadingSpinner';
 import hoverIntent from 'hoverintent';
+import { padLeft } from '../helpers/StringHelpers';
 import './Template.css';
 
 class Template extends Component {
@@ -36,6 +37,10 @@ class Template extends Component {
     return `/templates/${t.type}.aspx?tid=${t.id}`;
   }
 
+  getVideoId (id) {
+    return padLeft(id, '0', 2);
+  }
+
   handleHoverOn () {
     this.setState({isHovered: true})
   }
@@ -58,6 +63,7 @@ class Template extends Component {
   render (){
     const link = this.createLink();
     const template = this.props.template;
+    const videoId = this.getVideoId(template.id);
     const cost = this.props.options.costType === 'plan' ? (
       <span className='dispPlan'>Plan: { template.plan }</span>
       ) : (
@@ -66,7 +72,7 @@ class Template extends Component {
     const imageOrMovie = !this.state.isHovered ? (
       <img src={ template.image } alt={`Screenshot of template ${template.id}`} />
       ) : (
-      <video src={'https://mediarobotvideo.s3.amazonaws.com/sm/Template' + template.id + '.mp4'}
+      <video src={'https://mediarobotvideo.s3.amazonaws.com/sm/Template' + videoId + '.mp4'}
         poster={ template.image }
         onLoadStart={ this.handleVideoLoadStart }
         onPlaying={ this.handleVideoLoadEnd }
