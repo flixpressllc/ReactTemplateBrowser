@@ -1,4 +1,4 @@
-import StringHelpers from '../helpers/StringHelpers';
+import { padLeft } from '../helpers/StringHelpers';
 
 const copyPasteVal = `1	Lots of Text	0	Free Plan Templates	Intro	26 seconds	Free	TextOnly
 2	World Intro	0	Free Plan Templates	Intro	10 seconds	Free	TextOnly
@@ -76,8 +76,6 @@ const copyPasteVal = `1	Lots of Text	0	Free Plan Templates	Intro	26 seconds	Free
 const individualLines = copyPasteVal.match(/[^\r\n]+/g);
 
 const tempsWith4k = [85,84,83,79,65,64,51,50];
-
-const padLeft = StringHelpers.padLeft;
 
 function getParams (line) {
   return line.match(/[^\t]+/g);

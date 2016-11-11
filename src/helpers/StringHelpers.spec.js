@@ -1,8 +1,6 @@
-import StringHelpers from '../../src/helpers/StringHelpers';
+import { slugify, padLeft } from '../../src/helpers/StringHelpers';
 
 describe('slugify', () => {
-  const slugify = StringHelpers.slugify;
-  
   it('replaces spaces with hyphens', () => {
     const str = 'simple text';
     expect(slugify(str)).toBe('simple-text');
@@ -36,8 +34,6 @@ end`;
 });
 
 describe('padLeft', () => {
-  const padLeft = StringHelpers.padLeft;
-  
   it('pads a string with another strign to a given length', () => {
     const str = '11';
     expect(padLeft(str, '0', 3)).toBe('011');
