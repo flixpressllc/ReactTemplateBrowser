@@ -34,3 +34,23 @@ end`;
     expect(slugify(str)).toBe('simple-text');
   });
 });
+
+describe('padLeft', () => {
+  const padLeft = StringHelpers.padLeft;
+  
+  it('pads a string with another strign to a given length', () => {
+    const str = '11';
+    expect(padLeft(str, '0', 3)).toBe('011');
+  });
+
+  it('will not add extra padding to a string at the given length', () => {
+    const str = '111';
+    expect(padLeft(str, '0', 3)).toBe('111');
+  });
+
+  it('will not add extra padding to a string beyond the given length', () => {
+    const str = '111';
+    expect(padLeft(str, '0', 2)).toBe('111');
+  });
+
+});
