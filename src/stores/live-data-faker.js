@@ -1,3 +1,5 @@
+import StringHelpers from '../helpers/StringHelpers';
+
 const copyPasteVal = `1	Lots of Text	0	Free Plan Templates	Intro	26 seconds	Free	TextOnly
 2	World Intro	0	Free Plan Templates	Intro	10 seconds	Free	TextOnly
 3	Tech Puzzle	6	Slideshow	Slideshow	52 seconds	Personal	Images
@@ -75,14 +77,13 @@ const individualLines = copyPasteVal.match(/[^\r\n]+/g);
 
 const tempsWith4k = [85,84,83,79,65,64,51,50];
 
+const padLeft = StringHelpers.padLeft;
+
 function getParams (line) {
   return line.match(/[^\t]+/g);
 }
 
-let idCounter = 1;
 function createTemplate (id, name, priceInt, cat1, cat2, duration, plan, type) {
-  id = id ? id : idCounter + 1;
-  idCounter = id;
   duration = durString(duration);
   return {
     id: id,
@@ -114,11 +115,7 @@ function durString (string) {
 function durToString (int) {
   var minutes = Math.floor(int / 60);
   var seconds = int % 60;
-  return `${minutes}:${str_pad_left(seconds,'0',2)}`
-}
-
-function str_pad_left(string,pad,length) {
-  return (new Array(length+1).join(pad)+string).slice(-length);
+  return `${minutes}:${padLeft(seconds,'0',2)}`
 }
 
 function create_list () {
