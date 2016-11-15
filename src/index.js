@@ -14,7 +14,8 @@ let templates = require('./stores/live-data-faker').default;
 */
 function initTemplateBrowser (options) {
   ReactDOM.render(
-    <Browser templates={ templates } />,
+    <Browser templates={ templates }
+      onTemplateOpen={ options.onTemplateOpen } />,
     document.getElementById(options.divId)
   );
 }
