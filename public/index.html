@@ -48,12 +48,12 @@
   </body>
 
   <script>
-    function openInCbox(url){
-      alert('Would have opened in colorbox on server: ' + url);
+    function openInCbox(id, type){
+      alert('Would have opened in colorbox on server: ' + id + ' ' + type);
     }
     initTemplateBrowser({
       divId: 'root',
-      
+      onTemplateOpen: openInCbox
     })
   </script>
 </html>
