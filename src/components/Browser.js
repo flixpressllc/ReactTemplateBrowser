@@ -74,6 +74,10 @@ class Browser extends Component {
     this.setState({sortTemplatesBy: sortType});
   }
 
+  getIsTrialByUserTypeAndTemplateType (userType, templateType) {
+    return true;
+  }
+
   render() {
     const tags = this.getTags();
     const filteredTemplates = this.getFilteredTemplates().map( (template, i) => {
@@ -81,6 +85,7 @@ class Browser extends Component {
         <Template key={`template-item-${i}`}
           template={ template }
           openTemplate={ this.props.onTemplateOpen }
+          userPlanLevel={ this.props.userType }
           options={ this.state.templateOptions } />
       );
     });

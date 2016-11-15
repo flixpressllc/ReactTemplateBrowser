@@ -128,6 +128,15 @@ describe('hover interactions', () => {
     },0);
   });
 
+  describe('Plan Levels', () => {
+    it('can display a trial ribbon', () => {
+      const template = create('template', {plan: 'Expert'});
+      const component = mount(<Template template={ template } userPlanLevel={ 'Personal' }/>);
+
+      expect(component.find('.reactTemplateBrowser-Template-trialRibbon').length).toBe(1);
+    });
+  });
+
 });
 
 

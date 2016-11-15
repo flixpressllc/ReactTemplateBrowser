@@ -3,6 +3,7 @@ import TemplateFeatures from './TemplateFeatures';
 import LoadingSpinner from './LoadingSpinner';
 import hoverIntent from 'hoverintent';
 import { padLeft } from '../helpers/StringHelpers';
+import { PLAN_VALUES_HASH } from '../stores/app-settings';
 import './Template.css';
 
 class Template extends Component {
@@ -11,7 +12,8 @@ class Template extends Component {
     super(props)
     this.state = {
       isHovered: false,
-      videoIsLoading: false
+      videoIsLoading: false,
+      isTrial: this.getIsTrial(props.userPlanLevel, props.template.plan)
     }
 
     this.handleHoverOn = this.handleHoverOn.bind(this);
@@ -36,6 +38,11 @@ class Template extends Component {
   createLink () {
     const t = this.props.template;
     return `/templates/${t.type}.aspx?tid=${t.id}`;
+  }
+
+  getIsTrial (userPlanLevel, templatePlanLevel) {
+    if (userPlanLevel === 'guest') return false;
+    return PLAN_VALUES_HASH[userPlanLevel] + 1 === PLAN_VALUES_HASH[templatePlanLevel]
   }
 
   getVideoId (id) {
@@ -69,6 +76,25 @@ class Template extends Component {
     this.setState({videoIsLoading: false})
   }
 
+  renderRibbons () {
+    let ribbons = [];
+    let hasRibbons = false;
+    if (this.state.isTrial) {
+      hasRibbons = true;
+      ribbons.push(
+        <div key='trial' className='reactTemplateBrowser-Template-trialRibbon'>
+          Trial
+        </div>
+      )
+    }
+    return ( hasRibbons ? 
+      <div className='reactTemplateBrowser-Template-ribbonPlaceholder'>
+        { ribbons }
+      </div>
+      : null
+    );
+  }
+
   render (){
     const link = this.createLink();
     const template = this.props.template;
@@ -89,6 +115,8 @@ class Template extends Component {
 
     const headerText = (this.state.isHovered) ? 'Click to edit' : `ID:${template.id} ${template.name}`;
 
+    const ribbons = this.renderRibbons();
+
     return (
       <a className='reactTemplateBrowser-Template template browserItem'
         href={ link }
@@ -107,6 +135,7 @@ class Template extends Component {
           <span className='reactTemplateBrowser-Template-duration'>Duration: { template.duration }</span>
           <span className='reactTemplateBrowser-Template-priceOrPlan'>{ cost }</span>
         </div>
+        { ribbons }
       </a>
     );
   }
