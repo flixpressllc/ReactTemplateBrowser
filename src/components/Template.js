@@ -3,6 +3,7 @@ import TemplateFeatures from './TemplateFeatures';
 import LoadingSpinner from './LoadingSpinner';
 import hoverIntent from 'hoverintent';
 import { padLeft } from '../helpers/StringHelpers';
+import { openTemplateEditorUrl } from '../helpers/ExternalServices';
 import './Template.css';
 
 class Template extends Component {
@@ -18,6 +19,7 @@ class Template extends Component {
     this.handleHoverOff = this.handleHoverOff.bind(this);
     this.handleVideoLoadStart = this.handleVideoLoadStart.bind(this);
     this.handleVideoLoadEnd = this.handleVideoLoadEnd.bind(this);
+    this.handleClickOnTemplate = this.handleClickOnTemplate.bind(this);
   }
 
   componentDidMount () {
@@ -39,6 +41,11 @@ class Template extends Component {
 
   getVideoId (id) {
     return padLeft(id, '0', 2);
+  }
+
+  handleClickOnTemplate (e) {
+    e.preventDefault();
+    openTemplateEditorUrl( this.createLink() );
   }
 
   handleHoverOn () {
@@ -84,7 +91,9 @@ class Template extends Component {
     return (
       <a className='reactTemplateBrowser-Template template browserItem'
         href={ link }
-        ref={ (el) => this.mountedInstance = el } >
+        ref={ (el) => this.mountedInstance = el } 
+        onClick={ this.handleClickOnTemplate }
+        >
         <header className='browserInnerItem'>
           { headerText }
         </header>
