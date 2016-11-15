@@ -71,11 +71,9 @@ class Template extends Component {
     const link = this.createLink();
     const template = this.props.template;
     const videoId = this.getVideoId(template.id);
-    const cost = this.props.options.costType === 'plan' ? (
-      <span className='dispPlan'>Plan: { template.plan }</span>
-      ) : (
-      <span className='dispPrice'>Pay As You Go: { template.price }</span>
-      );
+    const cost = this.props.options.costType === 'plan' ?
+      `Plan: ${ template.plan }` : `Pay As You Go: ${ template.price }`;
+
     const imageOrMovie = !this.state.isHovered ? (
       <img src={ template.image } alt={`Screenshot of template ${template.id}`} />
       ) : (
@@ -88,6 +86,7 @@ class Template extends Component {
       );
 
     const headerText = (this.state.isHovered) ? 'Click to edit' : `ID:${template.id} ${template.name}`;
+
     return (
       <a className='reactTemplateBrowser-Template template browserItem'
         href={ link }
@@ -103,8 +102,8 @@ class Template extends Component {
           <LoadingSpinner active={ this.state.videoIsLoading } />
         </div>
         <div className='browserSubTitleDiv'>
-          <span className='tempDur'>Duration: { template.duration }</span>
-          { cost }
+          <span className='reactTemplateBrowser-Template-duration'>Duration: { template.duration }</span>
+          <span className='reactTemplateBrowser-Template-priceOrPlan'>{ cost }</span>
         </div>
       </a>
     );
