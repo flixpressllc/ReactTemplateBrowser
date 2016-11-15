@@ -135,6 +135,12 @@ describe('hover interactions', () => {
 
       expect(component.find('.reactTemplateBrowser-Template-trialRibbon').length).toBe(1);
     });
+    it('can disable templates beyond trial levels', () => {
+      const template = create('template', {plan: 'Expert'});
+      const component = mount(<Template template={ template } userPlanLevel={ 'Free' }/>);
+
+      expect(component.find('.reactTemplateBrowser-Template.disabled-template').length).toBe(1);
+    });
   });
 
 });

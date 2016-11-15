@@ -4,6 +4,7 @@ import LoadingSpinner from './LoadingSpinner';
 import hoverIntent from 'hoverintent';
 import { padLeft } from '../helpers/StringHelpers';
 import { PLAN_VALUES_HASH } from '../stores/app-settings';
+import cx from 'classnames';
 import './Template.css';
 
 class Template extends Component {
@@ -13,7 +14,8 @@ class Template extends Component {
     this.state = {
       isHovered: false,
       videoIsLoading: false,
-      isTrial: this.getIsTrial(props.userPlanLevel, props.template.plan)
+      isTrial: this.getIsTrial(props.userPlanLevel, props.template.plan),
+      isDisabled: this.getIsDisabled(props.userPlanLevel, props.template.plan)
     }
 
     this.handleHoverOn = this.handleHoverOn.bind(this);
@@ -43,6 +45,11 @@ class Template extends Component {
   getIsTrial (userPlanLevel, templatePlanLevel) {
     if (userPlanLevel === 'guest') return false;
     return PLAN_VALUES_HASH[userPlanLevel] + 1 === PLAN_VALUES_HASH[templatePlanLevel]
+  }
+
+  getIsDisabled (userPlanLevel, templatePlanLevel) {
+    if (userPlanLevel === 'guest') return false;
+    return PLAN_VALUES_HASH[userPlanLevel] + 1 < PLAN_VALUES_HASH[templatePlanLevel]
   }
 
   getVideoId (id) {
@@ -103,9 +110,12 @@ class Template extends Component {
       `Plan: ${ template.plan }` : `Pay As You Go: ${ template.price }`;
 
     const imageOrMovie = !this.state.isHovered ? (
-      <img src={ template.image } alt={`Screenshot of template ${template.id}`} />
+      <img className='reactTemplateBrowser-Template-previewImage'
+        src={ template.image }
+        alt={`Screenshot of template ${template.id}`} />
       ) : (
-      <video src={'https://mediarobotvideo.s3.amazonaws.com/sm/Template' + videoId + '.mp4'}
+      <video className='reactTemplateBrowser-Template-previewVideo'
+        src={'https://mediarobotvideo.s3.amazonaws.com/sm/Template' + videoId + '.mp4'}
         poster={ template.image }
         onLoadStart={ this.handleVideoLoadStart }
         onPlaying={ this.handleVideoLoadEnd }
@@ -117,8 +127,10 @@ class Template extends Component {
 
     const ribbons = this.renderRibbons();
 
+    const className = cx('reactTemplateBrowser-Template template browserItem', {'disabled-template': this.state.isDisabled});
+
     return (
-      <a className='reactTemplateBrowser-Template template browserItem'
+      <a className={ className }
         href={ link }
         ref={ (el) => this.mountedInstance = el } 
         onClick={ this.handleClickOnTemplate }
