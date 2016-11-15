@@ -113,7 +113,7 @@ function durString (string) {
 function durToString (int) {
   var minutes = Math.floor(int / 60);
   var seconds = int % 60;
-  return `${minutes}:${padLeft(seconds,'0',2)}`
+  return `${minutes}:${padLeft(seconds.toString(),'0',2)}`
 }
 
 function create_list () {
