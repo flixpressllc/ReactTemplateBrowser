@@ -71,7 +71,8 @@ class PaginationPane extends Component {
       let handleClick = () => { this.handleClickPageLink(i) };
       
       pageLinks.push(
-        <button key={ i }
+        <button type='button'
+          key={ i }
           className={cx('reactTemplateBrowser-PaginationPane-pageLink', {'active-page': isActivePage})}
           onClick={ handleClick }>
           { i }
@@ -97,20 +98,20 @@ class PaginationPane extends Component {
 
     return (
       <div className='reactTemplateBrowser-PaginationPane'>
-        <button rel='first'
+        <button type='button' rel='first'
           className='reactTemplateBrowser-PaginationPane-nav'
           disabled={ disableFirstPrev }
           onClick={ handleFirstPrev }>First</button>
-        <button rel='prev'
+        <button type='button' rel='prev'
           className='reactTemplateBrowser-PaginationPane-nav'
           disabled={ disableFirstPrev }
           onClick={ handleFirstPrev }>Previous</button>
         { pages }
-        <button rel='next'
+        <button type='button' rel='next'
           className='reactTemplateBrowser-PaginationPane-nav'
           disabled={ disableLastNext }
           onClick={ handleLastNext }>Next</button>
-        <button rel='last'
+        <button type='button' rel='last'
           className='reactTemplateBrowser-PaginationPane-nav'
           disabled={ disableLastNext }
           onClick={ handleLastNext }>Last</button>
