@@ -3,7 +3,6 @@ import TemplateFeatures from './TemplateFeatures';
 import LoadingSpinner from './LoadingSpinner';
 import hoverIntent from 'hoverintent';
 import { padLeft } from '../helpers/StringHelpers';
-import { openTemplateEditorUrl } from '../helpers/ExternalServices';
 import './Template.css';
 
 class Template extends Component {
@@ -45,7 +44,10 @@ class Template extends Component {
 
   handleClickOnTemplate (e) {
     e.preventDefault();
-    openTemplateEditorUrl( this.createLink() );
+    this.props.openTemplate(
+      this.props.template.id,
+      this.props.template.type
+    )
   }
 
   handleHoverOn () {

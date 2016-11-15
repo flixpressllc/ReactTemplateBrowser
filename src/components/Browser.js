@@ -77,7 +77,12 @@ class Browser extends Component {
   render() {
     const tags = this.getTags();
     const filteredTemplates = this.getFilteredTemplates().map( (template, i) => {
-      return(<Template key={`template-item-${i}`} template={ template } options={ this.state.templateOptions } />);
+      return(
+        <Template key={`template-item-${i}`}
+          template={ template }
+          openTemplate={ this.props.onTemplateOpen }
+          options={ this.state.templateOptions } />
+      );
     });
     const page = this.state.page || 1;
     const templates = PaginationPane.paginate(filteredTemplates, page)
