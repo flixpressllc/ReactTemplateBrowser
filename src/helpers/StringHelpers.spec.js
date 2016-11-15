@@ -34,9 +34,9 @@ end`;
 });
 
 describe('padLeft', () => {
-  it('pads a string with another strign to a given length', () => {
-    const str = '11';
-    expect(padLeft(str, '0', 3)).toBe('011');
+  it('pads a string with another string to a given length', () => {
+    const str = '7';
+    expect(padLeft(str, '0', 3)).toBe('007');
   });
 
   it('will not add extra padding to a string at the given length', () => {
