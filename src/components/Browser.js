@@ -86,19 +86,38 @@ class Browser extends Component {
 
     return (
       <div className='reactTemplateBrowser-Browser browser'>
-        <TagPane tags={ tags } chooseTag={ this.setFilterTagName } activeTag={ this.state.filter.tags } />
+        <TagPane
+          tags={ tags }
+          chooseTag={ this.setFilterTagName }
+          activeTag={ this.state.filter.tags } />
         
         <div className='reactTemplateBrowser-Browser-filterContainer'>
-          <SortSelector onChange={ this.sortTemplates } value={ this.state.sortTemplatesBy } />
-          <PlanChooser onChange={ this.setFilterPlanName } value={ this.state.templateOptions.planType } />
-          <CostSwitch value={ this.state.templateOptions.costType } onChange={ this.handleCostTypeChange } />
+          <SortSelector
+            onChange={ this.sortTemplates }
+            value={ this.state.sortTemplatesBy } />
+          <PlanChooser
+            onChange={ this.setFilterPlanName }
+            value={ this.state.templateOptions.planType } />
+          <CostSwitch
+            onChange={ this.handleCostTypeChange }
+            value={ this.state.templateOptions.costType } />
         </div>
         
-        <PaginationPane currentPage={ page } numItems={ filteredTemplates.length } onChange={ this.handlePageChange }/>
+        <PaginationPane
+          currentPage={ page }
+          numItems={ filteredTemplates.length }
+          onChange={ this.handlePageChange }/>
         
-        <TemplatePane templates={ templates } userType={this.props.userType} templateOptions={ this.state.templateOptions } onTemplateOpen={ this.props.onTemplateOpen } />
+        <TemplatePane
+          templates={ templates }
+          userType={this.props.userType}
+          templateOptions={ this.state.templateOptions }
+          onTemplateOpen={ this.props.onTemplateOpen } />
         
-        <PaginationPane currentPage={ page } numItems={ filteredTemplates.length } onChange={ this.handlePageChange }/>
+        <PaginationPane
+          currentPage={ page }
+          numItems={ filteredTemplates.length }
+          onChange={ this.handlePageChange }/>
       </div>
     );
   }
