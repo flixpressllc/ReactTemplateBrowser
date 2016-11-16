@@ -24,14 +24,6 @@ it('creates a correctly formatted link', () => {
   expect(component.find('a').first().prop('href')).toBe('/templates/Slides.aspx?tid=79');
 });
 
-it('displays an image thumbnail', () => {
-  let templateObject = create('template', {image: 'an/image.jpg'});
-  
-  const component = shallow(<Template template={ templateObject } />);
-
-  expect(component.find('img').first().prop('src')).toBe('an/image.jpg');
-});
-
 it('displays the duration', () => {
   let templateObject = create('template', {duration: '1:00'});
   
@@ -86,45 +78,6 @@ describe('hover interactions', () => {
     
     setTimeout( () => {
       expect(component.find('video').length).toEqual(1);
-    },0);
-  });
-
-  it('displays loading feedback before video plays', () => {
-    const template = create('template');
-    const component = mount(<Template template={ template } />);
-
-    component.simulate('mouseover');
-    setTimeout( () => {
-      component.find('video').simulate('loadstart');
-    
-      expect(component.find('.reactTemplateBrowser-LoadingSpinner-spinner').length).toEqual(1);
-    },0);
-  });
-
-  it('removes loading spinner when video plays', () => {
-    const template = create('template');
-    const component = mount(<Template template={ template } />);
-    
-
-    component.simulate('mouseover');
-    setTimeout( () => {
-      component.find('video').simulate('loadstart');
-      component.find('video').simulate('playing');
-      
-      expect(component.find('.reactTemplateBrowser-LoadingSpinner-spinner').length).toEqual(0);
-    },0);
-  });
-
-  it('removes loading spinner when video is unloaded', () => {
-    const template = create('template');
-    const component = mount(<Template template={ template } />);
-    
-    component.simulate('mouseover');
-    setTimeout( () => {
-      component.find('video').simulate('loadstart');
-      component.simulate('mouseout');
-
-      expect(component.find('.reactTemplateBrowser-LoadingSpinner-spinner').length).toEqual(0);
     },0);
   });
 

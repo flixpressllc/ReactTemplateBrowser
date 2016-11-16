@@ -50,8 +50,3 @@
   left: -1px;
   overflow: hidden;
 }
-
-.reactTemplateBrowser-Template.disabled-template .reactTemplateBrowser-Template-previewImage {
-  filter: grayscale(100%);
-  opacity: 0.5;
-}

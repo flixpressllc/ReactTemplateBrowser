@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TemplateFeatures from './TemplateFeatures';
-import LoadingSpinner from './LoadingSpinner';
+import Preview from './Preview';
 import hoverIntent from 'hoverintent';
 import { padLeft } from '../helpers/StringHelpers';
 import { PLAN_VALUES_HASH } from '../stores/app-settings';
@@ -13,15 +13,12 @@ class Template extends Component {
     super(props)
     this.state = {
       isHovered: false,
-      videoIsLoading: false,
       isTrial: this.getIsTrial(props.userPlanLevel, props.template.plan),
       isDisabled: this.getIsDisabled(props.userPlanLevel, props.template.plan)
     }
 
     this.handleHoverOn = this.handleHoverOn.bind(this);
     this.handleHoverOff = this.handleHoverOff.bind(this);
-    this.handleVideoLoadStart = this.handleVideoLoadStart.bind(this);
-    this.handleVideoLoadEnd = this.handleVideoLoadEnd.bind(this);
     this.handleClickOnTemplate = this.handleClickOnTemplate.bind(this);
   }
 
@@ -58,6 +55,7 @@ class Template extends Component {
 
   handleClickOnTemplate (e) {
     e.preventDefault();
+    this.handleHoverOff();
     this.props.openTemplate(
       this.props.template.id,
       this.props.template.type
@@ -70,19 +68,10 @@ class Template extends Component {
 
   handleHoverOff () {
     this.setState({
-      isHovered: false,
-      videoIsLoading: false
+      isHovered: false
     })
   }
   
-  handleVideoLoadStart () {
-    this.setState({videoIsLoading: true})
-  }
-
-  handleVideoLoadEnd () {
-    this.setState({videoIsLoading: false})
-  }
-
   renderRibbons () {
     let ribbons = [];
     let hasRibbons = false;
@@ -105,23 +94,8 @@ class Template extends Component {
   render (){
     const link = this.createLink();
     const template = this.props.template;
-    const videoId = this.getVideoId(template.id);
     const cost = this.props.options.costType === 'plan' ?
       `Plan: ${ template.plan }` : `Pay As You Go: ${ template.price }`;
-
-    const imageOrMovie = !this.state.isHovered ? (
-      <img className='reactTemplateBrowser-Template-previewImage'
-        src={ template.image }
-        alt={`Screenshot of template ${template.id}`} />
-      ) : (
-      <video className='reactTemplateBrowser-Template-previewVideo'
-        src={'https://mediarobotvideo.s3.amazonaws.com/sm/Template' + videoId + '.mp4'}
-        poster={ template.image }
-        onLoadStart={ this.handleVideoLoadStart }
-        onPlaying={ this.handleVideoLoadEnd }
-        autoPlay={true}
-        loop={true}/>
-      );
 
     const headerText = (this.state.isHovered) ? 'Click to edit' : `ID:${template.id} ${template.name}`;
 
@@ -139,9 +113,8 @@ class Template extends Component {
           { headerText }
         </header>
         <div className='reactTemplateBrowser-Template-previewArea'>
-          { imageOrMovie }
+          <Preview templateId={ this.props.template.id } active={ this.state.isHovered } />
           <TemplateFeatures features={ this.props.template.features } hideBadges={ this.state.isHovered }/>
-          <LoadingSpinner active={ this.state.videoIsLoading } />
         </div>
         <div className='browserSubTitleDiv'>
           <span className='reactTemplateBrowser-Template-duration'>Duration: { template.duration }</span>
