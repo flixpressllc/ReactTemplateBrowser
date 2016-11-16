@@ -55,47 +55,33 @@ describe('when asked, ', () => {
 });
 
 describe('hover interactions', () => {
-  // Because of using HoverIntent, interactions/expectations after `mouseover`
-  // must be wrapped in `setTimeout` to work properly.
   
   it('changes the title to a message on hover', () => {
     const template = create('template');
     const component = shallow(<Template template={ template } />);
 
-    component.simulate('mouseover');
-    setTimeout( () => {
+    component.setProps({isHovered: true});
 
-      expect(component.text()).toContain('Click to');
-      expect(component.text()).not.toContain('ID:');
-    },0);
-  });
-
-  it('changes the image to a video on hover', () => {
-    const template = create('template');
-    const component = shallow(<Template template={ template } />);
-
-    component.simulate('mouseover');
-    
-    setTimeout( () => {
-      expect(component.find('video').length).toEqual(1);
-    },0);
-  });
-
-  describe('Plan Levels', () => {
-    it('can display a trial ribbon', () => {
-      const template = create('template', {plan: 'Expert'});
-      const component = mount(<Template template={ template } userPlanLevel={ 'Personal' }/>);
-
-      expect(component.find('.reactTemplateBrowser-Template-trialRibbon').length).toBe(1);
-    });
-    it('can disable templates beyond trial levels', () => {
-      const template = create('template', {plan: 'Expert'});
-      const component = mount(<Template template={ template } userPlanLevel={ 'Free' }/>);
-
-      expect(component.find('.reactTemplateBrowser-Template.disabled-template').length).toBe(1);
-    });
+    expect(component.text()).toContain('Click to');
+    expect(component.text()).not.toContain('ID:');
   });
 
 });
+
+describe('Plan Levels', () => {
+  it('can display a trial ribbon', () => {
+    const template = create('template', {plan: 'Expert'});
+    const component = mount(<Template template={ template } userPlanLevel={ 'Personal' }/>);
+
+    expect(component.find('.reactTemplateBrowser-Template-trialRibbon').length).toBe(1);
+  });
+  it('can disable templates beyond trial levels', () => {
+    const template = create('template', {plan: 'Expert'});
+    const component = mount(<Template template={ template } userPlanLevel={ 'Free' }/>);
+
+    expect(component.find('.reactTemplateBrowser-Template.disabled-template').length).toBe(1);
+  });
+});
+
 
 

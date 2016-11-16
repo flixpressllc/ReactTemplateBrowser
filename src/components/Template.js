@@ -12,7 +12,6 @@ class Template extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      isHovered: false,
       isTrial: this.getIsTrial(props.userPlanLevel, props.template.plan),
       isDisabled: this.getIsDisabled(props.userPlanLevel, props.template.plan)
     }
@@ -63,13 +62,11 @@ class Template extends Component {
   }
 
   handleHoverOn () {
-    this.setState({isHovered: true})
+    this.props.onHoverChange( 'on', this.props.template.id );
   }
 
   handleHoverOff () {
-    this.setState({
-      isHovered: false
-    })
+    this.props.onHoverChange( 'off', this.props.template.id );
   }
   
   renderRibbons () {
@@ -97,7 +94,7 @@ class Template extends Component {
     const cost = this.props.options.costType === 'plan' ?
       `Plan: ${ template.plan }` : `Pay As You Go: ${ template.price }`;
 
-    const headerText = (this.state.isHovered) ? 'Click to edit' : `ID:${template.id} ${template.name}`;
+    const headerText = (this.props.isHovered) ? 'Click to edit' : `ID:${template.id} ${template.name}`;
 
     const ribbons = this.renderRibbons();
 
@@ -106,15 +103,15 @@ class Template extends Component {
     return (
       <a className={ className }
         href={ link }
-        ref={ (el) => this.mountedInstance = el } 
-        onClick={ this.handleClickOnTemplate }
-        >
+        ref={ (el) => this.mountedInstance = el }
+        onClick={ this.handleClickOnTemplate } >
+
         <header className='browserInnerItem'>
           { headerText }
         </header>
         <div className='reactTemplateBrowser-Template-previewArea'>
-          <Preview templateId={ this.props.template.id } active={ this.state.isHovered } />
-          <TemplateFeatures features={ this.props.template.features } hideBadges={ this.state.isHovered }/>
+          <Preview templateId={ this.props.template.id } active={ this.props.isHovered } />
+          <TemplateFeatures features={ this.props.template.features } hideBadges={ this.props.isHovered }/>
         </div>
         <div className='browserSubTitleDiv'>
           <span className='reactTemplateBrowser-Template-duration'>Duration: { template.duration }</span>

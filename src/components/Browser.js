@@ -111,6 +111,8 @@ class Browser extends Component {
         <TemplatePane
           templates={ templates }
           userType={this.props.userType}
+          hoveredTemplate={ this.state.hoveredTemplate }
+          onHoveredTemplateChange={ this.handleHoveredTemplateChange }
           templateOptions={ this.state.templateOptions }
           onTemplateOpen={ this.props.onTemplateOpen } />
         
