@@ -3,9 +3,10 @@
   padding: 15px;
   font-family: "Segoe UI",Arial,Helvetica,sans-serif;
   margin-bottom: 12px;
+  text-align: center;
 }
 
-.reactTemplateBrowser-TagPane-tag{
+a.reactTemplateBrowser-TagPane-tag{
   color: #222;
   font-weight: 600;
   margin-left: 1px;
