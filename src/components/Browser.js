@@ -5,7 +5,7 @@ import TemplateSorter from '../helpers/TemplateSorter';
 
 import CostSwitch from './CostSwitch';
 import TagPane from './TagPane';
-import Template from './Template';
+import TemplatePane from './TemplatePane';
 import PlanChooser from './PlanChooser';
 import SortSelector from './SortSelector';
 import PaginationPane from './PaginationPane';
@@ -80,15 +80,7 @@ class Browser extends Component {
 
   render() {
     const tags = this.getTags();
-    const filteredTemplates = this.getFilteredTemplates().map( (template, i) => {
-      return(
-        <Template key={`template-item-${i}`}
-          template={ template }
-          openTemplate={ this.props.onTemplateOpen }
-          userPlanLevel={ this.props.userType }
-          options={ this.state.templateOptions } />
-      );
-    });
+    const filteredTemplates = this.getFilteredTemplates();
     const page = this.state.page || 1;
     const templates = PaginationPane.paginate(filteredTemplates, page)
 
@@ -104,9 +96,7 @@ class Browser extends Component {
         
         <PaginationPane currentPage={ page } numItems={ filteredTemplates.length } onChange={ this.handlePageChange }/>
         
-        <div className='reactTemplateBrowser-Browser-templateContainer'>
-          { templates }
-        </div>
+        <TemplatePane templates={ templates } userType={this.props.userType} templateOptions={ this.state.templateOptions } onTemplateOpen={ this.props.onTemplateOpen } />
         
         <PaginationPane currentPage={ page } numItems={ filteredTemplates.length } onChange={ this.handlePageChange }/>
       </div>

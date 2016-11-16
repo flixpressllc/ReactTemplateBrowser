@@ -3,17 +3,11 @@
 }
 
 .reactTemplateBrowser-Browser:after,
-.reactTemplateBrowser-Browser-templateContainer:after,
+.reactTemplateBrowser-TemplatePane:after,
 .reactTemplateBrowser-Browser-filterContainer:after {
   content: "";
   display: table;
   clear: both;
-}
-
-.reactTemplateBrowser-Browser-templateContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
 }
 
 .reactTemplateBrowser-Browser-filterContainer > div {
