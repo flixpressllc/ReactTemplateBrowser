@@ -1,15 +1,5 @@
 import React, { Component } from 'react';
-import { union } from 'lodash';
-import Filter from '../helpers/TemplateFilters';
-import TemplateSorter from '../helpers/TemplateSorter';
-
-import CostSwitch from './CostSwitch';
-import TagPane from './TagPane';
 import Template from './Template';
-import PlanChooser from './PlanChooser';
-import SortSelector from './SortSelector';
-import PaginationPane from './PaginationPane';
-
 import './TemplatePane.css';
 
 class TemplatePane extends Component {
