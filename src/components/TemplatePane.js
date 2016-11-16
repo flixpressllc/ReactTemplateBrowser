@@ -12,6 +12,7 @@ class TemplatePane extends Component {
     }
 
     this.handleHoveredTemplateChange = this.handleHoveredTemplateChange.bind(this);
+    this.handleTemplateOpen = this.handleTemplateOpen.bind(this);
   }
 
   getHoveredStateById (templateId) {
@@ -28,13 +29,19 @@ class TemplatePane extends Component {
     }
   }
 
+  handleTemplateOpen (templateId, templateType) {
+    this.setState({hoveredTemplate: null}, () => {
+      this.props.onTemplateOpen(templateId, templateType);
+    });
+  }
+
   renderTemplates () {
     return this.props.templates.map( (template, i) => {
       const templateIsHovered = this.getHoveredStateById(template.id);
       return(
         <Template key={`template-item-${i}`}
           template={ template }
-          openTemplate={ this.props.onTemplateOpen }
+          openTemplate={ this.handleTemplateOpen }
           userPlanLevel={ this.props.userType }
           isHovered={ templateIsHovered }
           onHoverChange={ this.handleHoveredTemplateChange }

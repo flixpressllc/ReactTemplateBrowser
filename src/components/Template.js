@@ -54,7 +54,6 @@ class Template extends Component {
 
   handleClickOnTemplate (e) {
     e.preventDefault();
-    this.handleHoverOff();
     this.props.openTemplate(
       this.props.template.id,
       this.props.template.type
