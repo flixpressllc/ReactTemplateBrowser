@@ -32,7 +32,7 @@ describe('when active', () => {
 
     component.setProps({active: true});
 
-    expect(fakeStartOrStopVideo.mock.calls.length).toEqual(1);
+    expect(fakeStartOrStopVideo).toHaveBeenCalledTimes(1);
   });
   it('creates the proper src for a video', () => {
     const component = shallow(<Preview active={ true } templateId={ 11 } />);

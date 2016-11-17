@@ -90,6 +90,30 @@ describe('hover interactions', () => {
       expect(component.text()).not.toContain('ID:');
     });
 
+    it('changes the lower bar to call to action', () => {
+      const template = create('template', {plan: 'Personal'});
+      const component = shallow(<Template template={ template } userType={ 'Free' } />);
+
+      component.setProps({isHovered: true});
+
+      expect(component.text()).toContain('or Upgrade for full access');
+    });
+
+    it('the call to action navigates to upgrade page', () => {
+      const fakeHandleClick = jest.fn(()=>{});
+      const wrongFake = jest.fn(()=>{});
+      const template = create('template', {plan: 'Personal'});
+      const component = shallow(<Template template={ template } userType={ 'Free' } />);
+      component.instance().navigateToPath = fakeHandleClick;
+      component.setProps({isHovered: true, openTemplate: wrongFake});
+
+      component.find('.reactTemplateBrowser-Template-upgradeLink').first().simulate('mouseOver');
+      component.simulate('click', { preventDefault: () => null } );
+
+      expect(wrongFake).not.toHaveBeenCalled();
+      expect(fakeHandleClick).toHaveBeenCalledWith('/upgrade');
+    });
+
   });
   describe('with plan user who cannot edit', () => {
     it('changes the title to a message', () => {

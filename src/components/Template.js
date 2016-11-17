@@ -3,6 +3,7 @@ import TemplateFeatures from './TemplateFeatures';
 import Preview from './Preview';
 import hoverIntent from 'hoverintent';
 import { padLeft } from '../helpers/StringHelpers';
+import { navigateToPath } from '../helpers/Navigation';
 import { SUBSCRIPTION_PLAN_VALUES_HASH } from '../stores/app-settings';
 import cx from 'classnames';
 import './Template.css';
@@ -16,10 +17,15 @@ class Template extends Component {
       isDisabled: this.getIsDisabled(props.userType, props.template.plan)
     }
 
+    this.navigateToPath = navigateToPath; // allows for testing
+
     this.handleHoverOn = this.handleHoverOn.bind(this);
     this.handleHoverOff = this.handleHoverOff.bind(this);
     this.handleClickOnTemplate = this.handleClickOnTemplate.bind(this);
     this.renderHeaderText = this.renderHeaderText.bind(this);
+    this.renderFooterText = this.renderFooterText.bind(this);
+    this.handleUpgradeHover = this.handleUpgradeHover.bind(this);
+    this.handleUpgradeUnhover = this.handleUpgradeUnhover.bind(this);
   }
 
   componentDidMount () {
@@ -34,9 +40,11 @@ class Template extends Component {
     this.hoverIntentListener.remove();
   }
 
-  createLink () {
+  renderLink () {
     const t = this.props.template;
-    return `/templates/${t.type}.aspx?tid=${t.id}`;
+    const templateLink = `/templates/${t.type}.aspx?tid=${t.id}`;
+    const upgradeLink = '/upgrade';
+    return this.state.upgradeHover ? upgradeLink : templateLink ;
   }
 
   getIsTrial (userType, templatePlan) {
@@ -55,10 +63,26 @@ class Template extends Component {
 
   handleClickOnTemplate (e) {
     e.preventDefault();
+    if (this.state.upgradeHover) {
+      this.navigateToPath(this.renderLink());
+      return;
+    }
     this.props.openTemplate(
       this.props.template.id,
       this.props.template.type
     )
+  }
+
+  handleUpgradeHover () {
+    this.setState({
+      upgradeHover: true
+    })
+  }
+
+  handleUpgradeUnhover () {
+    this.setState({
+      upgradeHover: false
+    })
   }
 
   handleHoverOn () {
@@ -85,6 +109,32 @@ class Template extends Component {
     })();
     return (this.props.isHovered) ? hoverText : `ID:${template.id} ${template.name}`;
   }
+
+  renderFooterText () {
+    const template = this.props.template;
+    const cost = this.props.options.costType === 'plan' ?
+      `Plan: ${ template.plan }` : `Pay As You Go: ${ template.price }`;
+    const upgradeLink = <button 
+      className='reactTemplateBrowser-Template-upgradeLink'
+      onMouseOver={ this.handleUpgradeHover }
+      onMouseOut={ this.handleUpgradeUnhover }
+      >Upgrade</button>;
+    const regularOutput = [
+      <span key='1' className='reactTemplateBrowser-Template-duration'>Duration: { template.duration }</span>,
+      <span key='2' className='reactTemplateBrowser-Template-priceOrPlan'>{ cost }</span>
+    ];
+    const hoverOutput = (() => {
+      switch (true) {
+        case this.getIsTrial(this.props.userType, template.plan):
+          return <span>or { upgradeLink } for full access</span>;
+        // case this.getIsDisabled(this.props.userType, template.plan):
+        //   return 'Click to preview only';
+        default:
+          return regularOutput;
+      }
+    })();
+    return (this.props.isHovered) ? hoverOutput : regularOutput;
+  }
   
   renderRibbons () {
     let ribbons = [];
@@ -101,15 +151,10 @@ class Template extends Component {
   }
 
   render (){
-    const link = this.createLink();
-    const template = this.props.template;
-    const cost = this.props.options.costType === 'plan' ?
-      `Plan: ${ template.plan }` : `Pay As You Go: ${ template.price }`;
-
+    const link = this.renderLink();
     const headerText = this.renderHeaderText();
-
+    const footerText = this.renderFooterText();
     const ribbons = this.renderRibbons();
-
     const className = cx('reactTemplateBrowser-Template template browserItem', {'disabled-template': this.state.isDisabled});
 
     return (
@@ -126,8 +171,7 @@ class Template extends Component {
           <TemplateFeatures features={ this.props.template.features } hideBadges={ this.props.isHovered }/>
         </div>
         <div className='browserSubTitleDiv'>
-          <span className='reactTemplateBrowser-Template-duration'>Duration: { template.duration }</span>
-          <span className='reactTemplateBrowser-Template-priceOrPlan'>{ cost }</span>
+          { footerText }
         </div>
         { ribbons }
       </a>

@@ -11,7 +11,7 @@ let templates = require('./stores/live-data-faker').default;
       will recieve the following:
         templateId: (int) the id of the template opened
         templateTypeString: (string) the type of template. Eg: 'TextOnly'
-    userType: (string) one of 'guest', 'Free', 'Personal', 'Expert', 'Business', 'Enterprise', 'PAYG'
+    userType: (string) one of 'guest', 'Free', 'Personal', 'Expert', 'Business', 'Enterprise', 'Pay As You Go', 'Reseller'
 */
 function initTemplateBrowser (options) {
   ReactDOM.render(
