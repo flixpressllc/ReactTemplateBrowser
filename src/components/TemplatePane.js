@@ -39,7 +39,7 @@ class TemplatePane extends Component {
     return this.props.templates.map( (template, i) => {
       const templateIsHovered = this.getHoveredStateById(template.id);
       return(
-        <Template key={`template-item-${i}`}
+        <Template key={`template-item-${template.id}-${i}`}
           template={ template }
           openTemplate={ this.handleTemplateOpen }
           userPlanLevel={ this.props.userType }
