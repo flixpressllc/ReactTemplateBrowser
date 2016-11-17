@@ -3,15 +3,6 @@
   height: 135px;
 }
 
-.reactTemplateBrowser-Template .reactTemplateBrowser-LoadingSpinner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 10px;
-  width: 50px;
-  height: 50px;
-}
-
 .reactTemplateBrowser-Template-priceOrPlan {
   float: right;
   margin-right: 10px;

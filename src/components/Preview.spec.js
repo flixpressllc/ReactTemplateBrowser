@@ -25,6 +25,15 @@ describe('when active', () => {
 
     expect(component.find('video').length).toBe(1);
   });
+  it('plays a video', () => {
+    const fakeStartOrStopVideo = jest.fn(() => {});
+    const component = shallow(<Preview active={ true } templateId={ 1 } />);
+    component.instance().startOrStopVideo = fakeStartOrStopVideo;
+
+    component.setProps({active: true});
+
+    expect(fakeStartOrStopVideo.mock.calls.length).toEqual(1);
+  });
   it('creates the proper src for a video', () => {
     const component = shallow(<Preview active={ true } templateId={ 11 } />);
 
