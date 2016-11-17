@@ -97,12 +97,7 @@ class Template extends Component {
         </div>
       )
     }
-    return ( hasRibbons ? 
-      <div className='reactTemplateBrowser-Template-ribbonPlaceholder'>
-        { ribbons }
-      </div>
-      : null
-    );
+    return hasRibbons ?  ribbons : null ;
   }
 
   render (){

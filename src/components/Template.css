@@ -1,3 +1,9 @@
+.reactTemplateBrowser-Template {
+  overflow: hidden;
+  padding: 1px;
+  box-sizing: content-box;
+}
+
 .reactTemplateBrowser-Template-previewArea {
   position: relative;
   height: 135px;
@@ -31,13 +37,4 @@
   padding: 2px 2.5em 2px 2.3em;
   letter-spacing: 0.05em;
   font-weight: bold;
-}
-
-.reactTemplateBrowser-Template-ribbonPlaceholder {
-  position: absolute;
-  top: -1px;
-  bottom: -1px;
-  right: -1px;
-  left: -1px;
-  overflow: hidden;
 }
