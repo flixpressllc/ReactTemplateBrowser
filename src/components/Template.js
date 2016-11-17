@@ -12,13 +12,14 @@ class Template extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      isTrial: this.getIsTrial(props.userPlanLevel, props.template.plan),
-      isDisabled: this.getIsDisabled(props.userPlanLevel, props.template.plan)
+      isTrial: this.getIsTrial(props.userType, props.template.plan),
+      isDisabled: this.getIsDisabled(props.userType, props.template.plan)
     }
 
     this.handleHoverOn = this.handleHoverOn.bind(this);
     this.handleHoverOff = this.handleHoverOff.bind(this);
     this.handleClickOnTemplate = this.handleClickOnTemplate.bind(this);
+    this.renderHeaderText = this.renderHeaderText.bind(this);
   }
 
   componentDidMount () {
@@ -38,14 +39,14 @@ class Template extends Component {
     return `/templates/${t.type}.aspx?tid=${t.id}`;
   }
 
-  getIsTrial (userPlanLevel, templatePlanLevel) {
-    if (userPlanLevel === 'guest') return false;
-    return SUBSCRIPTION_PLAN_VALUES_HASH[userPlanLevel] + 1 === SUBSCRIPTION_PLAN_VALUES_HASH[templatePlanLevel]
+  getIsTrial (userType, templatePlan) {
+    if (userType === 'guest') return false;
+    return SUBSCRIPTION_PLAN_VALUES_HASH[userType] + 1 === SUBSCRIPTION_PLAN_VALUES_HASH[templatePlan]
   }
 
-  getIsDisabled (userPlanLevel, templatePlanLevel) {
-    if (userPlanLevel === 'guest') return false;
-    return SUBSCRIPTION_PLAN_VALUES_HASH[userPlanLevel] + 1 < SUBSCRIPTION_PLAN_VALUES_HASH[templatePlanLevel]
+  getIsDisabled (userType, templatePlan) {
+    if (userType === 'guest') return false;
+    return SUBSCRIPTION_PLAN_VALUES_HASH[userType] + 1 < SUBSCRIPTION_PLAN_VALUES_HASH[templatePlan]
   }
 
   getVideoId (id) {
@@ -66,6 +67,21 @@ class Template extends Component {
 
   handleHoverOff () {
     this.props.onHoverChange( 'off', this.props.template.id );
+  }
+
+  renderHeaderText () {
+    const template = this.props.template;
+    const hoverText = (() => {
+      switch (true) {
+        case (this.props.userType === 'guest'):
+          return 'Login to edit';
+        // case this.getIsTrial(this.props.userType, template.plan):
+        //   return 'Click to Try';
+        default:
+          return 'Click to edit';
+      }
+    })();
+    return (this.props.isHovered) ? hoverText : `ID:${template.id} ${template.name}`;
   }
   
   renderRibbons () {
@@ -93,7 +109,7 @@ class Template extends Component {
     const cost = this.props.options.costType === 'plan' ?
       `Plan: ${ template.plan }` : `Pay As You Go: ${ template.price }`;
 
-    const headerText = (this.props.isHovered) ? 'Click to edit' : `ID:${template.id} ${template.name}`;
+    const headerText = this.renderHeaderText();
 
     const ribbons = this.renderRibbons();
 

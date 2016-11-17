@@ -42,7 +42,7 @@ class TemplatePane extends Component {
         <Template key={`template-item-${template.id}-${i}`}
           template={ template }
           openTemplate={ this.handleTemplateOpen }
-          userPlanLevel={ this.props.userType }
+          userType={ this.props.userType }
           isHovered={ templateIsHovered }
           onHoverChange={ this.handleHoveredTemplateChange }
           options={ this.props.templateOptions } />
