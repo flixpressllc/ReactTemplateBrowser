@@ -74,10 +74,6 @@ class Browser extends Component {
     this.setState({sortTemplatesBy: sortType});
   }
 
-  getIsTrialByUserTypeAndTemplateType (userType, templateType) {
-    return true;
-  }
-
   render() {
     const tags = this.getTags();
     const filteredTemplates = this.getFilteredTemplates();

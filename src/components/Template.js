@@ -3,7 +3,7 @@ import TemplateFeatures from './TemplateFeatures';
 import Preview from './Preview';
 import hoverIntent from 'hoverintent';
 import { padLeft } from '../helpers/StringHelpers';
-import { PLAN_VALUES_HASH } from '../stores/app-settings';
+import { SUBSCRIPTION_PLAN_VALUES_HASH } from '../stores/app-settings';
 import cx from 'classnames';
 import './Template.css';
 
@@ -40,12 +40,12 @@ class Template extends Component {
 
   getIsTrial (userPlanLevel, templatePlanLevel) {
     if (userPlanLevel === 'guest') return false;
-    return PLAN_VALUES_HASH[userPlanLevel] + 1 === PLAN_VALUES_HASH[templatePlanLevel]
+    return SUBSCRIPTION_PLAN_VALUES_HASH[userPlanLevel] + 1 === SUBSCRIPTION_PLAN_VALUES_HASH[templatePlanLevel]
   }
 
   getIsDisabled (userPlanLevel, templatePlanLevel) {
     if (userPlanLevel === 'guest') return false;
-    return PLAN_VALUES_HASH[userPlanLevel] + 1 < PLAN_VALUES_HASH[templatePlanLevel]
+    return SUBSCRIPTION_PLAN_VALUES_HASH[userPlanLevel] + 1 < SUBSCRIPTION_PLAN_VALUES_HASH[templatePlanLevel]
   }
 
   getVideoId (id) {

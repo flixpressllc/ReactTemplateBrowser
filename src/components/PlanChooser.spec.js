@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import PlanChooser from './PlanChooser';
-import { PLAN_NAMES_IN_ORDER } from '../../src/stores/app-settings';
+import { SUBSCRIPTION_PLAN_NAMES_IN_ORDER } from '../../src/stores/app-settings';
 
 it('renders without crashing', () => {
  shallow(<PlanChooser />);
@@ -9,7 +9,7 @@ it('renders without crashing', () => {
 
 it('displays all plans', () => {
   const pane = shallow(<PlanChooser />);
-  PLAN_NAMES_IN_ORDER.forEach( (value) => {
+  SUBSCRIPTION_PLAN_NAMES_IN_ORDER.forEach( (value) => {
     expect(pane.text()).toContain(value);
   } )
 });
