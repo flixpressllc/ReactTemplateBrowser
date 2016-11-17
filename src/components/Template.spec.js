@@ -62,19 +62,43 @@ describe('hover interactions', () => {
 
       component.setProps({isHovered: true});
 
-      expect(component.text()).toContain('Login to');
+      expect(component.text()).toContain('Login to edit');
       expect(component.text()).not.toContain('ID:');
     });
 
   });
-  describe('with Plan user', () => {
+  describe('with plan user with editing privileges', () => {
     it('changes the title to a message', () => {
       const template = create('template', {plan: 'Free'});
       const component = shallow(<Template template={ template } userType={ 'Free' } />);
 
       component.setProps({isHovered: true});
 
-      expect(component.text()).toContain('Click to');
+      expect(component.text()).toContain('Click to edit');
+      expect(component.text()).not.toContain('ID:');
+    });
+
+  });
+  describe('with plan user with trial privileges', () => {
+    it('changes the title to a message', () => {
+      const template = create('template', {plan: 'Personal'});
+      const component = shallow(<Template template={ template } userType={ 'Free' } />);
+
+      component.setProps({isHovered: true});
+
+      expect(component.text()).toContain('Click to try');
+      expect(component.text()).not.toContain('ID:');
+    });
+
+  });
+  describe('with plan user who cannot edit', () => {
+    it('changes the title to a message', () => {
+      const template = create('template', {plan: 'Expert'});
+      const component = shallow(<Template template={ template } userType={ 'Free' } />);
+
+      component.setProps({isHovered: true});
+
+      expect(component.text()).toContain('Click to preview only');
       expect(component.text()).not.toContain('ID:');
     });
 
@@ -86,7 +110,7 @@ describe('hover interactions', () => {
 
       component.setProps({isHovered: true});
 
-      expect(component.text()).toContain('Click to');
+      expect(component.text()).toContain('Click to edit');
       expect(component.text()).not.toContain('ID:');
     });
 

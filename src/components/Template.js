@@ -75,8 +75,10 @@ class Template extends Component {
       switch (true) {
         case (this.props.userType === 'guest'):
           return 'Login to edit';
-        // case this.getIsTrial(this.props.userType, template.plan):
-        //   return 'Click to Try';
+        case this.getIsTrial(this.props.userType, template.plan):
+          return 'Click to try';
+        case this.getIsDisabled(this.props.userType, template.plan):
+          return 'Click to preview only';
         default:
           return 'Click to edit';
       }
