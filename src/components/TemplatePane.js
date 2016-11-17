@@ -25,7 +25,7 @@ class TemplatePane extends Component {
     } else if ( onOrOffString === 'on' ) {
       this.setState({hoveredTemplate: templateId});
     } else {
-      throw `Unexpected value given to Browser.handleHoveredTemplateChange. onOrOffString: ${onOrOffString}, templateId: ${ templateId }`;
+      throw new Error(`Unexpected value given to Browser.handleHoveredTemplateChange. onOrOffString: ${onOrOffString}, templateId: ${ templateId }`);
     }
   }
 
