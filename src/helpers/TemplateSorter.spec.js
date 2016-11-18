@@ -51,4 +51,21 @@ describe('Template Sorter:', () => {
       expect(result.price).toEqual(expectedSort[i]);
     });
   });
+
+  it('sorts by free first, then newest', () => {
+    const templates = [ 
+      create('template', {id: 3, plan: 'Free'}),
+      create('template', {id: 2, plan: 'Business'}),
+      create('template', {id: 5, plan: 'Free'}),
+      create('template', {id: 1, plan: 'Personal'}),
+      create('template', {id: 4, plan: 'Expert'})
+    ];
+    const expectedSort = [5, 3, 4, 2, 1];
+
+    let results = new Sorter('free-first', templates);
+
+    results.forEach((result, i) => {
+      expect(result.id).toEqual(expectedSort[i]);
+    });
+  });
 });

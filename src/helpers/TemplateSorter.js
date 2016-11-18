@@ -1,10 +1,12 @@
-import { clone } from './ObjectHelpers'
+import { clone } from './ObjectHelpers';
 
 export default class TemplateSorter {
   constructor (sortType, templatesArray) {
     this.allTemplates = clone(templatesArray);
     
     switch (sortType) {
+      case 'free-first':
+        return this._freeFirst();
       case 'highest-value':
         return this._highestValue();
       case 'lowest-value':
@@ -15,6 +17,13 @@ export default class TemplateSorter {
       default:
         return this._newest();
     }
+  }
+
+  _freeFirst (templateSubset) {
+    let templates = templateSubset ? templateSubset : this.allTemplates;
+    let freeTemplates = templates.filter( (template) => { return template.plan === 'Free'});
+    let paidTemplates = templates.filter( (template) => { return template.plan !== 'Free'});
+    return [].concat(this._newest(freeTemplates), this._newest(paidTemplates));
   }
 
   _newest (templateSubset) {
@@ -50,6 +59,9 @@ export default class TemplateSorter {
 
   static getSortList () {
     return clone([{
+      name: 'Free First',
+      value: 'free-first'
+    },{
       name: 'Newest First',
       value: 'newest'
     },{
