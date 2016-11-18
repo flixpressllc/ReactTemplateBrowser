@@ -17,8 +17,9 @@ export default class TemplateSorter {
     }
   }
 
-  _newest () {
-    return this.allTemplates.sort( (a, b) => {
+  _newest (templateSubset) {
+    let templates = templateSubset ? templateSubset : this.allTemplates;
+    return templates.sort( (a, b) => {
       if (parseInt(a.id, 10) > parseInt(b.id, 10)) {
         return -1;
       } else {
@@ -27,8 +28,9 @@ export default class TemplateSorter {
     });
   }
 
-  _highestValue () {
-    return this.allTemplates.sort( (a, b) => {
+  _highestValue (templateSubset) {
+    let templates = templateSubset ? templateSubset : this.allTemplates;
+    return templates.sort( (a, b) => {
       let prep = function(stringVal) {
         return parseInt(stringVal.replace('$',''), 10);
       }
