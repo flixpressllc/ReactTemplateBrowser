@@ -38,3 +38,21 @@
   letter-spacing: 0.05em;
   font-weight: bold;
 }
+
+.reactTemplateBrowser-Template-upgradeMessage {
+  display: block;
+  text-align: center;
+}
+
+.reactTemplateBrowser-Template-upgradeLink {
+  display: inline-block;
+  color: white;
+  padding: 1px 4px;
+  margin: -1px auto;
+  background: #b70000;
+  border-radius: 3px;
+}
+
+.reactTemplateBrowser-Template-upgradeLink:hover {
+  background: #018cB7;
+}

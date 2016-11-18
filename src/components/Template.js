@@ -114,21 +114,21 @@ class Template extends Component {
     const template = this.props.template;
     const cost = this.props.options.costType === 'plan' ?
       `Plan: ${ template.plan }` : `Pay As You Go: ${ template.price }`;
-    const upgradeLink = <button 
+    const upgradeLink = <span 
       className='reactTemplateBrowser-Template-upgradeLink'
       onMouseOver={ this.handleUpgradeHover }
       onMouseOut={ this.handleUpgradeUnhover }
-      >Upgrade</button>;
+      >Upgrade</span>;
     const regularOutput = [
       <span key='1' className='reactTemplateBrowser-Template-duration'>Duration: { template.duration }</span>,
       <span key='2' className='reactTemplateBrowser-Template-priceOrPlan'>{ cost }</span>
     ];
+    const upgradeMessage = <span className='reactTemplateBrowser-Template-upgradeMessage'>{ upgradeLink } for full access</span>;
     const hoverOutput = (() => {
       switch (true) {
         case this.getIsTrial(this.props.userType, template.plan):
-          return <span>or { upgradeLink } for full access</span>;
-        // case this.getIsDisabled(this.props.userType, template.plan):
-        //   return 'Click to preview only';
+        case this.getIsDisabled(this.props.userType, template.plan):
+          return upgradeMessage;
         default:
           return regularOutput;
       }

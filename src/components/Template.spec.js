@@ -96,7 +96,7 @@ describe('hover interactions', () => {
 
       component.setProps({isHovered: true});
 
-      expect(component.text()).toContain('or Upgrade for full access');
+      expect(component.text()).toContain('Upgrade for full access');
     });
 
     it('the call to action navigates to upgrade page', () => {
@@ -124,6 +124,14 @@ describe('hover interactions', () => {
 
       expect(component.text()).toContain('Click to preview only');
       expect(component.text()).not.toContain('ID:');
+    });
+    it('changes the lower bar to call to action', () => {
+      const template = create('template', {plan: 'Expert'});
+      const component = shallow(<Template template={ template } userType={ 'Free' } />);
+
+      component.setProps({isHovered: true});
+
+      expect(component.text()).toContain('Upgrade for full access');
     });
 
   });
