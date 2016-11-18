@@ -38,4 +38,12 @@ describe('Template Filters:', () => {
     });
   });
 
+  it('defaults to All Plans if no initial filter is given', () => {
+    const templates = [ create('template') ];
+
+    const filter = new Filter({}, templates);
+
+    expect(filter.getFilter()).toEqual({plan: 'All Plans'});
+  });
+
 });
