@@ -17,7 +17,7 @@ class Browser extends Component {
   constructor(props){
     super(props);
 
-    this.filter = new Filter({plan: 'All Plans'}, props.templates);
+    this.filter = new Filter(props.templates);
     this.setFilterTagName = this.setFilterTagName.bind(this);
     this.handleCostTypeChange = this.handleCostTypeChange.bind(this);
     this.setFilterPlanName = this.setFilterPlanName.bind(this);

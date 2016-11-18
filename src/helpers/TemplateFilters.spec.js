@@ -11,7 +11,7 @@ describe('Template Filters:', () => {
       create('template', {tags: ['green', 'red']}),
     ];
 
-    let results = new Filter({tags: 'green'}, templates).runFilter();
+    let results = new Filter(templates, {tags: 'green'}).runFilter();
 
     expect(results.length).toBe(3);
     results.forEach((result) => {
@@ -28,7 +28,7 @@ describe('Template Filters:', () => {
       create('template', {plan: 'Enterprise'}),
     ];
 
-    let results = new Filter({plan: 'Expert'}, templates).runFilter();
+    let results = new Filter(templates, {plan: 'Expert'}).runFilter();
 
     expect(results.length).toBe(3);
     results.forEach((result) => {
@@ -41,7 +41,7 @@ describe('Template Filters:', () => {
   it('defaults to All Plans if no initial filter is given', () => {
     const templates = [ create('template') ];
 
-    const filter = new Filter({}, templates);
+    const filter = new Filter(templates);
 
     expect(filter.getFilter()).toEqual({plan: 'All Plans'});
   });

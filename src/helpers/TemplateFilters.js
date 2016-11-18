@@ -1,10 +1,15 @@
 import { clone, isEmpty } from './ObjectHelpers'
 
 export default class TemplateFilters {
-  constructor (filterObject, templatesArray) {
-    this.filter = clone(filterObject);
+  constructor (templatesArray, filterObject) {
     this.allTemplates = clone(templatesArray);
-    if (isEmpty(this.filter)) { this.setFilter('plan', 'All Plans'); }
+    
+    this.filter = {};
+    if (isEmpty(filterObject)) {
+      this.setFilter('plan', 'All Plans'); 
+    } else {
+      this.filter = clone(filterObject);
+    }
   }
 
   getFilter (name) {
