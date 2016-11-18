@@ -35,4 +35,51 @@ describe('Object Helpers', () => {
       expect(numberResult).toEqual(aNumber);
     });
   });
+
+
+  describe('isEmpty()', () => {
+    const isEmpty = ObjectHelpers.isEmpty;
+    it('returns true for {}', () => {
+      let emptyObj = {};
+
+      let result = isEmpty(emptyObj);
+
+      expect(result).toEqual(true);
+    });
+
+    it('returns true for undefined', () => {
+      let result = isEmpty(undefined);
+
+      expect(result).toEqual(true);
+    });
+
+    it('returns true for null', () => {
+      let result = isEmpty(null);
+
+      expect(result).toEqual(true);
+    });
+
+    it('returns true for nothing passed in', () => {
+      let result = isEmpty();
+
+      expect(result).toEqual(true);
+    });
+
+    it('returns false for {something:"here"}', () => {
+      let obj = {something:"here"};
+
+      let result = isEmpty(obj);
+
+      expect(result).toEqual(false);
+    });
+
+    it('returns false for {something:{}}', () => {
+      let obj = {something:{}};
+
+      let result = isEmpty(obj);
+
+      expect(result).toEqual(false);
+    });
+
+  });
 });
