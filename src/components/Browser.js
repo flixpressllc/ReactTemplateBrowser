@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { union } from 'lodash';
 import Filter from '../helpers/TemplateFilters';
 import TemplateSorter from '../helpers/TemplateSorter';
+import { PAYG_PLAN_NAMES } from '../stores/app-settings';
 
 import CostSwitch from './CostSwitch';
 import TagPane from './TagPane';
@@ -24,11 +25,13 @@ class Browser extends Component {
     this.sortTemplates = this.sortTemplates.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
 
+    const userIsPAYG = PAYG_PLAN_NAMES.indexOf(props.userType) !== -1;
+
     this.state = {
       filter: this.filter.getFilter(),
       sortTemplatesBy: props.userType === 'Free' ? 'free-first' : 'newest',
       templateOptions: {
-        costType: 'plan'
+        costType: userIsPAYG ? 'price' : 'plan'
       }
     };
   }
@@ -75,11 +78,19 @@ class Browser extends Component {
     this.setState({sortTemplatesBy: sortType});
   }
 
+  renderCostSwitch () {
+    if (this.props.userType !== 'guest') {return null}
+    return <CostSwitch
+      onChange={ this.handleCostTypeChange }
+      value={ this.state.templateOptions.costType } />
+  }
+
   render() {
     const tags = this.getTags();
     const filteredTemplates = this.getFilteredTemplates();
     const page = this.state.page || 1;
     const templates = PaginationPane.paginate(filteredTemplates, page)
+    const costSwitch = this.renderCostSwitch();
 
     return (
       <div className='reactTemplateBrowser-Browser browser'>
@@ -96,9 +107,7 @@ class Browser extends Component {
           <PlanChooser
             onChange={ this.setFilterPlanName }
             value={ this.state.filter.plan } />
-          <CostSwitch
-            onChange={ this.handleCostTypeChange }
-            value={ this.state.templateOptions.costType } />
+          { costSwitch }
         </div>
         
         <PaginationPane
@@ -124,7 +133,8 @@ class Browser extends Component {
 }
 
 Browser.defaultProps = {
-  templates: []
+  templates: [],
+  userType: 'guest'
 };
 
 export default Browser;

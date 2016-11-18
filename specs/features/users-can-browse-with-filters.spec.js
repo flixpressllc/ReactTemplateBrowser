@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Browser from '../../src/components/Browser';
 import create from '../spec-helpers';
+import { PAYG_PLAN_NAMES } from '../../src/stores/app-settings';
 
 describe('Feature: Users can browse with filters', () => {
   describe('while logged out', () => {
@@ -40,6 +41,17 @@ describe('Feature: Users can browse with filters', () => {
   });
 
   describe('while logged in', () => {
-    pending();
+    it('does not show the Cost Switcher', () => {
+      const app = mount(<Browser userType={'Free'} />);
+      expect(app.find('CostSwitch').length).toEqual(0);
+    });
+    describe('for PAYG plans', () => {
+      PAYG_PLAN_NAMES.forEach( (planName) => {
+        it(`defaults ${ planName } users to cost`, () => {
+          const app = mount(<Browser userType={ planName } />);
+          expect(app.state().templateOptions.costType).toEqual('price');
+        });
+      });
+    });
   });
 });
