@@ -17,7 +17,7 @@ class Browser extends Component {
   constructor(props){
     super(props);
 
-    this.filter = new Filter({}, props.templates);
+    this.filter = new Filter({plan: 'All Plans'}, props.templates);
     this.setFilterTagName = this.setFilterTagName.bind(this);
     this.handleCostTypeChange = this.handleCostTypeChange.bind(this);
     this.setFilterPlanName = this.setFilterPlanName.bind(this);
@@ -26,6 +26,7 @@ class Browser extends Component {
 
     this.state = {
       filter: this.filter.getFilter(),
+      sortTemplatesBy: 'newest',
       templateOptions: {
         costType: 'plan'
       }
@@ -93,7 +94,7 @@ class Browser extends Component {
             value={ this.state.sortTemplatesBy } />
           <PlanChooser
             onChange={ this.setFilterPlanName }
-            value={ this.state.templateOptions.planType } />
+            value={ this.state.filter.plan } />
           <CostSwitch
             onChange={ this.handleCostTypeChange }
             value={ this.state.templateOptions.costType } />
