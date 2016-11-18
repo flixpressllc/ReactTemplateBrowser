@@ -26,7 +26,7 @@ class Browser extends Component {
 
     this.state = {
       filter: this.filter.getFilter(),
-      sortTemplatesBy: 'newest',
+      sortTemplatesBy: props.userType === 'Free' ? 'free-first' : 'newest',
       templateOptions: {
         costType: 'plan'
       }
@@ -91,6 +91,7 @@ class Browser extends Component {
         <div className='reactTemplateBrowser-Browser-filterContainer'>
           <SortSelector
             onChange={ this.sortTemplates }
+            userType={ this.props.userType }
             value={ this.state.sortTemplatesBy } />
           <PlanChooser
             onChange={ this.setFilterPlanName }
