@@ -8,7 +8,7 @@ class LoadingSpinner extends Component {
     if (!!this.props.active) {
       spinner = <svg className='reactTemplateBrowser-LoadingSpinner-spinner' viewBox="0 0 239.34 239">
         <g className="reactTemplateBrowser-LoadingSpinner-spinnerPartPlayButton" data-name="Play Symbol">
-          <path class="cls-1" d="M640.11,455.42a55.06,55.06,0,1,1,55.14-55.06A55.17,55.17,0,0,1,640.11,455.42Z" transform="translate(-520.5 -280.5)"/>
+          <path d="M640.11,455.42a55.06,55.06,0,1,1,55.14-55.06A55.17,55.17,0,0,1,640.11,455.42Z" transform="translate(-520.5 -280.5)"/>
           <path className="reactTemplateBrowser-LoadingSpinner-spinnerPartPlayButtonTriangle" d="M623.75,382.74V418a4.53,4.53,0,0,0,6.71,4l31.6-17.35a4.52,4.52,0,0,0,.05-7.89l-31.6-17.92A4.53,4.53,0,0,0,623.75,382.74Z" transform="translate(-520.5 -280.5)"/>
         </g>
         <g className="reactTemplateBrowser-LoadingSpinner-spinnerPartGear">
