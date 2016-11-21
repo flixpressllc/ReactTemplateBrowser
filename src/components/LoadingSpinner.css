@@ -1,4 +1,24 @@
 .reactTemplateBrowser-LoadingSpinner-spinner {
   height: 100%;
   width: 100%;
+  fill: #d61f26;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+    transform-origin: center;
+  }
+  100%{
+    transform: rotate(360deg);
+    transform-origin: center;
+  }
+}
+
+.reactTemplateBrowser-LoadingSpinner-spinnerPartGear {
+  animation: spin 5s linear infinite;
+}
+
+.reactTemplateBrowser-LoadingSpinner-spinnerPartPlayButtonTriangle {
+  fill: #fff;
 }
