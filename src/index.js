@@ -1,8 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Browser from './components/Browser';
+import DataAdapter from './helpers/DataAdapter';
 
-let templates = require('./stores/live-data-faker').default;
+const tempLiveData = require('./stores/derived-db-data');
+
+const isLocalhost = window.location.hostname === 'localhost';
+const liveDataFlagIsSet = window.location.search.indexOf('live=1') !== -1;
+const shouldUseLiveData = ( !isLocalhost || liveDataFlagIsSet );
+
+const tabSeparatesTemplates = shouldUseLiveData ? tempLiveData.live : tempLiveData.dev ;
+
+const templateData = new DataAdapter(tabSeparatesTemplates);
 
 /*
   Required options:
@@ -15,7 +24,7 @@ let templates = require('./stores/live-data-faker').default;
 */
 function initTemplateBrowser (options) {
   ReactDOM.render(
-    <Browser templates={ templates }
+    <Browser templates={ templateData.getList() }
       userType={ options.userType }
       onTemplateOpen={ options.onTemplateOpen } />,
     document.getElementById(options.divId)
