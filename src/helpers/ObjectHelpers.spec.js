@@ -82,4 +82,37 @@ describe('Object Helpers', () => {
     });
 
   });
+
+  describe('unique()', () => {
+    const unique = ObjectHelpers.unique;
+    it('returns an array with only unique values from a given array', () => {
+      const nonUnique = [1, 2, 3, 3, 4, 4, 4, 4, 5, 5, 4]
+      expect(unique(nonUnique)).toEqual([1,2,3,4,5]);
+    });
+
+    describe('bad input', () => {
+      const testNamesObjectsAndErrorMatches = [
+        ['null',
+          null, '[object Null]'],
+        ['undefined',
+          undefined, '[object Undefined]'],
+        ['an empty object',
+          {}, '[object Object]'],
+        ['a filled object',
+          {something: 'is in here'}, '[object Object]'],
+        ['a string',
+          'string', '[object String]'],
+        ['a number',
+          123, '[object Number]']
+      ]
+      for (let i = 0; i < testNamesObjectsAndErrorMatches.length; i++) {
+        const testName = testNamesObjectsAndErrorMatches[i][0];
+        const testObj = testNamesObjectsAndErrorMatches[i][1];
+        const regex = new RegExp(testNamesObjectsAndErrorMatches[i][2]);
+        it(`throws an error if the argument is ${testName}`, () => {
+          expect( () => { unique(testObj) } ).toThrowError(regex);
+        });
+      }
+    });
+  });
 });
