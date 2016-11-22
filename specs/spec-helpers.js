@@ -1,8 +1,8 @@
 import assign from 'object-assign';
 
-const faketories = {
+const faketories = () => { return {
   template: {
-    id: 79,
+    id: getNewId(),
     tags: [],
     name: 'Sparky Pro Electrocutionator',
     type: 'TextOnly',
@@ -10,11 +10,23 @@ const faketories = {
     duration: '0:23',
     plan: 'Expert',
     price: '$5'
+  },
+  templateGroup: {
+    id: getNewId(),
+    tags: [],
+    name: 'Some Great Group Name',
+    image: 'some/image.jpg',
   }
-};
+}};
+
+let incrementor = 1;
+
+function getNewId () {
+  return incrementor++;
+}
 
 function getFaketory (faketory) {
-  return faketories[faketory];
+  return faketories()[faketory];
 }
 
 export function create (faketory, overrides) {
