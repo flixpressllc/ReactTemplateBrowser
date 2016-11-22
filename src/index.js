@@ -24,7 +24,7 @@ const templateData = new DataAdapter(tabSeparatesTemplates);
 */
 function initTemplateBrowser (options) {
   ReactDOM.render(
-    <Browser templates={ templateData.getList() }
+    <Browser templates={ templateData.getTemplates() }
       userType={ options.userType }
       onTemplateOpen={ options.onTemplateOpen } />,
     document.getElementById(options.divId)
