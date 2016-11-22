@@ -17,9 +17,7 @@ class DataAdapter {
     let finalTemplates = [];
     tabSeparatedValues.match(INDIVIDUAL_LINES_PATTERN).forEach(function(line) {
       let args = this._getParams(line);
-      if (args[args.length -1 ].indexOf('Trial') === -1){
-        finalTemplates.push(this._createTemplate.apply(this, args));
-      }
+      finalTemplates.push(this._createTemplate.apply(this, args));
     }, this);
     return finalTemplates;
   }
