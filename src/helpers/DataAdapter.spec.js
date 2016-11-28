@@ -32,4 +32,15 @@ describe('Data Adapter', () => {
     expect(results.templateGroupsArray.length).toEqual(1);
     expect(results.templateGroupsArray[0]).toEqual(expectedGroup);
   });
+
+  it('returns the templates with the .getTemplates() method', () => {
+    const results = new DataAdapter(TWO_TEMPS_AND_ONE_GROUP);
+    
+    expect(results.getTemplates()).toEqual(results.templatesArray);
+  });
+  it('returns the template groups with the .getTemplateGroups() method', () => {
+    const results = new DataAdapter(TWO_TEMPS_AND_ONE_GROUP);
+    
+    expect(results.getTemplateGroups()).toEqual(results.templateGroupsArray);
+  });
 });
