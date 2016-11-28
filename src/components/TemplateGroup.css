@@ -1,0 +1,76 @@
+.reactTemplateBrowser-TemplateGroup {
+  overflow: hidden;
+  padding: 1px;
+  box-sizing: content-box;
+}
+
+.reactTemplateBrowser-TemplateGroup:before {
+  background: #555;
+  top: -6px;
+  bottom: 6px;
+  left: -6px;
+  right: 6px;
+}
+
+.reactTemplateBrowser-TemplateGroup:after {
+  background: #777;
+  top: -3px;
+  bottom: 3px;
+  left: -3px;
+  right: 3px;
+}
+
+.reactTemplateBrowser-TemplateGroup-previewArea {
+  position: relative;
+  height: 135px;
+  background-color: #999;
+  z-index: -1
+}
+
+.reactTemplateBrowser-TemplateGroup-priceOrPlan {
+  float: right;
+  margin-right: 10px;
+}
+
+.reactTemplateBrowser-TemplateGroup-duration {
+  float: left;
+  margin-left: 10px;
+}
+
+.reactTemplateBrowser-TemplateGroup-groupRibbon {
+  background-color: goldenrod;
+  overflow: hidden;
+  white-space: nowrap;
+  position: absolute;
+  left: -2.15em;
+  bottom: 0.5em;
+  -webkit-transform: rotate(46deg);
+  -ms-transform: rotate(46deg);
+  transform: rotate(46deg);
+  -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.8);
+  box-shadow: 0 0 5px rgba(0,0,0,0.8);
+  content: "";
+  color: #fff;
+  z-index: 1;
+  padding: 2px 2.5em 2px 2.3em;
+  letter-spacing: 0.05em;
+  font-weight: bold;
+}
+
+.reactTemplateBrowser-TemplateGroup-upgradeMessage {
+  display: block;
+  text-align: center;
+}
+
+.reactTemplateBrowser-TemplateGroup-upgradeLink {
+  display: inline-block;
+  color: white;
+  padding: 1px 4px;
+  margin: -1px auto;
+  background: #b70000;
+  border-radius: 3px;
+}
+
+.reactTemplateBrowser-TemplateGroup-upgradeLink:hover {
+  background: #018cB7;
+}

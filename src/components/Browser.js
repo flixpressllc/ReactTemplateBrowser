@@ -117,6 +117,7 @@ class Browser extends Component {
         
         <TemplatePane
           templates={ templates }
+          templateGroups={ this.props.templateGroups }
           userType={this.props.userType}
           hoveredTemplate={ this.state.hoveredTemplate }
           onHoveredTemplateChange={ this.handleHoveredTemplateChange }
@@ -134,6 +135,7 @@ class Browser extends Component {
 
 Browser.defaultProps = {
   templates: [],
+  templateGroups: [],
   userType: 'guest'
 };
 

@@ -17,3 +17,17 @@ it('displays templates', ()=>{
   const app = shallow(<TemplatePane templates={ templates } />);
   expect(app.find('Template').length).toBe(templates.length);
 });
+
+it('displays template groups', ()=>{
+  const groups = [create('templateGroup')];
+  const app = shallow(<TemplatePane templateGroups={ groups } />);
+  expect(app.find('TemplateGroup').length).toBe(1);
+});
+
+it('displays templates and groups together', ()=>{
+  const templates = TEST_TEMPLATES;
+  const groups = [create('templateGroup')];
+  const app = shallow(<TemplatePane templates={ templates } templateGroups={ groups } />);
+  expect(app.find('Template').length).toBe(templates.length);
+  expect(app.find('TemplateGroup').length).toBe(1);
+});
