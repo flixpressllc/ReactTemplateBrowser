@@ -59,7 +59,7 @@ class DataAdapter {
   _createTemplate (id, name, priceInt, cat1, cat2, duration, plan, type, parentId) {
     duration = this._durString(duration);
     return {
-      id: id,
+      id: parseInt(id, 10),
       tags: [cat1, cat2],
       name: name,
       type: type,
@@ -70,7 +70,7 @@ class DataAdapter {
       features: {
         has4k: this._has4k(id)
       },
-      parent: parentId
+      parentId: parseInt(parentId, 10)
     }
   };
 

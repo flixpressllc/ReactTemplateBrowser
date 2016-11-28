@@ -33,6 +33,40 @@ describe('Data Adapter', () => {
     expect(results.templateGroupsArray[0]).toEqual(expectedGroup);
   });
 
+  it('creates the expected object for a template', () => {
+    const expectedObject = {
+      id: 2,
+      tags: ['Intros', 'Intros'],
+      name: 'I\'m a template',
+      type: 'Images',
+      image: 'https://flixpress.com/tempImages/2.jpg',
+      duration: '0:10',
+      plan: 'Expert',
+      price: '$5',
+      features: {
+        has4k: false
+      },
+      parentId: 1
+    }
+    
+    const results = new DataAdapter(TWO_TEMPS_AND_ONE_GROUP);
+    
+    expect(results.templatesArray[0]).toEqual(expectedObject);
+  });
+
+  it('creates the expected object for a template group', () => {
+    const expectedObject = {
+      id: 1,
+      tags: ['Free Plan Templates', 'Intros'],
+      name: 'I\'m a group',
+      image: 'https://flixpress.com/tempImages/1.jpg',
+    }
+    
+    const results = new DataAdapter(TWO_TEMPS_AND_ONE_GROUP);
+    
+    expect(results.templateGroupsArray[0]).toEqual(expectedObject);
+  });
+
   it('returns the templates with the .getTemplates() method', () => {
     const results = new DataAdapter(TWO_TEMPS_AND_ONE_GROUP);
     
