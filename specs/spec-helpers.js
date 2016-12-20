@@ -16,6 +16,8 @@ const faketories = () => { return {
     tags: [],
     name: 'Some Great Group Name',
     image: 'some/image.jpg',
+    plan: 'Expert',
+    children: [],
   }
 }};
 

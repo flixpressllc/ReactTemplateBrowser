@@ -18,20 +18,22 @@ describe('Feature: Templates and groups appear and work together', () => {
   });
 
   it('displays templates and groups together', ()=>{
-    const templates = [create('template'), create('template')];
-    const groups = [create('templateGroup')];
+    const templates = [create('template'), create('template'),create('templateGroup')];
 
-    const app = mount(<Browser templates={ templates } templateGroups={ groups } />);
-    const totalLength = app.find('Template').length + app.find('TemplateGroup').length;
-    
-    expect(totalLength).toBe(3);
+    const app = mount(<Browser templates={ templates } />);
+
+    expect(app.find('TemplateGroup').length).toEqual(1);
+    expect(app.find('Template').length).toEqual(2);
   });
 
   it('displays templates and groups in order', ()=>{
-    const templates = [create('template', {id: 1}), create('template', {id: 3})];
-    const groups = [create('templateGroup', {id: 2})];
+    const templates = [
+      create('template', {id: 1}),
+      create('template', {id: 3}),
+      create('templateGroup', {id: 2})
+    ];
 
-    const app = mount(<Browser templates={ templates } templateGroups={ groups } />);
+    const app = mount(<Browser templates={ templates } />);
     const secondPaneItem = app.find('.reactTemplateBrowser-TemplatePane-paneItem').at(1);
 
     expect(secondPaneItem.find('TemplateGroup').length).toEqual(1);

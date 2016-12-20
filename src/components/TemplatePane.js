@@ -37,43 +37,28 @@ class TemplatePane extends Component {
   }
 
   renderItems () {
-    const templates = this.renderTemplates();
-    const templateGroups = this.renderTemplateGroups();
-    let totalCount = templates.length + templateGroups.length;
-    return templates.concat(templateGroups);
-  }
-
-  renderTemplates () {
     return this.props.templates.map( (template, i) => {
       const templateIsHovered = this.getHoveredStateById(template.id);
+      const isTemplate = template.children === undefined;
+      const TemplateOrGroup = isTemplate ? Template : TemplateGroup;
+      let props = {
+        userType: this.props.userType,
+        isHovered: templateIsHovered,
+        onHoverChange: this.handleHoveredTemplateChange,
+        options: this.props.templateOptions
+      };
+      if (isTemplate) {
+        props.template = template;
+        props.openTemplate = this.handleTemplateOpen;
+      } else {
+        // is TemplateGroup
+        props.templateGroup = template;
+        props.openGroup = this.handleGroupOpen;
+      }
       return(
         <div className='reactTemplateBrowser-TemplatePane-paneItem'
           key={`template-item-${template.id}-${i}`} >
-          <Template
-            template={ template }
-            openTemplate={ this.handleTemplateOpen }
-            userType={ this.props.userType }
-            isHovered={ templateIsHovered }
-            onHoverChange={ this.handleHoveredTemplateChange }
-            options={ this.props.templateOptions } />
-          </div>
-      );
-    });
-  }
-
-  renderTemplateGroups () {
-    return this.props.templateGroups.map( (templateGroup, i) => {
-      const isHovered = this.getHoveredStateById(templateGroup.id);
-      return(
-        <div className='reactTemplateBrowser-TemplatePane-paneItem'
-          key={`templateGroup-item-${templateGroup.id}-${i}`} >
-          <TemplateGroup
-            templateGroup={ templateGroup }
-            // openTemplate={ this.handleTemplateOpen }
-            userType={ this.props.userType }
-            isHovered={ isHovered }
-            // onHoverChange={ this.handleHoveredTemplateChange }
-            />
+          <TemplateOrGroup { ...props }/>
           </div>
       );
     });
@@ -91,7 +76,6 @@ class TemplatePane extends Component {
 
 TemplatePane.defaultProps = {
   templates: [],
-  templateGroups: [],
   templateOptions: {
     costType: 'plan'
   },

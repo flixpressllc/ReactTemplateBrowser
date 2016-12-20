@@ -121,8 +121,8 @@ export const dev = `1	Lots of Text	0	Free Plan Templates	Intros	26 seconds	Free	
 77	Glamour Intro	8	Intros	Intros	10 seconds	Personal	Images	NULL
 78	Cat Ad Pro	30	Ads	Ads	30 seconds	Expert	TextOnly	NULL
 79	Flex Intro	5	Intros	Intros	10 seconds	Expert	TextOnly	85
-81	CityHQ Pro	35	Multi-Layout	Multi-Layout	Variable Timing	Expert	Slides	NULL
-82	Problem Ad	40	Ads	Ads	30 seconds	Business	Images	NULL
-83	Stellar Intro	6	Intros	Intros	13 seconds	Expert	TextOnly	NULL
-84	Xform Intro	7	Intros	Intros	10 seconds	Expert	TextOnly	NULL
+81	CityHQ Pro	35	Multi-Layout	Multi-Layout	Variable Timing	Expert	Slides	85
+82	Problem Ad	40	Ads	Ads	30 seconds	Business	Images	85
+83	Stellar Intro	6	Intros	Intros	13 seconds	Expert	TextOnly	85
+84	Xform Intro	7	Intros	Intros	10 seconds	Expert	TextOnly	85
 85	Compete Intro	5	Intros	Intros	10 seconds	Expert	Images	NULL`;

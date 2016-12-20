@@ -98,7 +98,7 @@ class Browser extends Component {
           tags={ tags }
           chooseTag={ this.setFilterTagName }
           activeTag={ this.state.filter.tags } />
-        
+
         <div className='reactTemplateBrowser-Browser-filterContainer'>
           <SortSelector
             onChange={ this.sortTemplates }
@@ -109,21 +109,20 @@ class Browser extends Component {
             value={ this.state.filter.plan } />
           { costSwitch }
         </div>
-        
+
         <PaginationPane
           currentPage={ page }
           numItems={ filteredTemplates.length }
           onChange={ this.handlePageChange }/>
-        
+
         <TemplatePane
           templates={ templates }
-          templateGroups={ this.props.templateGroups }
           userType={this.props.userType}
           hoveredTemplate={ this.state.hoveredTemplate }
           onHoveredTemplateChange={ this.handleHoveredTemplateChange }
           templateOptions={ this.state.templateOptions }
           onTemplateOpen={ this.props.onTemplateOpen } />
-        
+
         <PaginationPane
           currentPage={ page }
           numItems={ filteredTemplates.length }
@@ -135,7 +134,6 @@ class Browser extends Component {
 
 Browser.defaultProps = {
   templates: [],
-  templateGroups: [],
   userType: 'guest'
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow, mount, render } from 'enzyme';
 import create from '../../specs/spec-helpers';
 import TemplatePane from './TemplatePane';
 
@@ -20,14 +20,13 @@ it('displays templates', ()=>{
 
 it('displays template groups', ()=>{
   const groups = [create('templateGroup')];
-  const app = shallow(<TemplatePane templateGroups={ groups } />);
+  const app = shallow(<TemplatePane templates={ groups } />);
   expect(app.find('TemplateGroup').length).toBe(1);
 });
 
 it('displays templates and groups together', ()=>{
-  const templates = TEST_TEMPLATES;
-  const groups = [create('templateGroup')];
-  const app = shallow(<TemplatePane templates={ templates } templateGroups={ groups } />);
-  expect(app.find('Template').length).toBe(templates.length);
+  const templates = TEST_TEMPLATES.concat([create('templateGroup')]);
+  const app = shallow(<TemplatePane templates={ templates } />);
+  expect(app.find('Template').length).toBe(TEST_TEMPLATES.length);
   expect(app.find('TemplateGroup').length).toBe(1);
 });
