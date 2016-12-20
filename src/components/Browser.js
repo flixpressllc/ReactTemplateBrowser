@@ -24,6 +24,7 @@ class Browser extends Component {
     this.setFilterPlanName = this.setFilterPlanName.bind(this);
     this.sortTemplates = this.sortTemplates.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
+    this.handleGroupOpen = this.handleGroupOpen.bind(this);
 
     const userIsPAYG = PAYG_PLAN_NAMES.indexOf(props.userType) !== -1;
 
@@ -58,6 +59,11 @@ class Browser extends Component {
     this.setState({
       templateOptions: templateOptions
     })
+  }
+
+  handleGroupOpen (groupId) {
+    this.filter.setFilter('templateGroup', groupId);
+    this.setState({page: 1});
   }
 
   handlePageChange (newPageData) {
@@ -121,6 +127,7 @@ class Browser extends Component {
           hoveredTemplate={ this.state.hoveredTemplate }
           onHoveredTemplateChange={ this.handleHoveredTemplateChange }
           templateOptions={ this.state.templateOptions }
+          onGroupOpen={ this.handleGroupOpen }
           onTemplateOpen={ this.props.onTemplateOpen } />
 
         <PaginationPane

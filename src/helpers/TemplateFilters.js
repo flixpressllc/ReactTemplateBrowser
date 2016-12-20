@@ -3,10 +3,10 @@ import { clone, isEmpty } from './ObjectHelpers'
 export default class TemplateFilters {
   constructor (templatesArray, filterObject) {
     this.allTemplates = clone(templatesArray);
-    
+
     this.filter = {};
     if (isEmpty(filterObject)) {
-      this.setFilter('plan', 'All Plans'); 
+      this.setFilter('plan', 'All Plans');
     } else {
       this.filter = clone(filterObject);
     }
@@ -22,7 +22,7 @@ export default class TemplateFilters {
   runFilter () {
     let filteredTemplates = clone(this.allTemplates);
     let filter = this.filter;
-    
+
     for (let name in filter) {
       if (!filter.hasOwnProperty(name)) { continue; }
       filteredTemplates = this._filterBy(name, filteredTemplates);
@@ -42,6 +42,8 @@ export default class TemplateFilters {
     switch (name) {
       case 'plan':
         return this._filterByPlan(templates);
+      case 'templateGroup':
+        return this._filterByTemplateGroup(templates);
       default:
         return this._filterByArbitrary(name, templates);
     }
@@ -71,6 +73,14 @@ export default class TemplateFilters {
         let thisTemplateValue = planValues[template.plan]
         return thisTemplateValue <= filterValue;
       });
+    }
+    return templates
+  }
+
+  _filterByTemplateGroup (templates) {
+    if (this.filter.templateGroup) {
+      const selectedGroup = templates.filter(template => template.id === this.filter.templateGroup)[0];
+      return clone(selectedGroup.children);
     }
     return templates
   }

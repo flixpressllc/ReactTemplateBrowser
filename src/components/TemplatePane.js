@@ -14,6 +14,7 @@ class TemplatePane extends Component {
 
     this.handleHoveredTemplateChange = this.handleHoveredTemplateChange.bind(this);
     this.handleTemplateOpen = this.handleTemplateOpen.bind(this);
+    this.handleGroupOpen = this.handleGroupOpen.bind(this);
   }
 
   getHoveredStateById (templateId) {
@@ -33,6 +34,12 @@ class TemplatePane extends Component {
   handleTemplateOpen (templateId, templateType) {
     this.setState({hoveredTemplate: null}, () => {
       this.props.onTemplateOpen(templateId, templateType);
+    });
+  }
+
+  handleGroupOpen (groupId) {
+    this.setState({hoveredTemplate: null}, () => {
+      this.props.onGroupOpen(groupId);
     });
   }
 

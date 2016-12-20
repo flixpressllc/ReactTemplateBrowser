@@ -39,4 +39,19 @@ describe('Feature: Templates and groups appear and work together', () => {
     expect(secondPaneItem.find('TemplateGroup').length).toEqual(1);
   });
 
+  it('displays children on TemplateGroup click', () => {
+    const templates = [
+      create('template', {id:1}),
+      create('templateGroup', {id:2, children: [
+        create('template', {id:3, parentId: 2}),
+        create('template', {id:4, parentId: 2}),
+        create('template', {id:5, parentId: 2})
+      ]}),
+    ]
+
+    const app = mount(<Browser templates={ templates } />);
+    app.find('TemplateGroup').simulate('click');
+
+    expect(app.find('Template').length).toEqual(3);
+  });
 });

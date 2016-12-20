@@ -9,7 +9,7 @@ import cx from 'classnames';
 import './TemplateGroup.css';
 
 class TemplateGroup extends Component {
-  
+
   constructor (props) {
     super(props)
     this.state = {
@@ -67,9 +67,8 @@ class TemplateGroup extends Component {
       this.navigateToPath(this.renderLink());
       return;
     }
-    this.props.openTemplate(
-      this.props.templateGroup.id,
-      this.props.templateGroup.type
+    this.props.openGroup(
+      this.props.templateGroup.id
     )
   }
 
@@ -114,7 +113,7 @@ class TemplateGroup extends Component {
     const template = this.props.templateGroup;
     const cost = this.props.options.costType === 'plan' ?
       `Plan: ${ template.plan }` : `Pay As You Go: ${ template.price }`;
-    const upgradeLink = <span 
+    const upgradeLink = <span
       className='reactTemplateBrowser-TemplateGroup-upgradeLink'
       onMouseOver={ this.handleUpgradeHover }
       onMouseOut={ this.handleUpgradeUnhover }
@@ -134,7 +133,7 @@ class TemplateGroup extends Component {
     })();
     return (this.props.isHovered) ? hoverOutput : regularOutput;
   }
-  
+
   renderRibbons () {
     let ribbons = [];
     if (this.state.isTrial) {
