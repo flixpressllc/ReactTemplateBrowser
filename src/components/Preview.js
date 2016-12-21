@@ -4,7 +4,7 @@ import { padLeft } from '../helpers/StringHelpers';
 import './Preview.css';
 
 class Preview extends Component {
-  
+
   constructor (props) {
     super(props);
     this.state = {
@@ -21,7 +21,7 @@ class Preview extends Component {
     this.handleVideoLoadEnd = this.handleVideoLoadEnd.bind(this);
     this.handleVideoLoadStart = this.handleVideoLoadStart.bind(this);
     this.videoMounted = this.videoMounted.bind(this);
-  } 
+  }
 
   handleVideoLoadEnd () {
     this.setState({videoIsLoading: false});
@@ -63,6 +63,7 @@ class Preview extends Component {
         <video className='reactTemplateBrowser-Preview-video'
           style={ styles.video }
           src={ this.videoSrc }
+          preload="none"
           onLoadStart={ this.handleVideoLoadStart }
           onPlaying={ this.handleVideoLoadEnd }
           ref={ (el) => { this.videoMounted(el) } }
