@@ -70,7 +70,6 @@ export const live = `1	Lots of Text	0	Free Plan Templates	Intro	26 seconds	Free	
 102	Live City Intro	7	Intro	Intro	7 seconds	Expert	Images	NULL
 105	Speed Intro	8	Intro	Intro	10 Seconds	Expert	Images	NULL
 106	Christmas Pro	30	Pro Templates	Pro Templates	Flexible	Expert	Slides	NULL
-107	YT Outro Promo	5	Intro	Intro	15	Personal	TextOnly	NULL
 108	Inferno Pro	20	Pro Templates	Pro Templates	Flexible	Expert	Slides	NULL`;
 
 export const dev = `1	Lots of Text	0	Free Plan Templates	Intros	26 seconds	Free	Images	NULL
