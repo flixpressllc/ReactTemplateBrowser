@@ -3,6 +3,7 @@ import { union } from 'lodash';
 import Filter from '../helpers/TemplateFilters';
 import TemplateSorter from '../helpers/TemplateSorter';
 import { PAYG_PLAN_NAMES } from '../stores/app-settings';
+import { clone } from '../helpers/ObjectHelpers';
 
 import CostSwitch from './CostSwitch';
 import TagPane from './TagPane';
@@ -63,13 +64,22 @@ class Browser extends Component {
   }
 
   handleGroupOpen (groupId) {
+    this.preGroupState = {
+      page: this.state.page,
+      filter: this.state.filter,
+      sortTemplatesBy: this.state.sortTemplatesBy
+    };
     this.filter.setFilter('templateGroup', groupId);
     this.setState({page: 1});
   }
 
   handleGroupClose () {
     this.filter.setFilter('templateGroup', '');
-    this.setState({page: 1});
+    if (this.preGroupState) {
+      this.setState(this.preGroupState, () => {this.preGroupState = undefined;});
+    } else {
+      this.setState({page: 1});
+    }
   }
 
   handlePageChange (newPageData) {

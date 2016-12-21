@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, render } from 'enzyme';
 import Browser from '../../src/components/Browser';
 import create from '../spec-helpers';
 import { DEFAULT_PAGE_SIZE } from '../../src/stores/app-settings';
@@ -62,4 +62,32 @@ describe('Feature: Templates and groups appear and work together', () => {
     expect(app.find('TemplateGroup').length).toEqual(1);
   });
 
+  it('returns to previous state after exititng a group', () => {
+    let templates = [];
+    for (var i = 0; i < DEFAULT_PAGE_SIZE; i++) {
+      templates.push( create('template', {plan: 'Free'}) );
+    }
+    templates.push(create('templateGroup', {id: 204, plan: 'Free', children: [
+      create('template', {parentId: 204}),
+      create('template', {parentId: 204}),
+      create('template', {parentId: 204})
+    ]}));
+    const app = mount(<Browser templates={ templates } />);
+
+    // Sort by oldest first
+    const sortSelectorSelect = app.find('.reactTemplateBrowser-SortSelector select').at(0);
+    sortSelectorSelect.simulate('change', {target: {value: 'oldest'}});
+    // Show free plan templates only
+    const planChooserSelect = app.find('.reactTemplateBrowser-PlanChooser select').at(0);
+    planChooserSelect.simulate('change', {target: {value: 'Free'}});
+    // Enter a group
+    app.find('PaginationPane [rel="next"]').at(0).simulate('click');
+    app.find('TemplateGroup').simulate('click');
+    // Leave Group
+    app.find('.reactTemplateBrowser-Browser-groupEscape button').simulate('click');
+
+    expect(app.state().page).toEqual(2);
+    expect(app.state().sortTemplatesBy).toEqual('oldest');
+    expect(app.state().filter.plan).toEqual('Free');
+  });
 });

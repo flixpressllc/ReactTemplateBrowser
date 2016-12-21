@@ -5,18 +5,17 @@ import create from '../spec-helpers';
 
 describe('Feature: Users can sort the template list', () => {
   it('shows newest templates by default', () => {
-    const templates = [ 
+    const templates = [
       create('template', {id: 1, name: 'Old Template'}),
       create('template', {id: 100, name: 'Cool new template'})
     ];
-    const newestSortEvent = {target: {value: 'newest'}};
     const app = mount(<Browser templates={ templates } />);
 
     expect(app.find('Template').first().text()).toContain('Cool new template');
   });
 
   it('sorts by value', () => {
-    const templates = [ 
+    const templates = [
       create('template', {id: 1, price: '$4', name: 'Lowest Price Temp'}),
       create('template', {id: 100, price: '$5', name: 'Highest Price Temp'})
     ];
