@@ -1,4 +1,9 @@
 .reactTemplateBrowser-TemplatePane {
+  padding: 20px 0;
+  background: #333;
+}
+
+.reactTemplateBrowser-TemplatePane-templateField {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

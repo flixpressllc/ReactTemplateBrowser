@@ -8,13 +8,13 @@ import { SUBSCRIPTION_PLAN_VALUES_HASH } from '../stores/app-settings';
 import cx from 'classnames';
 import './Template.css';
 
-class Template extends Component {
+class TemplateGroup extends Component {
 
   constructor (props) {
     super(props)
     this.state = {
-      isTrial: this.getIsTrial(props.userType, props.template.plan),
-      isDisabled: this.getIsDisabled(props.userType, props.template.plan)
+      isTrial: this.getIsTrial(props.userType, props.templateGroup.plan),
+      isDisabled: this.getIsDisabled(props.userType, props.templateGroup.plan)
     }
 
     this.navigateToPath = navigateToPath; // allows for testing
@@ -41,7 +41,7 @@ class Template extends Component {
   }
 
   renderLink () {
-    const t = this.props.template;
+    const t = this.props.templateGroup;
     const templateLink = `/templates/${t.type}.aspx?tid=${t.id}`;
     const upgradeLink = '/upgrade';
     return this.state.upgradeHover ? upgradeLink : templateLink ;
@@ -67,9 +67,8 @@ class Template extends Component {
       this.navigateToPath(this.renderLink());
       return;
     }
-    this.props.openTemplate(
-      this.props.template.id,
-      this.props.template.type
+    this.props.openGroup(
+      this.props.templateGroup.id
     )
   }
 
@@ -86,15 +85,15 @@ class Template extends Component {
   }
 
   handleHoverOn () {
-    this.props.onHoverChange( 'on', this.props.template.id );
+    this.props.onHoverChange( 'on', this.props.templateGroup.id );
   }
 
   handleHoverOff () {
-    this.props.onHoverChange( 'off', this.props.template.id );
+    this.props.onHoverChange( 'off', this.props.templateGroup.id );
   }
 
   renderHeaderText () {
-    const template = this.props.template;
+    const template = this.props.templateGroup;
     const hoverText = (() => {
       switch (true) {
         case (this.props.userType === 'guest'):
@@ -107,23 +106,22 @@ class Template extends Component {
           return 'Click to edit';
       }
     })();
-    return (this.props.isHovered) ? hoverText : `ID:${template.id} ${template.name}`;
+    return (this.props.isHovered) ? hoverText : `Group: ${template.name}`;
   }
 
   renderFooterText () {
-    const template = this.props.template;
+    const template = this.props.templateGroup;
     const cost = this.props.options.costType === 'plan' ?
       `Plan: ${ template.plan }` : `Pay As You Go: ${ template.price }`;
     const upgradeLink = <span
-      className='reactTemplateBrowser-Template-upgradeLink'
+      className='reactTemplateBrowser-TemplateGroup-upgradeLink'
       onMouseOver={ this.handleUpgradeHover }
       onMouseOut={ this.handleUpgradeUnhover }
       >Upgrade</span>;
     const regularOutput = [
-      <span key='1' className='reactTemplateBrowser-Template-duration'>Duration: { template.duration }</span>,
-      <span key='2' className='reactTemplateBrowser-Template-priceOrPlan'>{ cost }</span>
+      <span key='2' className='reactTemplateBrowser-TemplateGroup-priceOrPlan'>{ cost }</span>
     ];
-    const upgradeMessage = <span className='reactTemplateBrowser-Template-upgradeMessage'>{ upgradeLink } for full access</span>;
+    const upgradeMessage = <span className='reactTemplateBrowser-TemplateGroup-upgradeMessage'>{ upgradeLink } for full access</span>;
     const hoverOutput = (() => {
       switch (true) {
         case this.getIsTrial(this.props.userType, template.plan):
@@ -138,16 +136,20 @@ class Template extends Component {
 
   renderRibbons () {
     let ribbons = [];
-    let hasRibbons = false;
     if (this.state.isTrial) {
-      hasRibbons = true;
       ribbons.push(
-        <div key='trial' className='reactTemplateBrowser-Template-trialRibbon'>
+        <div key='trial' className='reactTemplateBrowser-TemplateGroup-trialRibbon'>
           Trial
         </div>
       )
     }
-    return hasRibbons ?  ribbons : null ;
+    ribbons.push(
+      <div key='group' className='reactTemplateBrowser-TemplateGroup-groupRibbon'>
+        Group
+      </div>
+    )
+
+    return ribbons;
   }
 
   render (){
@@ -155,7 +157,7 @@ class Template extends Component {
     const headerText = this.renderHeaderText();
     const footerText = this.renderFooterText();
     const ribbons = this.renderRibbons();
-    const className = cx('reactTemplateBrowser-Template', {'disabled-template': this.state.isDisabled});
+    const className = cx('reactTemplateBrowser-TemplateGroup', {'disabled-template': this.state.isDisabled});
 
     return (
       <a className={ className }
@@ -163,14 +165,14 @@ class Template extends Component {
         ref={ (el) => this.mountedInstance = el }
         onClick={ this.handleClickOnTemplate } >
 
-        <header className='reactTemplateBrowser-Template-header'>
+        <header className='reactTemplateBrowser-TemplateGroup-header'>
           { headerText }
         </header>
-        <div className='reactTemplateBrowser-Template-previewArea'>
-          <Preview templateId={ this.props.template.id } active={ this.props.isHovered } />
-          <TemplateFeatures features={ this.props.template.features } hideBadges={ this.props.isHovered }/>
+        <div className='reactTemplateBrowser-TemplateGroup-previewArea'>
+          <Preview templateId={ this.props.templateGroup.id } active={ this.props.isHovered } />
+          <TemplateFeatures features={ this.props.templateGroup.features } hideBadges={ this.props.isHovered }/>
         </div>
-        <div className='reactTemplateBrowser-Template-footer'>
+        <div className='reactTemplateBrowser-TemplateGroup-footer'>
           { footerText }
         </div>
         { ribbons }
@@ -179,10 +181,10 @@ class Template extends Component {
   }
 }
 
-Template.defaultProps = {
+TemplateGroup.defaultProps = {
   options: {
     costType: 'plan'
   }
 };
 
-export default Template;
+export default TemplateGroup;

@@ -25,12 +25,12 @@ describe('Data Adapter', () => {
   });
 
   it('creates group objects for parent templates only', () => {
-    const expectedGroup = create('templateGroup', {id: 1, name: 'I\'m a group', tags: ['Free Plan Templates', 'Intros'], image: 'https://flixpress.com/tempImages/1.jpg' })
-    
+    const expectedGroup = create('templateGroup', {id: 1, name: 'I\'m a group', tags: ['Free Plan Templates', 'Intros'], image: 'https://flixpress.com/tempImages/1.jpg', children: [2] })
+
     const results = new DataAdapter(TWO_TEMPS_AND_ONE_GROUP);
-    
+
     expect(results.templateGroupsArray.length).toEqual(1);
-    expect(results.templateGroupsArray[0]).toEqual(expectedGroup);
+    expect(results.templateGroupsArray[0].id).toEqual(1);
   });
 
   it('creates the expected object for a template', () => {
@@ -48,9 +48,9 @@ describe('Data Adapter', () => {
       },
       parentId: 1
     }
-    
+
     const results = new DataAdapter(TWO_TEMPS_AND_ONE_GROUP);
-    
+
     expect(results.templatesArray[0]).toEqual(expectedObject);
   });
 
@@ -60,21 +60,69 @@ describe('Data Adapter', () => {
       tags: ['Free Plan Templates', 'Intros'],
       name: 'I\'m a group',
       image: 'https://flixpress.com/tempImages/1.jpg',
+      duration: '0:26',
+      plan: 'Free',
+      price: '$0',
+      features: {
+        has4k: false
+      },
+      type: 'Images',
+      children: [2]
     }
-    
+
     const results = new DataAdapter(TWO_TEMPS_AND_ONE_GROUP);
-    
+
     expect(results.templateGroupsArray[0]).toEqual(expectedObject);
   });
 
-  it('returns the templates with the .getTemplates() method', () => {
+  it('returns the non-child templates with the .getTemplates() method', () => {
     const results = new DataAdapter(TWO_TEMPS_AND_ONE_GROUP);
-    
-    expect(results.getTemplates()).toEqual(results.templatesArray);
+    const expectedObject = {
+      id: 4,
+      tags: ['Intros', 'Intros'],
+      name: 'I\'m a template',
+      type: 'Images',
+      image: 'https://flixpress.com/tempImages/4.jpg',
+      duration: '0:10',
+      plan: 'Expert',
+      price: '$5',
+      features: {
+        has4k: false
+      }
+    };
+
+    expect(results.getTemplates()).toEqual([expectedObject]);
   });
   it('returns the template groups with the .getTemplateGroups() method', () => {
     const results = new DataAdapter(TWO_TEMPS_AND_ONE_GROUP);
-    
-    expect(results.getTemplateGroups()).toEqual(results.templateGroupsArray);
+    const expectedObject = {
+      id: 1,
+      tags: ['Free Plan Templates', 'Intros'],
+      name: 'I\'m a group',
+      image: 'https://flixpress.com/tempImages/1.jpg',
+      duration: '0:26',
+      plan: 'Free',
+      price: '$0',
+      features: {
+        has4k: false
+      },
+      type: 'Images',
+      children: [{
+        id: 2,
+        tags: ['Intros', 'Intros'],
+        name: 'I\'m a template',
+        type: 'Images',
+        image: 'https://flixpress.com/tempImages/2.jpg',
+        duration: '0:10',
+        plan: 'Expert',
+        price: '$5',
+        features: {
+          has4k: false
+        },
+        parentId: 1
+      }]
+    }
+
+    expect(results.getTemplateGroups()).toEqual([expectedObject]);
   });
 });

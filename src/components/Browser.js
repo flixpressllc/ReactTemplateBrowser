@@ -3,6 +3,7 @@ import { union } from 'lodash';
 import Filter from '../helpers/TemplateFilters';
 import TemplateSorter from '../helpers/TemplateSorter';
 import { PAYG_PLAN_NAMES } from '../stores/app-settings';
+import { clone } from '../helpers/ObjectHelpers';
 
 import CostSwitch from './CostSwitch';
 import TagPane from './TagPane';
@@ -24,6 +25,8 @@ class Browser extends Component {
     this.setFilterPlanName = this.setFilterPlanName.bind(this);
     this.sortTemplates = this.sortTemplates.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
+    this.handleGroupOpen = this.handleGroupOpen.bind(this);
+    this.handleGroupClose = this.handleGroupClose.bind(this);
 
     const userIsPAYG = PAYG_PLAN_NAMES.indexOf(props.userType) !== -1;
 
@@ -60,6 +63,25 @@ class Browser extends Component {
     })
   }
 
+  handleGroupOpen (groupId) {
+    this.preGroupState = {
+      page: this.state.page,
+      filter: this.state.filter,
+      sortTemplatesBy: this.state.sortTemplatesBy
+    };
+    this.filter.setFilter('templateGroup', groupId);
+    this.setState({page: 1});
+  }
+
+  handleGroupClose () {
+    this.filter.setFilter('templateGroup', '');
+    if (this.preGroupState) {
+      this.setState(this.preGroupState, () => {this.preGroupState = undefined;});
+    } else {
+      this.setState({page: 1});
+    }
+  }
+
   handlePageChange (newPageData) {
     this.setState({page: newPageData.onPage});
   }
@@ -85,12 +107,35 @@ class Browser extends Component {
       value={ this.state.templateOptions.costType } />
   }
 
+  renderSortSelectorOrGroupEscape () {
+    if ( ! this.state.filter.templateGroup) {
+      return [
+        <SortSelector
+          key="sort"
+          onChange={ this.sortTemplates }
+          userType={ this.props.userType }
+          value={ this.state.sortTemplatesBy } />,
+        <PlanChooser
+          key="plan"
+          onChange={ this.setFilterPlanName }
+          value={ this.state.filter.plan } />
+      ];
+    } else {
+      return (
+        <div className="reactTemplateBrowser-Browser-groupEscape">
+          <button type="button" onClick={ this.handleGroupClose } >Back to All Templates</button>
+        </div>
+      );
+    }
+  }
+
   render() {
     const tags = this.getTags();
     const filteredTemplates = this.getFilteredTemplates();
     const page = this.state.page || 1;
     const templates = PaginationPane.paginate(filteredTemplates, page)
     const costSwitch = this.renderCostSwitch();
+    const sortAndPlanOrEscape = this.renderSortSelectorOrGroupEscape();
 
     return (
       <div className='reactTemplateBrowser-Browser browser'>
@@ -98,31 +143,26 @@ class Browser extends Component {
           tags={ tags }
           chooseTag={ this.setFilterTagName }
           activeTag={ this.state.filter.tags } />
-        
+
         <div className='reactTemplateBrowser-Browser-filterContainer'>
-          <SortSelector
-            onChange={ this.sortTemplates }
-            userType={ this.props.userType }
-            value={ this.state.sortTemplatesBy } />
-          <PlanChooser
-            onChange={ this.setFilterPlanName }
-            value={ this.state.filter.plan } />
+          { sortAndPlanOrEscape }
           { costSwitch }
         </div>
-        
+
         <PaginationPane
           currentPage={ page }
           numItems={ filteredTemplates.length }
           onChange={ this.handlePageChange }/>
-        
+
         <TemplatePane
           templates={ templates }
           userType={this.props.userType}
           hoveredTemplate={ this.state.hoveredTemplate }
           onHoveredTemplateChange={ this.handleHoveredTemplateChange }
           templateOptions={ this.state.templateOptions }
+          onGroupOpen={ this.handleGroupOpen }
           onTemplateOpen={ this.props.onTemplateOpen } />
-        
+
         <PaginationPane
           currentPage={ page }
           numItems={ filteredTemplates.length }

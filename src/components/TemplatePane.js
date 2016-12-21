@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Template from './Template';
+import TemplateGroup from './TemplateGroup';
 import './TemplatePane.css';
 
 class TemplatePane extends Component {
@@ -13,6 +14,7 @@ class TemplatePane extends Component {
 
     this.handleHoveredTemplateChange = this.handleHoveredTemplateChange.bind(this);
     this.handleTemplateOpen = this.handleTemplateOpen.bind(this);
+    this.handleGroupOpen = this.handleGroupOpen.bind(this);
   }
 
   getHoveredStateById (templateId) {
@@ -35,26 +37,47 @@ class TemplatePane extends Component {
     });
   }
 
-  renderTemplates () {
+  handleGroupOpen (groupId) {
+    this.setState({hoveredTemplate: null}, () => {
+      this.props.onGroupOpen(groupId);
+    });
+  }
+
+  renderItems () {
     return this.props.templates.map( (template, i) => {
       const templateIsHovered = this.getHoveredStateById(template.id);
+      const isTemplate = template.children === undefined;
+      const TemplateOrGroup = isTemplate ? Template : TemplateGroup;
+      let props = {
+        userType: this.props.userType,
+        isHovered: templateIsHovered,
+        onHoverChange: this.handleHoveredTemplateChange,
+        options: this.props.templateOptions
+      };
+      if (isTemplate) {
+        props.template = template;
+        props.openTemplate = this.handleTemplateOpen;
+      } else {
+        // is TemplateGroup
+        props.templateGroup = template;
+        props.openGroup = this.handleGroupOpen;
+      }
       return(
-        <Template key={`template-item-${template.id}-${i}`}
-          template={ template }
-          openTemplate={ this.handleTemplateOpen }
-          userType={ this.props.userType }
-          isHovered={ templateIsHovered }
-          onHoverChange={ this.handleHoveredTemplateChange }
-          options={ this.props.templateOptions } />
+        <div className='reactTemplateBrowser-TemplatePane-paneItem'
+          key={`template-item-${template.id}-${i}`} >
+          <TemplateOrGroup { ...props }/>
+          </div>
       );
     });
   }
 
   render () {
-    const templates = this.renderTemplates();
+    const items = this.renderItems();
     return (
       <div className='reactTemplateBrowser-TemplatePane'>
-        { templates }
+        <div className='reactTemplateBrowser-TemplatePane-templateField'>
+          { items }
+        </div>
       </div>
     )
   }
