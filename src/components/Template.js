@@ -9,7 +9,7 @@ import cx from 'classnames';
 import './Template.css';
 
 class Template extends Component {
-  
+
   constructor (props) {
     super(props)
     this.state = {
@@ -114,7 +114,7 @@ class Template extends Component {
     const template = this.props.template;
     const cost = this.props.options.costType === 'plan' ?
       `Plan: ${ template.plan }` : `Pay As You Go: ${ template.price }`;
-    const upgradeLink = <span 
+    const upgradeLink = <span
       className='reactTemplateBrowser-Template-upgradeLink'
       onMouseOver={ this.handleUpgradeHover }
       onMouseOut={ this.handleUpgradeUnhover }
@@ -135,7 +135,7 @@ class Template extends Component {
     })();
     return (this.props.isHovered) ? hoverOutput : regularOutput;
   }
-  
+
   renderRibbons () {
     let ribbons = [];
     let hasRibbons = false;
@@ -155,7 +155,7 @@ class Template extends Component {
     const headerText = this.renderHeaderText();
     const footerText = this.renderFooterText();
     const ribbons = this.renderRibbons();
-    const className = cx('reactTemplateBrowser-Template template browserItem', {'disabled-template': this.state.isDisabled});
+    const className = cx('reactTemplateBrowser-Template', {'disabled-template': this.state.isDisabled});
 
     return (
       <a className={ className }
@@ -163,14 +163,14 @@ class Template extends Component {
         ref={ (el) => this.mountedInstance = el }
         onClick={ this.handleClickOnTemplate } >
 
-        <header className='browserInnerItem'>
+        <header className='reactTemplateBrowser-Template-header'>
           { headerText }
         </header>
         <div className='reactTemplateBrowser-Template-previewArea'>
           <Preview templateId={ this.props.template.id } active={ this.props.isHovered } />
           <TemplateFeatures features={ this.props.template.features } hideBadges={ this.props.isHovered }/>
         </div>
-        <div className='browserSubTitleDiv'>
+        <div className='reactTemplateBrowser-Template-footer'>
           { footerText }
         </div>
         { ribbons }

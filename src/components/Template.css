@@ -1,27 +1,85 @@
-.reactTemplateBrowser-Template {
+.reactTemplateBrowser-Template,
+.reactTemplateBrowser-TemplateGroup {
   overflow: hidden;
-  padding: 1px;
   box-sizing: content-box;
+  box-shadow: 3px 3px 8px #000;
+  transition: transform 0.17s ease-out, box-shadow 0.17s;
+  width: 240px;
+  z-index: 0;
+  position: relative;
+  float: left;
+  margin: 25px;
 }
 
-.reactTemplateBrowser-Template-previewArea {
+.reactTemplateBrowser-Template:hover,
+.reactTemplateBrowser-TemplateGroup:hover {
+  transform: scale(1.1);
+  box-shadow: 3px 3px 24px #000;
+}
+
+
+
+.reactTemplateBrowser-Template-header,
+.reactTemplateBrowser-Template-footer,
+.reactTemplateBrowser-TemplateGroup-header,
+.reactTemplateBrowser-TemplateGroup-footer {
+  padding: 7px 0;
+  background-color: #181818;
+  color: #fff;
+  width: 240px;
+  position: relative;
+  /*border: 1px solid #222;*/
+}
+
+.reactTemplateBrowser-Template:hover .reactTemplateBrowser-Template-header,
+.reactTemplateBrowser-Template:hover .reactTemplateBrowser-Template-footer,
+.reactTemplateBrowser-TemplateGroup:hover .reactTemplateBrowser-TemplateGroup-header,
+.reactTemplateBrowser-TemplateGroup:hover .reactTemplateBrowser-TemplateGroup-footer {
+  background-color: #000;
+}
+
+.reactTemplateBrowser-Template-header,
+.reactTemplateBrowser-TemplateGroup-header {
+  text-align: center;
+  font-size: 14px;
+  border-bottom: none;
+}
+
+.reactTemplateBrowser-Template-footer,
+.reactTemplateBrowser-TemplateGroup-footer {
+  font-size: 12px;
+  border-top: none;
+}
+
+.reactTemplateBrowser-Template-footer::after,
+.reactTemplateBrowser-TemplateGroup-footer::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.reactTemplateBrowser-Template-previewArea,
+.reactTemplateBrowser-TemplateGroup-previewArea {
   position: relative;
   height: 135px;
   background-color: #999;
   z-index: -1
 }
 
-.reactTemplateBrowser-Template-priceOrPlan {
+.reactTemplateBrowser-Template-priceOrPlan,
+.reactTemplateBrowser-TemplateGroup-priceOrPlan {
   float: right;
   margin-right: 10px;
 }
 
-.reactTemplateBrowser-Template-duration {
+.reactTemplateBrowser-Template-duration,
+.reactTemplateBrowser-TemplateGroup-duration {
   float: left;
   margin-left: 10px;
 }
 
-.reactTemplateBrowser-Template-trialRibbon {
+.reactTemplateBrowser-Template-trialRibbon,
+.reactTemplateBrowser-TemplateGroup-trialRibbon {
   background-color: #018cB7;
   overflow: hidden;
   white-space: nowrap;
@@ -41,12 +99,34 @@
   font-weight: bold;
 }
 
-.reactTemplateBrowser-Template-upgradeMessage {
+.reactTemplateBrowser-TemplateGroup-groupRibbon {
+  background-color: goldenrod;
+  overflow: hidden;
+  white-space: nowrap;
+  position: absolute;
+  left: -2.0em;
+  bottom: 0.5em;
+  -webkit-transform: rotate(46deg);
+  -ms-transform: rotate(46deg);
+  transform: rotate(46deg);
+  -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.8);
+  box-shadow: 0 0 5px rgba(0,0,0,0.8);
+  content: "";
+  color: #fff;
+  z-index: 1;
+  padding: 2px 2.5em 2px 1.9em;
+  letter-spacing: 0.05em;
+  font-weight: bold;
+}
+
+.reactTemplateBrowser-Template-upgradeMessage,
+.reactTemplateBrowser-TemplateGroup-upgradeMessage {
   display: block;
   text-align: center;
 }
 
-.reactTemplateBrowser-Template-upgradeLink {
+.reactTemplateBrowser-Template-upgradeLink,
+.reactTemplateBrowser-TemplateGroup-upgradeLink {
   display: inline-block;
   color: white;
   padding: 1px 4px;
@@ -55,6 +135,7 @@
   border-radius: 3px;
 }
 
-.reactTemplateBrowser-Template-upgradeLink:hover {
+.reactTemplateBrowser-Template-upgradeLink:hover,
+.reactTemplateBrowser-TemplateGroup-upgradeLink:hover {
   background: #018cB7;
 }

@@ -75,7 +75,9 @@ class TemplatePane extends Component {
     const items = this.renderItems();
     return (
       <div className='reactTemplateBrowser-TemplatePane'>
-        { items }
+        <div className='reactTemplateBrowser-TemplatePane-templateField'>
+          { items }
+        </div>
       </div>
     )
   }

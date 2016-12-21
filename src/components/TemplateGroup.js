@@ -6,7 +6,7 @@ import { padLeft } from '../helpers/StringHelpers';
 import { navigateToPath } from '../helpers/Navigation';
 import { SUBSCRIPTION_PLAN_VALUES_HASH } from '../stores/app-settings';
 import cx from 'classnames';
-import './TemplateGroup.css';
+import './Template.css';
 
 class TemplateGroup extends Component {
 
@@ -157,7 +157,7 @@ class TemplateGroup extends Component {
     const headerText = this.renderHeaderText();
     const footerText = this.renderFooterText();
     const ribbons = this.renderRibbons();
-    const className = cx('reactTemplateBrowser-TemplateGroup template browserItem', {'disabled-template': this.state.isDisabled});
+    const className = cx('reactTemplateBrowser-TemplateGroup', {'disabled-template': this.state.isDisabled});
 
     return (
       <a className={ className }
@@ -165,14 +165,14 @@ class TemplateGroup extends Component {
         ref={ (el) => this.mountedInstance = el }
         onClick={ this.handleClickOnTemplate } >
 
-        <header className='browserInnerItem'>
+        <header className='reactTemplateBrowser-TemplateGroup-header'>
           { headerText }
         </header>
         <div className='reactTemplateBrowser-TemplateGroup-previewArea'>
           <Preview templateId={ this.props.templateGroup.id } active={ this.props.isHovered } />
           <TemplateFeatures features={ this.props.templateGroup.features } hideBadges={ this.props.isHovered }/>
         </div>
-        <div className='browserSubTitleDiv'>
+        <div className='reactTemplateBrowser-TemplateGroup-footer'>
           { footerText }
         </div>
         { ribbons }
