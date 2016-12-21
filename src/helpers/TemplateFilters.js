@@ -86,6 +86,8 @@ export default class TemplateFilters {
   }
 
   _setArbitraryFilter (name, data) {
+    delete this.filter.templateGroup;
+
     this.filter[name] = data;
     return this.filter;
   }

@@ -90,4 +90,20 @@ describe('Feature: Templates and groups appear and work together', () => {
     expect(app.state().sortTemplatesBy).toEqual('oldest');
     expect(app.state().filter.plan).toEqual('Free');
   });
+
+  it('selecting a tag exits the group', () => {
+    const templates = [
+      create('template', {tags: ['Monkey']}),
+      create('template'),
+      create('templateGroup', {id:45, children: [
+        create('template'),
+        create('template')
+      ]})
+    ]
+    const app = mount(<Browser templates={ templates } />);
+    app.find('TemplateGroup').simulate('click');
+    app.find('.reactTemplateBrowser-TagPane-tag').last().simulate('click');
+
+    expect(app.find('Template').length).toEqual(1);
+  });
 });
