@@ -3,7 +3,7 @@
   overflow: hidden;
   box-sizing: content-box;
   box-shadow: 3px 3px 8px #000;
-  transition: transform 0.17s ease-out, box-shadow 0.17s;
+  transition: transform 0.17s ease-out, box-shadow 0.17s !important;
   width: 240px;
   z-index: 0;
   position: relative;
