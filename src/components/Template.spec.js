@@ -10,15 +10,15 @@ it('renders without crashing', () => {
 it('renders the template name', () => {
   let templateObject = create('template');
   templateObject.name = 'Sparky'
-  
+
   const component = shallow(<Template template={ templateObject } />)
-  
+
   expect(component.text()).toContain('Sparky');
 });
 
 it('creates a correctly formatted link', () => {
   let templateObject = create('template', {id: 79, type: 'Slides'});
-  
+
   const component = shallow(<Template template={ templateObject } />);
 
   expect(component.find('a').first().prop('href')).toBe('/templates/Slides.aspx?tid=79');
@@ -26,7 +26,7 @@ it('creates a correctly formatted link', () => {
 
 it('displays the duration', () => {
   let templateObject = create('template', {duration: '1:00'});
-  
+
   const component = shallow(<Template template={ templateObject } />);
 
   expect(component.text()).toContain('1:00');
@@ -36,7 +36,7 @@ describe('when asked, ', () => {
   it('displays the lowest plan it is in', () => {
     let templateObject = create('template', {plan: 'Personal', price: '$30'});
     let opts = { costType: 'plan' }
-    
+
     const component = shallow(<Template template={ templateObject } options={ opts } />);
 
     expect(component.text()).toContain('Personal');
@@ -46,7 +46,7 @@ describe('when asked, ', () => {
   it('displays the price', () => {
     let templateObject = create('template', {plan: 'Personal', price: '$25'});
     let opts = { costType: 'price' }
-    
+
     const component = shallow(<Template template={ templateObject } options={ opts } />);
 
     expect(component.text()).toContain('$25');
@@ -62,7 +62,7 @@ describe('hover interactions', () => {
 
       component.setProps({isHovered: true});
 
-      expect(component.text()).toContain('Login to edit');
+      expect(component.text()).toContain('Login to create');
       expect(component.text()).not.toContain('ID:');
     });
 
@@ -74,7 +74,7 @@ describe('hover interactions', () => {
 
       component.setProps({isHovered: true});
 
-      expect(component.text()).toContain('Click to edit');
+      expect(component.text()).toContain('Click to create');
       expect(component.text()).not.toContain('ID:');
     });
 
@@ -142,7 +142,7 @@ describe('hover interactions', () => {
 
       component.setProps({isHovered: true});
 
-      expect(component.text()).toContain('Click to edit');
+      expect(component.text()).toContain('Click to create');
       expect(component.text()).not.toContain('ID:');
     });
 

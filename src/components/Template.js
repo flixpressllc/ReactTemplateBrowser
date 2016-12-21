@@ -98,13 +98,13 @@ class Template extends Component {
     const hoverText = (() => {
       switch (true) {
         case (this.props.userType === 'guest'):
-          return 'Login to edit';
+          return 'Login to create';
         case this.getIsTrial(this.props.userType, template.plan):
           return 'Click to try';
         case this.getIsDisabled(this.props.userType, template.plan):
           return 'Click to preview only';
         default:
-          return 'Click to edit';
+          return 'Click to create';
       }
     })();
     return (this.props.isHovered) ? hoverText : `ID:${template.id} ${template.name}`;

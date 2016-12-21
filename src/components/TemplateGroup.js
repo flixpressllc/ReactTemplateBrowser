@@ -94,18 +94,7 @@ class TemplateGroup extends Component {
 
   renderHeaderText () {
     const template = this.props.templateGroup;
-    const hoverText = (() => {
-      switch (true) {
-        case (this.props.userType === 'guest'):
-          return 'Login to edit';
-        case this.getIsTrial(this.props.userType, template.plan):
-          return 'Click to try';
-        case this.getIsDisabled(this.props.userType, template.plan):
-          return 'Click to preview only';
-        default:
-          return 'Click to edit';
-      }
-    })();
+    const hoverText = 'Click to view group';
     return (this.props.isHovered) ? hoverText : `Group: ${template.name}`;
   }
 
