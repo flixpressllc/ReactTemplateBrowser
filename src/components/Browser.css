@@ -1,5 +1,5 @@
 .reactTemplateBrowser-Browser {
-  background-color: #eaeaea;
+  background: transparent;
 }
 
 .reactTemplateBrowser-Browser:after,
@@ -12,6 +12,7 @@
 
 .reactTemplateBrowser-Browser-filterContainer {
   text-align: center;
+  background: #eaeaea;
 }
 
 .reactTemplateBrowser-Browser-filterContainer > div {

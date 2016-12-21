@@ -1,6 +1,7 @@
 .reactTemplateBrowser-PaginationPane {
   display: block;
   text-align: center;
+  background-color: #eaeaea;
 }
 .reactTemplateBrowser-PaginationPane-nav {
   display: inline-block;
