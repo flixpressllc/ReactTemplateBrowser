@@ -25,6 +25,7 @@ class Browser extends Component {
     this.sortTemplates = this.sortTemplates.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
     this.handleGroupOpen = this.handleGroupOpen.bind(this);
+    this.handleGroupClose = this.handleGroupClose.bind(this);
 
     const userIsPAYG = PAYG_PLAN_NAMES.indexOf(props.userType) !== -1;
 
@@ -66,6 +67,11 @@ class Browser extends Component {
     this.setState({page: 1});
   }
 
+  handleGroupClose () {
+    this.filter.setFilter('templateGroup', '');
+    this.setState({page: 1});
+  }
+
   handlePageChange (newPageData) {
     this.setState({page: newPageData.onPage});
   }
@@ -91,12 +97,35 @@ class Browser extends Component {
       value={ this.state.templateOptions.costType } />
   }
 
+  renderSortSelectorOrGroupEscape () {
+    if ( ! this.state.filter.templateGroup) {
+      return [
+        <SortSelector
+          key="sort"
+          onChange={ this.sortTemplates }
+          userType={ this.props.userType }
+          value={ this.state.sortTemplatesBy } />,
+        <PlanChooser
+          key="plan"
+          onChange={ this.setFilterPlanName }
+          value={ this.state.filter.plan } />
+      ];
+    } else {
+      return (
+        <div className="reactTemplateBrowser-Browser-groupEscape">
+          <button type="button" onClick={ this.handleGroupClose } >Back to All Templates</button>
+        </div>
+      );
+    }
+  }
+
   render() {
     const tags = this.getTags();
     const filteredTemplates = this.getFilteredTemplates();
     const page = this.state.page || 1;
     const templates = PaginationPane.paginate(filteredTemplates, page)
     const costSwitch = this.renderCostSwitch();
+    const sortAndPlanOrEscape = this.renderSortSelectorOrGroupEscape();
 
     return (
       <div className='reactTemplateBrowser-Browser browser'>
@@ -106,13 +135,7 @@ class Browser extends Component {
           activeTag={ this.state.filter.tags } />
 
         <div className='reactTemplateBrowser-Browser-filterContainer'>
-          <SortSelector
-            onChange={ this.sortTemplates }
-            userType={ this.props.userType }
-            value={ this.state.sortTemplatesBy } />
-          <PlanChooser
-            onChange={ this.setFilterPlanName }
-            value={ this.state.filter.plan } />
+          { sortAndPlanOrEscape }
           { costSwitch }
         </div>
 

@@ -5,18 +5,6 @@ import create from '../spec-helpers';
 import { DEFAULT_PAGE_SIZE } from '../../src/stores/app-settings';
 
 describe('Feature: Templates and groups appear and work together', () => {
-  it(`shows the default ${ DEFAULT_PAGE_SIZE } items at a time by default`, () => {
-    let templates = [];
-    const numTemplates = DEFAULT_PAGE_SIZE + 1
-    for (var i = 0; i < numTemplates; i++) {
-      templates.push( create('template') );
-    }
-
-    const app = mount(<Browser templates={ templates } />);
-
-    expect(app.find('Template').length).toEqual(DEFAULT_PAGE_SIZE);
-  });
-
   it('displays templates and groups together', ()=>{
     const templates = [create('template'), create('template'),create('templateGroup')];
 
@@ -52,6 +40,26 @@ describe('Feature: Templates and groups appear and work together', () => {
     const app = mount(<Browser templates={ templates } />);
     app.find('TemplateGroup').simulate('click');
 
+    expect(app.find('TemplateGroup').length).toEqual(0);
     expect(app.find('Template').length).toEqual(3);
   });
+
+  it('displays all templates again on group exit', () => {
+    const templates = [
+      create('template', {id:1}),
+      create('templateGroup', {id:2, children: [
+        create('template', {id:3, parentId: 2}),
+        create('template', {id:4, parentId: 2}),
+        create('template', {id:5, parentId: 2})
+      ]}),
+    ]
+
+    const app = mount(<Browser templates={ templates } />);
+    app.find('TemplateGroup').simulate('click');
+    app.find('.reactTemplateBrowser-Browser-groupEscape button').simulate('click');
+
+    expect(app.find('Template').length).toEqual(1);
+    expect(app.find('TemplateGroup').length).toEqual(1);
+  });
+
 });
