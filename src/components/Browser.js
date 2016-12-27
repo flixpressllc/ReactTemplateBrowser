@@ -4,6 +4,7 @@ import Filter from '../helpers/TemplateFilters';
 import TemplateSorter from '../helpers/TemplateSorter';
 import { PAYG_PLAN_NAMES } from '../stores/app-settings';
 import { clone } from '../helpers/ObjectHelpers';
+import { unslugify } from '../helpers/StringHelpers';
 
 import CostSwitch from './CostSwitch';
 import TagPane from './TagPane';
@@ -11,6 +12,8 @@ import TemplatePane from './TemplatePane';
 import PlanChooser from './PlanChooser';
 import SortSelector from './SortSelector';
 import PaginationPane from './PaginationPane';
+
+import '../helpers/eventPolyfills';
 
 import './Browser.css';
 
@@ -27,6 +30,8 @@ class Browser extends Component {
     this.handlePageChange = this.handlePageChange.bind(this);
     this.handleGroupOpen = this.handleGroupOpen.bind(this);
     this.handleGroupClose = this.handleGroupClose.bind(this);
+    this.handleChooseTag = this.handleChooseTag.bind(this);
+    this.handleHashChange = this.handleHashChange.bind(this);
 
     const userIsPAYG = PAYG_PLAN_NAMES.indexOf(props.userType) !== -1;
 
@@ -37,6 +42,14 @@ class Browser extends Component {
         costType: userIsPAYG ? 'price' : 'plan'
       }
     };
+  }
+
+  componentWillMount () {
+    window.addEventListener('hashchange', this.handleHashChange, false);
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('hashchange', this.handleHashChange, false);
   }
 
   getTags() {
@@ -63,6 +76,10 @@ class Browser extends Component {
     })
   }
 
+  handleChooseTag(tagName) {
+    this.setFilterTagName(tagName);
+  }
+
   handleGroupOpen (groupId) {
     this.preGroupState = {
       page: this.state.page,
@@ -82,11 +99,19 @@ class Browser extends Component {
     }
   }
 
+  handleHashChange (e) {
+    let newHash = e.newURL.slice(e.newURL.indexOf('#'));
+    let unslug = unslugify(newHash).slice(1);
+    unslug = unslug === 'All Templates' ? '' : unslug;
+    this.setFilterTagName(unslug);
+  }
+
   handlePageChange (newPageData) {
     this.setState({page: newPageData.onPage});
   }
 
   setFilterTagName(tagName) {
+    if (this.state.filter.tags === tagName) return;
     this.filter.setFilter('tags', tagName);
     this.setState({page: 1});
   }
@@ -141,7 +166,7 @@ class Browser extends Component {
       <div className='reactTemplateBrowser-Browser browser'>
         <TagPane
           tags={ tags }
-          chooseTag={ this.setFilterTagName }
+          chooseTag={ this.handleChooseTag }
           activeTag={ this.state.filter.tags } />
 
         <div className='reactTemplateBrowser-Browser-filterContainer'>
