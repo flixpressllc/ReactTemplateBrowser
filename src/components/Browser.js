@@ -33,6 +33,13 @@ class Browser extends Component {
     this.handleChooseTag = this.handleChooseTag.bind(this);
     this.handleHashChange = this.handleHashChange.bind(this);
 
+    let possibleTag = unslugify(window.location.hash.slice(1));
+    this.filter.setFilter('tags', possibleTag);
+    if (this.filter.runFilter().length === 0) {
+      window.location = '#all-templates';
+      this.filter.setFilter('tags','');
+    }
+
     const userIsPAYG = PAYG_PLAN_NAMES.indexOf(props.userType) !== -1;
 
     this.state = {
