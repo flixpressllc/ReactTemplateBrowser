@@ -71,4 +71,4 @@
 105, Speed Intro, 8, Intro, Intro, 10 Seconds, Expert, Images, NULL
 106, Christmas Pro, 30, Pro Templates, Pro Templates, Flexible, Expert, Slides, NULL
 108, Inferno Pro, 20, Pro Templates, Promo, Flexible, Expert, Slides, NULL
-111, Breaking Free Intro, 0, Free Plan Templates, Intro, 10 Seconds, Free
+111, Breaking Free Intro, 0, Free Plan Templates, Intro, 10 Seconds, Free, Images, NULL
