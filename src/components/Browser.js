@@ -55,6 +55,27 @@ class Browser extends Component {
     window.addEventListener('hashchange', this.handleHashChange, false);
   }
 
+  componentDidMount () {
+    this.openQueriedTemplate();
+  }
+
+  getUrlSearch () {
+    return window.location.search;
+  }
+
+  openQueriedTemplate () {
+    let query = this.getUrlSearch().slice(1);
+    let id = false;
+    if (query.indexOf('tid=') !== -1) {
+      id = parseInt(query.match(/tid=([0-9]+)/)[1], 10);
+    }
+    if (id === false) return;
+    let chosenTemplate = this.props.templates.filter( t => t.id === id )[0];
+    if (chosenTemplate && chosenTemplate.type !== undefined) {
+      this.props.onTemplateOpen(id, chosenTemplate.type);
+    }
+  }
+
   componentWillUnmount () {
     window.removeEventListener('hashchange', this.handleHashChange, false);
   }
