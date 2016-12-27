@@ -3,14 +3,11 @@ import ReactDOM from 'react-dom';
 import Browser from './components/Browser';
 import DataAdapter from './helpers/DataAdapter';
 
-// const tempLiveData = require('./stores/derived-db-data');
+const isLocalhost = window.location.hostname === 'localhost';
+const liveDataFlagIsSet = window.location.search.indexOf('live=1') !== -1;
+const shouldUseLiveData = ( !isLocalhost || liveDataFlagIsSet );
 
-// const isLocalhost = window.location.hostname === 'localhost';
-// const liveDataFlagIsSet = window.location.search.indexOf('live=1') !== -1;
-// const shouldUseLiveData = ( !isLocalhost || liveDataFlagIsSet );
-
-// const tabSeparatesTemplates = shouldUseLiveData ? tempLiveData.live : tempLiveData.dev ;
-
+const fileForData = shouldUseLiveData ? 'liveTemplateData.txt' : 'testingTemplateData.txt' ;
 
 /*
   Required options:
@@ -23,7 +20,7 @@ import DataAdapter from './helpers/DataAdapter';
 */
 function initTemplateBrowser (options) {
   window.$.ajax({
-    url:'/Scripts/ReactTemplateBrowser/liveTemplateData.txt',
+    url:'/Scripts/ReactTemplateBrowser/' + fileForData,
     dataType: 'text'
   }).done(function (data) {
     const templateData = new DataAdapter(data);
