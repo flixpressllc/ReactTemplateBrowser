@@ -6,10 +6,10 @@ const TEMPLATES_WITH_4K = [85,84,83,79,65,64,51,50];
 
 class DataAdapter {
 
-  constructor (tabSeparatedValues) {
-    this.templateGroupIds = this._findTemplateGroupIds(tabSeparatedValues);
-    this.templateGroupsArray = this._createTemplateGroupsArray(tabSeparatedValues);
-    this.templatesArray = this._createTemplateObjectsArray(tabSeparatedValues);
+  constructor (commaSeparatedValues) {
+    this.templateGroupIds = this._findTemplateGroupIds(commaSeparatedValues);
+    this.templateGroupsArray = this._createTemplateGroupsArray(commaSeparatedValues);
+    this.templatesArray = this._createTemplateObjectsArray(commaSeparatedValues);
 
     this.templateGroupsArray = this._addChildrenToGroups(this.templateGroupsArray);
   }
@@ -69,9 +69,9 @@ class DataAdapter {
     return undefined;
   }
 
-  _createTemplateGroupsArray (tabSeparatedValues) {
+  _createTemplateGroupsArray (commaSeparatedValues) {
     let templateGroups = [];
-    tabSeparatedValues.match(INDIVIDUAL_LINES_PATTERN).forEach( (line) => {
+    commaSeparatedValues.match(INDIVIDUAL_LINES_PATTERN).forEach( (line) => {
       let args = this._getParams(line);
       let tempId = parseInt(args[0], 10);
       if (this.templateGroupIds.indexOf(tempId) === -1) return;
@@ -80,9 +80,9 @@ class DataAdapter {
     return templateGroups;
   }
 
-  _findTemplateGroupIds (tabSeparatedValues) {
+  _findTemplateGroupIds (commaSeparatedValues) {
     let gIds = [];
-    tabSeparatedValues.match(INDIVIDUAL_LINES_PATTERN).forEach( (line) => {
+    commaSeparatedValues.match(INDIVIDUAL_LINES_PATTERN).forEach( (line) => {
       let args = this._getParams(line);
       let parentId = args[args.length - 1];
       if (parentId !== 'NULL') gIds.push(parseInt(parentId, 10));
@@ -90,9 +90,9 @@ class DataAdapter {
     return unique(gIds).sort( (a, b) => a - b );
   }
 
-  _createTemplateObjectsArray (tabSeparatedValues) {
+  _createTemplateObjectsArray (commaSeparatedValues) {
     let finalTemplates = [];
-    tabSeparatedValues.match(INDIVIDUAL_LINES_PATTERN).forEach( (line) => {
+    commaSeparatedValues.match(INDIVIDUAL_LINES_PATTERN).forEach( (line) => {
       let args = this._getParams(line);
       let tempId = parseInt(args[0], 10);
       if (this.templateGroupIds.indexOf(tempId) !== -1) return;
@@ -102,7 +102,8 @@ class DataAdapter {
   }
 
   _getParams (line) {
-    return line.match(/[^\t]+/g);
+    const matches = line.match(/[^,]+/g);
+    return matches.map(a => a.trim());
   }
 
   _createTemplate (id, name, priceInt, cat1, cat2, duration, plan, type, parentId) {
