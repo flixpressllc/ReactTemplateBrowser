@@ -1,17 +1,17 @@
 import DataAdapter from '../../src/helpers/DataAdapter';
 import { create } from '../../specs/spec-helpers';
 
-const TEMPS_WITH_GROUPS = `1	Lots of Text	0	Free Plan Templates	Intros	26 seconds	Free	Images	NULL
-2	World Intro	0	Free Plan Templates	Intros	10 seconds	Free	Images	NULL
-3	Tech Puzzle	2	Slideshow	Slideshow	52 seconds	Personal	Images	NULL
-60	Gaming XL2	5	Intros	Intros	15 seconds	Personal	Images	NULL
-79	Flex Intro	5	Intros	Intros	10 seconds	Expert	TextOnly	85
-50	Hands Intro	2	Intros	Intros	8 seconds	Expert	TextOnly	60
-85	Compete Intro	5	Intros	Intros	10 seconds	Expert	Images	NULL`;
+const TEMPS_WITH_GROUPS = `1, Lots of Text, 0, Free Plan Templates, Intros, 26 seconds, Free, Images, NULL
+2, World Intro, 0, Free Plan Templates, Intros, 10 seconds, Free, Images, NULL
+3, Tech Puzzle, 2, Slideshow, Slideshow, 52 seconds, Personal, Images, NULL
+60, Gaming XL2, 5, Intros, Intros, 15 seconds, Personal, Images, NULL
+79, Flex Intro, 5, Intros, Intros, 10 seconds, Expert, TextOnly, 85
+50, Hands Intro, 2, Intros, Intros, 8 seconds, Expert, TextOnly, 60
+85, Compete Intro, 5, Intros, Intros, 10 seconds, Expert, Images, NULL`;
 
-const TWO_TEMPS_AND_ONE_GROUP = `1	I'm a group	0	Free Plan Templates	Intros	26 seconds	Free	Images	NULL
-2	I'm a template	5	Intros	Intros	10 seconds	Expert	Images	1
-4	I'm a template	5	Intros	Intros	10 seconds	Expert	Images	NULL`;
+const TWO_TEMPS_AND_ONE_GROUP = `1, I'm a group, 0, Free Plan Templates, Intros, 26 seconds, Free, Images, NULL
+2, I'm a template, 5, Intros, Intros, 10 seconds, Expert, Images, 1
+4, I'm a template, 5, Intros, Intros, 10 seconds, Expert, Images, NULL`;
 
 describe('Data Adapter', () => {
   it('finds internal group ids and sorts them', () => {
