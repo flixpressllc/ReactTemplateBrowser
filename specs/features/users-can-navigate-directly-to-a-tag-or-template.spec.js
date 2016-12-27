@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Browser from '../../src/components/Browser';
+import { DEFAULT_PAGE_SIZE } from '../../src/stores/app-settings';
 import create from '../spec-helpers';
 
 describe('Feature: Users can navigate directly to a tag or template', () => {
@@ -41,7 +42,7 @@ describe('Feature: Users can navigate directly to a tag or template', () => {
     });
   });
   describe('when the url contains a template id', () => {
-    it('shows a view containing that template and opens the colorbox to that template', () => {
+    it('opens the colorbox to that template', () => {
       const templates = [
         create('template', {id: 1, type: 'TextOnly'}),
         create('template'),
@@ -54,6 +55,21 @@ describe('Feature: Users can navigate directly to a tag or template', () => {
       app.instance().openQueriedTemplate();
 
       expect(openTemplate).toHaveBeenCalledWith(1, 'TextOnly');
+    });
+
+    it('navigates to a page with the given template', () => {
+      let templates = []
+      for (var i = 0; i < DEFAULT_PAGE_SIZE ; i++) {
+        templates.push(create('template'));
+      }
+      templates.push(create('template', {id: 10001, name: 'My Special Template'}))
+      const fakeGetUrlSearch = () => '?tid=10001';
+      const app = mount(<Browser templates={ templates } />);
+      app.instance().getUrlSearch = fakeGetUrlSearch;
+
+      app.instance().navigateToQueriedTemplate();
+
+      expect(app.text()).toContain('My Special Template');
     });
   });
 });

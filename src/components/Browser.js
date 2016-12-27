@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { union } from 'lodash';
 import Filter from '../helpers/TemplateFilters';
 import TemplateSorter from '../helpers/TemplateSorter';
-import { PAYG_PLAN_NAMES } from '../stores/app-settings';
+import { PAYG_PLAN_NAMES, DEFAULT_PAGE_SIZE } from '../stores/app-settings';
 import { clone } from '../helpers/ObjectHelpers';
 import { unslugify } from '../helpers/StringHelpers';
 
@@ -57,21 +57,50 @@ class Browser extends Component {
 
   componentDidMount () {
     this.openQueriedTemplate();
+    this.navigateToQueriedTemplate();
   }
 
   getUrlSearch () {
     return window.location.search;
   }
 
-  openQueriedTemplate () {
+  getQueriedTemplate () {
+    let id = this.getQueriedTemplateId();
+    if (id === false) return false;
+    let chosenTemplate = this.props.templates.filter( t => t.id === id )[0];
+    if (chosenTemplate && chosenTemplate.type !== undefined) {
+      return chosenTemplate;
+    }
+    return false;
+  }
+
+  getQueriedTemplateId () {
     let query = this.getUrlSearch().slice(1);
     let id = false;
     if (query.indexOf('tid=') !== -1) {
       id = parseInt(query.match(/tid=([0-9]+)/)[1], 10);
     }
-    if (id === false) return;
-    let chosenTemplate = this.props.templates.filter( t => t.id === id )[0];
-    if (chosenTemplate && chosenTemplate.type !== undefined) {
+    return id;
+  }
+
+  navigateToQueriedTemplate () {
+    let filteredTemplates = this.getFilteredTemplates();
+    let chosenTemplate = this.getQueriedTemplate();
+    if (chosenTemplate === false) return;
+    let templatePositionInArray = 0;
+    filteredTemplates.map( (temp, i) => {
+      if (temp.id === chosenTemplate.id) {
+        templatePositionInArray = i;
+      }
+    });
+    let pageNum = Math.ceil(templatePositionInArray / this.props.pageSize);
+    this.setState({page: pageNum});
+  }
+
+  openQueriedTemplate () {
+    let id = this.getQueriedTemplateId();
+    let chosenTemplate = this.getQueriedTemplate();
+    if (chosenTemplate) {
       this.props.onTemplateOpen(id, chosenTemplate.type);
     }
   }
@@ -218,6 +247,7 @@ class Browser extends Component {
 
         <PaginationPane
           currentPage={ page }
+          pageSize={ this.props.pageSize }
           numItems={ filteredTemplates.length }
           onChange={ this.handlePageChange }/>
       </div>
@@ -227,7 +257,8 @@ class Browser extends Component {
 
 Browser.defaultProps = {
   templates: [],
-  userType: 'guest'
+  userType: 'guest',
+  pageSize: DEFAULT_PAGE_SIZE
 };
 
 export default Browser;
