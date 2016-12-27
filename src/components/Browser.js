@@ -4,7 +4,6 @@ import Filter from '../helpers/TemplateFilters';
 import TemplateSorter from '../helpers/TemplateSorter';
 import { PAYG_PLAN_NAMES, DEFAULT_PAGE_SIZE } from '../stores/app-settings';
 import { clone } from '../helpers/ObjectHelpers';
-import { unslugify } from '../helpers/StringHelpers';
 
 import CostSwitch from './CostSwitch';
 import TagPane from './TagPane';
@@ -33,8 +32,8 @@ class Browser extends Component {
     this.handleChooseTag = this.handleChooseTag.bind(this);
     this.handleHashChange = this.handleHashChange.bind(this);
 
-    let possibleTag = unslugify(window.location.hash.slice(1));
-    this.filter.setFilter('tags', possibleTag);
+    let possibleTag = window.location.hash.slice(1);
+    this.filter.setTagFromSlug(possibleTag);
     if (this.filter.runFilter().length === 0) {
       window.location = '#all-templates';
       this.filter.setFilter('tags','');
@@ -157,10 +156,8 @@ class Browser extends Component {
   }
 
   handleHashChange (e) {
-    let newHash = e.newURL.slice(e.newURL.indexOf('#'));
-    let unslug = unslugify(newHash).slice(1);
-    unslug = unslug === 'All Templates' ? '' : unslug;
-    this.setFilterTagName(unslug);
+    let slug = e.newURL.slice(e.newURL.indexOf('#') + 1);
+    this.setFilterTagNameFromSlug(slug);
   }
 
   handlePageChange (newPageData) {
@@ -170,6 +167,11 @@ class Browser extends Component {
   setFilterTagName(tagName) {
     if (this.state.filter.tags === tagName) return;
     this.filter.setFilter('tags', tagName);
+    this.setState({page: 1});
+  }
+
+  setFilterTagNameFromSlug(slug) {
+    this.filter.setTagFromSlug(slug);
     this.setState({page: 1});
   }
 

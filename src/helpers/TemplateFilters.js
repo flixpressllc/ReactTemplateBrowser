@@ -1,8 +1,15 @@
 import { clone, isEmpty } from './ObjectHelpers'
+import { slugify } from './StringHelpers'
 
 export default class TemplateFilters {
   constructor (templatesArray, filterObject) {
     this.allTemplates = clone(templatesArray);
+    this.allTags = this.allTemplates.reduce( (acc, temp) => {
+      temp.tags.map( (tag) => {
+        if (acc.indexOf(tag) === -1) acc.push(tag);
+      });
+      return acc;
+    }, [])
 
     this.filter = {};
     if (isEmpty(filterObject)) {
@@ -29,6 +36,18 @@ export default class TemplateFilters {
     }
 
     return filteredTemplates;
+  }
+
+  setTagFromSlug (slug) {
+    let desiredTag = false;
+    this.allTags.map(tag => {
+      if (slugify(tag) === slug) {
+        desiredTag = tag;
+      }
+    });
+    if (desiredTag) {
+      this.setFilter('tags', desiredTag);
+    }
   }
 
   setFilter (name, data) {
