@@ -4,6 +4,7 @@ import Filter from '../helpers/TemplateFilters';
 import TemplateSorter from '../helpers/TemplateSorter';
 import { PAYG_PLAN_NAMES, DEFAULT_PAGE_SIZE, TEMPLATE_TYPES_WITHOUT_FLASH } from '../stores/app-settings';
 import { clone } from '../helpers/ObjectHelpers';
+import { flashUnavailable } from '../helpers/flashAvailability';
 
 import CostSwitch from './CostSwitch';
 import TagPane from './TagPane';
@@ -11,7 +12,7 @@ import TemplatePane from './TemplatePane';
 import PlanChooser from './PlanChooser';
 import SortSelector from './SortSelector';
 import PaginationPane from './PaginationPane';
-import NoFlashFilter, { flashUnavailable } from './NoFlashFilter';
+import NoFlashFilter from './NoFlashFilter';
 
 import '../helpers/eventPolyfills';
 

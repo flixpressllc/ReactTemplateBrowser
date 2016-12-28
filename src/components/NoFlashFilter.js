@@ -38,6 +38,3 @@ class NoFlashFilter extends Component {
 }
 
 export default NoFlashFilter;
-export function flashUnavailable () {
-  return window.Modernizr && !window.Modernizr.flash;
-}
