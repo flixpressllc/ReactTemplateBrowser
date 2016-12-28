@@ -1,0 +1,16 @@
+.reactTemplateBrowser-NoFlashFilter {
+  line-height: 1;
+  background: #d70000;
+  padding: 4px;
+  color: white;
+}
+
+.reactTemplateBrowser-NoFlashFilter > span {
+  display: inline-block;
+  width: 19em;
+}
+
+.reactTemplateBrowser-NoFlashFilter > button {
+ width: 5em;
+ color: initial;
+}

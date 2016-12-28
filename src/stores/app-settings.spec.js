@@ -31,7 +31,8 @@ it('has a known set of exports', () => {
     'ALL_PLAN_NAMES',
     'SUBSCRIPTION_PLAN_VALUES_HASH',
     'UHD_IMAGE_URL',
-    'DEFAULT_PAGE_SIZE'
+    'DEFAULT_PAGE_SIZE',
+    'TEMPLATE_TYPES_WITHOUT_FLASH'
   ];
 
   for (let name in s) {
@@ -66,6 +67,6 @@ describe('Expected values', () => {
       if (expectedObject.hasOwnProperty(name)){
         expect(testingObject[name]).toEqual(expectedObject[name]);
       }
-    } 
+    }
   });
 });
