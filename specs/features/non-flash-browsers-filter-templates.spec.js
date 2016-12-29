@@ -3,9 +3,16 @@ import { mount } from 'enzyme';
 import Browser from '../../src/components/Browser';
 import create from '../spec-helpers';
 
+jest.mock('../../src/helpers/flashAvailability');
+
 describe('Feature: Non-flash users will not see flash-required templates by default', () => {
-  beforeAll( () => { global.window.Modernizr = {flash: false}; } );
-  afterAll( () => { global.window.Modernizr = undefined; } );
+  beforeAll( ()=>{
+    let flashAvailabilityMock = require('../../src/helpers/flashAvailability');
+    flashAvailabilityMock.__setAvailabilityTo(false);
+  });
+  afterAll( ()=>{
+    require('../../src/helpers/flashAvailability').__reset();
+  });
 
   it('displays a new filter option', () => {
     const app = mount(<Browser />);
@@ -49,8 +56,22 @@ describe('Feature: Non-flash users will not see flash-required templates by defa
 });
 
 describe('Feature: Flash users will see all templates as normal', () => {
+  beforeEach( ()=>{ require('../../src/helpers/flashAvailability').__setAvailabilityTo(true) } );
+
   it('does not display a new filter option', () => {
     const app = mount(<Browser />);
     expect(app.find('NoFlashFilter').length).toEqual(0);
+  });
+});
+
+describe('Feature: Flash availability can update async', () => {
+  it('will set filter after mounting if necessary', () => {
+    const flashAvailabilityMock = require('../../src/helpers/flashAvailability');
+    const app = mount(<Browser />);
+
+    let promise = flashAvailabilityMock.__finishPromiseWith(false);
+
+    return promise
+      .then( ()=> expect(app.find('NoFlashFilter').length).toEqual(1) );
   });
 });
