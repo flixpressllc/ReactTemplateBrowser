@@ -4,6 +4,7 @@ import Filter from '../helpers/TemplateFilters';
 import TemplateSorter from '../helpers/TemplateSorter';
 import { PAYG_PLAN_NAMES, DEFAULT_PAGE_SIZE, TEMPLATE_TYPES_WITHOUT_FLASH } from '../stores/app-settings';
 import { clone } from '../helpers/ObjectHelpers';
+import { flashUnavailable, flashUnavailableAsync } from '../helpers/flashAvailability';
 
 import CostSwitch from './CostSwitch';
 import TagPane from './TagPane';
@@ -11,7 +12,7 @@ import TemplatePane from './TemplatePane';
 import PlanChooser from './PlanChooser';
 import SortSelector from './SortSelector';
 import PaginationPane from './PaginationPane';
-import NoFlashFilter, { flashUnavailable } from './NoFlashFilter';
+import NoFlashFilter from './NoFlashFilter';
 
 import '../helpers/eventPolyfills';
 
@@ -44,6 +45,8 @@ class Browser extends Component {
 
     if (flashUnavailable()) {
       this.filter.setFilter('type', TEMPLATE_TYPES_WITHOUT_FLASH[0]);
+    } else {
+      this.shouldCheckFlashAgain = true;
     }
 
     const userIsPAYG = PAYG_PLAN_NAMES.indexOf(props.userType) !== -1;
@@ -64,6 +67,15 @@ class Browser extends Component {
   componentDidMount () {
     this.openQueriedTemplate();
     this.navigateToQueriedTemplate();
+    this.checkFlashAgain();
+  }
+
+  checkFlashAgain () {
+    if (this.shouldCheckFlashAgain === true) {
+      flashUnavailableAsync().then( flashUnavailable => {
+        if (flashUnavailable) this.handleFlashBecameUnavailable();
+      })
+    }
   }
 
   getUrlSearch () {
@@ -137,6 +149,11 @@ class Browser extends Component {
     this.setState({
       templateOptions: templateOptions
     })
+  }
+
+  handleFlashBecameUnavailable () {
+    this.filter.setFilter('type', TEMPLATE_TYPES_WITHOUT_FLASH[0]);
+    this.forceUpdate();
   }
 
   handleChooseTag(tagName) {
