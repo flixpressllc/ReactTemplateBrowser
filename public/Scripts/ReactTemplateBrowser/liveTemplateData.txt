@@ -72,3 +72,21 @@
 106, Christmas Pro, 30, Pro Templates, Pro Templates, Flexible, Expert, Slides, NULL
 108, Inferno Pro, 20, Pro Templates, Promo, Flexible, Expert, Slides, NULL
 111, Breaking Free Intro, 0, Free Plan Templates, Intro, 10 Seconds, Free, Images, NULL
+112, Zombie Gaming Intro, 10, Intro, Intro, 11 Seconds, Personal,Images, NULL
+113, Multi-Actor Pro, 70, Pro Templates, Ads, Flexible, Business, Slides, NULL
+114, Question Ads, 70, Ads, Ads, 30 Seconds, Business, Images, NULL
+115, AutoSales Ad, 70, Ads, Ads, 30 Seconds, Business, Images, 114
+116, RealEstate Buying, 70, Ads, Ads, 30 Seconds, Business, Images, 114
+117, RealEstate Selling, 70, Ads, Ads, 30 Seconds, Business, Images, 114
+118, Hair Salon Ad, 70, Ads, Ads, 30 Seconds, Business, Images, 114
+119, Chiropractor Ad, 70, Ads, Ads, 30 Seconds, Business, Images, 114
+120, Dentist Ad, 70, Ads, Ads, 30 Seconds, Business, Images, 114
+121, Martial Arts School, 70, Ads, Ads, 30 Seconds, Business, Images, 114
+122, Financial Services, 70, Ads, Ads, 30 Seconds, Business, Images, 114
+123, Eye Care Ad, 70, Ads, Ads, 30 Seconds, Business, Images, 114
+124, Event Planning Ad, 70, Ads, Ads, 30 Seconds, Business, Images, 114
+125, Beauty And Spa Ad, 70, Ads, Ads, 30 Seconds, Business, Images, 114
+126, Cleaning Service Ad, 70, Ads, Ads, 30 Seconds, Business, Images, 114
+127, Automotive Services, 70, Ads, Ads, 30 Seconds, Business, Images, 114
+128, Big City Intro, 8, Intro, Intro, 8 Seconds, Expert,Images, NULL
+129, Spacer Intro, 8, Intro, Intro, 13 Seconds, Personal,TextOnlyLegacy, NULL
