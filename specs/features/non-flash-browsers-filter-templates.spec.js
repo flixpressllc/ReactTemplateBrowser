@@ -67,9 +67,11 @@ describe('Feature: Flash users will see all templates as normal', () => {
 describe('Feature: Flash availability can update async', () => {
   it('will set filter after mounting if necessary', () => {
     const flashAvailabilityMock = require('../../src/helpers/flashAvailability');
+    flashAvailabilityMock.__reset();
+    let promise = flashAvailabilityMock.flashUnavailableAsync();
     const app = mount(<Browser />);
 
-    let promise = flashAvailabilityMock.__finishPromiseWith(false);
+    flashAvailabilityMock.__finishPromiseWith(false);
 
     return promise
       .then( ()=> expect(app.find('NoFlashFilter').length).toEqual(1) );

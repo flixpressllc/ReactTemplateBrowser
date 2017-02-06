@@ -1,12 +1,11 @@
 var finishPromise;
 var flashIsAvailable;
-var promiseIsDone;
 var mostRecentPromise;
 
 export function __reset() {
   finishPromise = null;
   flashIsAvailable = true; // assume flash
-  promiseIsDone = false;
+  mostRecentPromise = undefined;
 }
 
 __reset();
@@ -16,16 +15,12 @@ export function flashUnavailable () {
 }
 
 export function flashUnavailableAsync () {
-  if (promiseIsDone) {
-    if (flashIsAvailable) {
-      mostRecentPromise = Promise.resolve(false);
-    } else {
-      mostRecentPromise = Promise.resolve(true);
-    }
+  if (mostRecentPromise !== undefined) {
     return mostRecentPromise;
   }
   mostRecentPromise = new Promise( resolve => {
     finishPromise = function finishPromiseWith (availability) {
+      flashIsAvailable = availability;
       resolve(!availability);
     }
   });
@@ -43,5 +38,4 @@ export function __finishPromiseWith (available) {
 
 export function __declarePromiseWith (available) {
   flashIsAvailable = available;
-  promiseIsDone = true;
 }
