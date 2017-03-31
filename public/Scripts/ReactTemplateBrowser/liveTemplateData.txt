@@ -1,25 +1,25 @@
-1, Lots of Text, 0, Free Plan Templates, Intro, 26 seconds, Free, TextOnlyLegacy, NULL
-2, World Intro, 0, Free Plan Templates, Intro, 10 seconds, Free, TextOnlyLegacy, NULL
+1, Lots of Text, 0, Free Plan Templates, Intro, 26 seconds, Free, TextOnly, NULL
+2, World Intro, 0, Free Plan Templates, Intro, 10 seconds, Free, TextOnly, NULL
 3, Tech Puzzle, 6, Slideshow, Slideshow, 52 seconds, Personal, ImagesLegacy, NULL
 4, Envelope Photos, 5, Slideshow, Slideshow, 66 seconds, Personal, ImagesLegacy, NULL
-5, Clean Impact, 6, Promo, Promo, 41 seconds, Personal, ImagesLegacy, NULL
+5, Clean Impact, 6, Promo, Promo, 41 seconds, Personal, Images, NULL
 7, Christmas Tree, 6, Slideshow, Slideshow, 60 seconds, Personal, ImagesLegacy, NULL
 8, Art Gallery, 6, Slideshow, Slideshow, 66 seconds, Expert, ImagesLegacy, NULL
-10, Chain Reaction, 0, Free Plan Templates, Free Plan Templates, 19 seconds, Free, ImagesLegacy, NULL
+10, Chain Reaction, 0, Free Plan Templates, Free Plan Templates, 19 seconds, Free, Images, NULL
 12, Space Grid, 8, Slideshow, Slideshow, 70 seconds, Personal, ImagesLegacy, NULL
-13, Box Shuffle, 0, Free Plan Templates, Intro, 15 seconds, Free, ImagesLegacy, NULL
+13, Box Shuffle, 0, Free Plan Templates, Intro, 15 seconds, Free, Images, NULL
 19, Special Words, 4, Special Occasions, Special Occasions, 20 seconds, Personal, ImagesLegacy, NULL
-20, Robotic X-form, 0, Free Plan Templates, Intro, 17 seconds, Free, ImagesLegacy, NULL
+20, Robotic X-form, 0, Free Plan Templates, Intro, 17 seconds, Free, Images, NULL
 23, Teams Vs Team, 4, Intro, Intro, 10 seconds, Personal, ImagesLegacy, NULL
-31, Cinema Intro, 0, Free Plan Templates, Intro, 10 seconds, Free, TextOnlyLegacy, NULL
+31, Cinema Intro, 0, Free Plan Templates, Intro, 10 seconds, Free, TextOnly, NULL
 32, Gaming Intro 1, 4, Intro, Intro, 11 seconds, Personal, TextOnlyLegacy, NULL
 33, Cinema Intro 2, 4, Intro, Intro, 12 seconds, Personal, TextOnlyLegacy, NULL
 35, Pro Intro 1, 4, Intro, Intro, 8 seconds, Personal, ImagesLegacy, NULL
 36, Game Intro 2, 6, Intro, Intro, 10 seconds, Personal, TextOnlyLegacy, NULL
 37, Falling Words, 4, Intro, Intro, 15 seconds, Personal, TextOnlyLegacy, NULL
-38, Exploding Block, 4, Intro, Intro, 10 seconds, Personal, TextOnlyLegacy, NULL
+38, Exploding Block, 4, Free Plan Templates, Intro, 10 seconds, Free, TextOnlyLegacy, NULL
 39, Mining Word, 4, Intro, Intro, 10 seconds, Personal, TextOnlyLegacy, NULL
-40, Pro Presenter, 15, Pro Templates, Pro Templates, variable, Expert, Slides, NULL
+40, Pro Presenter, 15, Pro Templates, Promo, variable, Expert, Slides, NULL
 42, Music Intro, 0, Free Plan Templates, Intro, 13 seconds, Free, TextOnlyLegacy, NULL
 43, Love Show, 6, Special Occasions, Special Occasions, 30 seconds, Expert, ImagesLegacy, NULL
 44, Game Intro 3, 6, Intro, Intro, 12 seconds, Personal, TextOnlyLegacy, NULL
@@ -28,7 +28,7 @@
 49, Gaming Intro 4, 6, Intro, Intro, 11 seconds, Personal, TextOnlyLegacy, NULL
 50, Hands Intro, 6, Intro, Intro, 8 seconds, Expert, TextOnlyLegacy, NULL
 51, Cubism Intro, 6, Intro, Intro, 8 seconds, Expert, ImagesLegacy, NULL
-53, Digimpact Pro, 10, Pro Templates, Pro Templates, Variable Timing, Expert, Slides, NULL
+53, Digimpact Pro, 10, Pro Templates, Promo, Variable Timing, Expert, Slides, NULL
 54, Sci-Fi Intro, 6, Intro, Intro, 10 seconds, Personal, ImagesLegacy, NULL
 55, Spooky Fest, 8, Pranks/Gags, Pranks/Gags, 60 seconds, Personal, ImagesLegacy, NULL
 56, Gaming XL, 8, Intro, Intro, 15 Seconds, Personal, ImagesLegacy, NULL
@@ -41,16 +41,16 @@
 65, Neon Intro, 8, Intro, Intro, 10 seconds, Expert, TextOnlyLegacy, NULL
 66, Gaming XL3, 8, Intro, Intro, 10 seconds, Personal, ImagesLegacy, NULL
 67, White Angle, 6, Intro, Intro, 10 seconds, Personal, ImagesLegacy, NULL
-68, Pro Solutions Ad, 25, Ads, Ads, 30 seconds, Expert, ImagesLegacy, NULL
+68, Pro Solutions Ad, 25, Ads, Promo, 30 seconds, Expert, ImagesLegacy, NULL
 69, BigCity Intro, 6, Intro, Intro, 10 seconds, Personal, ImagesLegacy, NULL
 70, CubePop Intro, 6, Intro, Intro, 11 seconds, Personal, ImagesLegacy, NULL
-71, Explainer ProA, 30, Pro Templates, Pro Templates, Variable Timing, Business, Slides, NULL
-73, Explainer ProB, 30, Pro Templates, Pro Templates, Variable timing, Business, Slides, NULL
+71, Explainer ProA, 30, Pro Templates, Promo, Variable Timing, Business, Slides, NULL
+73, Explainer ProB, 30, Pro Templates, Promo, Variable timing, Business, Slides, NULL
 76, City HQ Intro, 8, Intro, Intro, 10 seconds, Expert, ImagesLegacy, NULL
 77, Glamour Intro, 8, Intro, Intro, 10 seconds, Personal, ImagesLegacy, NULL
 78, Cat Ad Pro, 30, Ads, Ads, 30 seconds, Expert, TextOnlyLegacy, NULL
 79, Flex Intro, 8, Intro, Intro, 10 seconds, Expert, TextOnlyLegacy, NULL
-81, CityHQ Pro, 30, Pro Templates, Pro Templates, Variable Timing, Expert, Slides, NULL
+81, CityHQ Pro, 30, Pro Templates, Promo, Variable Timing, Expert, Slides, NULL
 82, Problem Ad, 40, Ads, Ads, 30 seconds, Business, ImagesLegacy, NULL
 83, Stellar Intro, 8, Intro, Intro, 13 seconds, Expert, TextOnlyLegacy, NULL
 84, Xform Intro, 10, Intro, Intro, 10 seconds, Expert, TextOnlyLegacy, NULL
@@ -61,7 +61,7 @@
 89, Gallery HQ, 10, Slideshow, Slideshow, 60 seconds, Expert, ImagesLegacy, NULL
 90, SkyWall Intro, 8, Intro, Intro, 10 seconds, Personal, ImagesLegacy, NULL
 91, Earth Intro, 10, Intro, Intro, 12 seconds, Personal, TextOnlyLegacy, NULL
-92, Slideshow Flex, 8, Slideshow, Slideshow, 54 seconds, Expert, ImagesLegacy, NULL
+92, Slideshow Flex, 8, Slideshow, Promo, 54 seconds, Expert, ImagesLegacy, NULL
 93, Tech Cubes Intro, 12, Intro, Intro, 13 seconds, Expert, ImagesLegacy, NULL
 94, Groundbreak II Intro, 12, Intro, Intro, 15 seconds, Expert, ImagesLegacy, NULL
 95, Pro Presenter Demo, 0, Free Plan Templates, Free Plan Templates, Flexible, Free, Slides, NULL
@@ -71,7 +71,7 @@
 105, Speed Intro, 8, Intro, Intro, 10 Seconds, Expert, ImagesLegacy, NULL
 106, Christmas Pro, 30, Pro Templates, Pro Templates, Flexible, Expert, Slides, NULL
 108, Inferno Pro, 20, Pro Templates, Promo, Flexible, Expert, Slides, NULL
-111, Breaking Free Intro, 0, Free Plan Templates, Intro, 10 Seconds, Free, ImagesLegacy, NULL
+111, Breaking Free Intro, 0, Free Plan Templates, Intro, 10 Seconds, Free, Images, NULL
 112, Zombie Gaming Intro, 10, Intro, Intro, 11 Seconds, Personal,ImagesLegacy, NULL
 113, Multi-Actor Pro, 70, Pro Templates, Ads, Flexible, Business, Slides, NULL
 114, Question Ads, 70, Ads, Ads, 30 Seconds, Business, ImagesLegacy, NULL
@@ -90,3 +90,9 @@
 127, Automotive Services, 70, Ads, Ads, 30 Seconds, Business, ImagesLegacy, 114
 128, Big City Intro, 8, Intro, Intro, 8 Seconds, Expert,ImagesLegacy, NULL
 129, Spacer Intro, 8, Intro, Intro, 13 Seconds, Personal,TextOnlyLegacy, NULL
+130, Antigravity Intro, 10, Intro, Intro, 12 Seconds, Expert,TextOnlyLegacy, NULL
+131, Space Spinner Intro, 8, Intro, Intro, 12 Seconds, Expert,TextOnlyLegacy, NULL
+132, Vocal Presenter Promo, 15, Ads, Promo, 45 Seconds, Expert,TextOnly, NULL
+133, Image Flipper Intro, 9, Intro, Intro, 12 Seconds, Expert,ImagesLegacy, NULL
+134, Cinematic Voice Intro, 10, Intro, Intro, 13 Seconds, Expert,TextOnly, NULL
+135, Supernova Intro, 8, Intro, Intro, 13 Seconds, Personal,Images, NULL
