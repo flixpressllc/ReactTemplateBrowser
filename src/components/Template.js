@@ -9,43 +9,13 @@ import { SUBSCRIPTION_PLAN_VALUES_HASH, TEMPLATE_TYPES_REQUIRING_FLASH } from '.
 import cx from 'classnames';
 import './Template.css';
 
-function isPersonalThroughExpertPlan (planName) {
-  let min = SUBSCRIPTION_PLAN_VALUES_HASH['Personal'];
-  let max = SUBSCRIPTION_PLAN_VALUES_HASH['Expert'];
-  let actual = SUBSCRIPTION_PLAN_VALUES_HASH[planName];
-  return min <= actual && actual <= max;
-}
-
-function userIsGuest (userType) {
-  return userType === 'guest'
-}
-
-function getIsTrial (userType, planName) {
-  if (userIsGuest(userType)) return false;
-  if (userType === 'Free') {
-    return isPersonalThroughExpertPlan(planName)
-  } else {
-    return SUBSCRIPTION_PLAN_VALUES_HASH[userType] + 1 === SUBSCRIPTION_PLAN_VALUES_HASH[planName];
-  }
-}
-
-function getIsDisabled (userType, planName) {
-  if (userIsGuest(userType)) return false;
-  if (getIsTrial(userType, planName)) return false;
-  return SUBSCRIPTION_PLAN_VALUES_HASH[userType] < SUBSCRIPTION_PLAN_VALUES_HASH[planName];
-}
-
-function getVideoId (id) {
-  return padLeft(id, '0', 2);
-}
-
 class Template extends Component {
 
   constructor (props) {
     super(props)
     this.state = {
-      isTrial: getIsTrial(props.userType, props.template.plan),
-      isDisabled: getIsDisabled(props.userType, props.template.plan)
+      isTrial: this.getIsTrial(props.userType, props.template.plan),
+      isDisabled: this.getIsDisabled(props.userType, props.template.plan)
     }
 
     this.navigateToPath = navigateToPath; // allows for testing
@@ -86,6 +56,20 @@ class Template extends Component {
     return TEMPLATE_TYPES_REQUIRING_FLASH.indexOf(this.props.template.type) > -1;
   }
 
+  getIsTrial (userType, templatePlan) {
+    if (userType === 'guest') return false;
+    return SUBSCRIPTION_PLAN_VALUES_HASH[userType] + 1 === SUBSCRIPTION_PLAN_VALUES_HASH[templatePlan]
+  }
+
+  getIsDisabled (userType, templatePlan) {
+    if (userType === 'guest') return false;
+    return SUBSCRIPTION_PLAN_VALUES_HASH[userType] + 1 < SUBSCRIPTION_PLAN_VALUES_HASH[templatePlan]
+  }
+
+  getVideoId (id) {
+    return padLeft(id, '0', 2);
+  }
+
   handleClickOnTemplate (e) {
     e.preventDefault();
     if (this.state.upgradeHover) {
@@ -124,9 +108,9 @@ class Template extends Component {
       switch (true) {
         case (this.props.userType === 'guest'):
           return 'Login to create';
-        case this.state.isTrial:
+        case this.getIsTrial(this.props.userType, template.plan):
           return 'Click to try';
-        case this.state.isDisabled:
+        case this.getIsDisabled(this.props.userType, template.plan):
           return 'Click to preview only';
         default:
           return 'Click to create';
@@ -151,8 +135,8 @@ class Template extends Component {
     const upgradeMessage = <span className='reactTemplateBrowser-Template-upgradeMessage'>{ upgradeLink } for full access</span>;
     const hoverOutput = (() => {
       switch (true) {
-        case getIsTrial(this.props.userType, template.plan):
-        case getIsDisabled(this.props.userType, template.plan):
+        case this.getIsTrial(this.props.userType, template.plan):
+        case this.getIsDisabled(this.props.userType, template.plan):
           return upgradeMessage;
         default:
           return regularOutput;
