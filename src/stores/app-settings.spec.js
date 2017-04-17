@@ -32,7 +32,7 @@ it('has a known set of exports', () => {
     'SUBSCRIPTION_PLAN_VALUES_HASH',
     'UHD_IMAGE_URL',
     'DEFAULT_PAGE_SIZE',
-    'TEMPLATE_TYPES_WITHOUT_FLASH'
+    'TEMPLATE_TYPES_REQUIRING_FLASH'
   ];
 
   for (let name in s) {

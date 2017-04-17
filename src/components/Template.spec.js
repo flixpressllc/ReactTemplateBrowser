@@ -3,6 +3,8 @@ import { shallow, mount } from 'enzyme';
 import Template from './Template';
 import create from '../../specs/spec-helpers';
 
+jest.mock('../helpers/flashAvailability');
+
 it('renders without crashing', () => {
  shallow(<Template template={ create('template') } />);
 });
@@ -148,6 +150,45 @@ describe('hover interactions', () => {
 
   });
 
+});
+
+describe('Flash availability', () => {
+  let flashAvailabilityMock = require('../helpers/flashAvailability');
+  beforeEach(() => flashAvailabilityMock.__reset())
+
+  describe('Flash Users:', () => {
+    it('will NOT display a "requires flash" ribbon', () => {
+      flashAvailabilityMock.__setAvailabilityTo(true);
+      const template = create('template', {type: 'TextOnlyLegacy'});
+
+      const component = mount(<Template template={ template }/>);
+
+      expect(component.find('.reactTemplateBrowser-Template-requiresFlashRibbon').length).toEqual(0);
+    });
+
+  });
+
+  describe('Non-flash users:', () => {
+    it('will display a "requires flash" ribbon', () => {
+      flashAvailabilityMock.__setAvailabilityTo(false)
+      const template = create('template', {type: 'TextOnlyLegacy'});
+
+      const component = mount(<Template template={ template }/>);
+
+      expect(component.find('.reactTemplateBrowser-Template-requiresFlashRibbon').length).toEqual(1);
+    });
+
+    it('will set ribbons after mounting if necessary', () => {
+      let promise = flashAvailabilityMock.flashUnavailableAsync();
+      const template = create('template', {type: 'TextOnlyLegacy'});
+      const component = mount(<Template template={ template }/>);
+
+      flashAvailabilityMock.__finishPromiseWith(false);
+
+      return promise
+        .then( ()=> expect(component.find('.reactTemplateBrowser-Template-requiresFlashRibbon').length).toEqual(1) );
+    });
+  });
 });
 
 describe('Plan Levels', () => {

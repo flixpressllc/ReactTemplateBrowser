@@ -119,6 +119,27 @@
   font-weight: bold;
 }
 
+.reactTemplateBrowser-Template-requiresFlashRibbon {
+  background-color: #d73333;
+  overflow: hidden;
+  white-space: nowrap;
+  position: absolute;
+  left: -3.8em;
+  bottom: 1em;
+  -webkit-transform: rotate(46deg);
+  -ms-transform: rotate(46deg);
+  transform: rotate(46deg);
+  -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.8);
+  box-shadow: 0 0 5px rgba(0,0,0,0.8);
+  content: "";
+  color: #fff;
+  z-index: 1;
+  padding: 2px 2.8em 2px 3.9em;
+  letter-spacing: 0.05em;
+  font-weight: bold;
+  text-align: center;
+}
+
 .reactTemplateBrowser-Template-upgradeMessage,
 .reactTemplateBrowser-TemplateGroup-upgradeMessage {
   display: block;

@@ -3,8 +3,9 @@ import TemplateFeatures from './TemplateFeatures';
 import Preview from './Preview';
 import hoverIntent from 'hoverintent';
 import { padLeft } from '../helpers/StringHelpers';
+import { flashUnavailable, flashUnavailableAsync } from '../helpers/flashAvailability';
 import { navigateToPath } from '../helpers/Navigation';
-import { SUBSCRIPTION_PLAN_VALUES_HASH } from '../stores/app-settings';
+import { SUBSCRIPTION_PLAN_VALUES_HASH, TEMPLATE_TYPES_REQUIRING_FLASH } from '../stores/app-settings';
 import cx from 'classnames';
 import './Template.css';
 
@@ -34,6 +35,10 @@ class Template extends Component {
     }, () => {
       this.handleHoverOff();
     });
+
+    flashUnavailableAsync().then(unavailable => {
+      if(unavailable) this.forceUpdate();
+    });
   }
 
   componentWillUnmount () {
@@ -45,6 +50,10 @@ class Template extends Component {
     const templateLink = `/templates/${t.type}.aspx?tid=${t.id}`;
     const upgradeLink = '/upgrade';
     return this.state.upgradeHover ? upgradeLink : templateLink ;
+  }
+
+  requiresFlash () {
+    return TEMPLATE_TYPES_REQUIRING_FLASH.indexOf(this.props.template.type) > -1;
   }
 
   getIsTrial (userType, templatePlan) {
@@ -144,6 +153,14 @@ class Template extends Component {
       ribbons.push(
         <div key='trial' className='reactTemplateBrowser-Template-trialRibbon'>
           Trial
+        </div>
+      )
+    }
+    if (this.requiresFlash() && flashUnavailable()) {
+      hasRibbons = true;
+      ribbons.push(
+        <div key='requiresFlash' className='reactTemplateBrowser-Template-requiresFlashRibbon'>
+          Requires<br/>Flash
         </div>
       )
     }

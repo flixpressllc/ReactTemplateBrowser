@@ -11,8 +11,10 @@ export const PAYG_PLAN_NAMES = [
   'Reseller'
 ];
 
-export const TEMPLATE_TYPES_WITHOUT_FLASH = [
-  'TextOnly'
+export const TEMPLATE_TYPES_REQUIRING_FLASH = [
+  'TextOnlyLegacy',
+  'Slides',
+  'ImagesLegacy'
 ];
 
 export const ALL_PLAN_NAMES = [].concat(SUBSCRIPTION_PLAN_NAMES_IN_ORDER, PAYG_PLAN_NAMES);
