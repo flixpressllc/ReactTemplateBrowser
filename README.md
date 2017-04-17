@@ -1,5 +1,9 @@
 # Change Log
 
+### 1.6.0
+* Replaces flash filter for ribbons
+* Allows free users to trial up to Expert
+
 ### 1.5.0
 * Adds automatic filter for flash availability
 

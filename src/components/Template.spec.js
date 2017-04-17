@@ -118,9 +118,11 @@ describe('hover interactions', () => {
 
   });
   describe('with plan user who cannot edit', () => {
+    const userType = 'Free';
+    const template = create('template', {plan: 'Business'});
+
     it('changes the title to a message', () => {
-      const template = create('template', {plan: 'Expert'});
-      const component = shallow(<Template template={ template } userType={ 'Free' } />);
+      const component = shallow(<Template template={ template } userType={ userType } />);
 
       component.setProps({isHovered: true});
 
@@ -128,7 +130,6 @@ describe('hover interactions', () => {
       expect(component.text()).not.toContain('ID:');
     });
     it('changes the lower bar to call to action', () => {
-      const template = create('template', {plan: 'Expert'});
       const component = shallow(<Template template={ template } userType={ 'Free' } />);
 
       component.setProps({isHovered: true});
@@ -199,10 +200,33 @@ describe('Plan Levels', () => {
     expect(component.find('.reactTemplateBrowser-Template-trialRibbon').length).toBe(1);
   });
   it('can disable templates beyond trial levels', () => {
-    const template = create('template', {plan: 'Expert'});
-    const component = mount(<Template template={ template } userType={ 'Free' }/>);
+    const template = create('template', {plan: 'Business'});
+    const component = mount(<Template template={ template } userType={ 'Personal' }/>);
 
     expect(component.find('.reactTemplateBrowser-Template.disabled-template').length).toBe(1);
+  });
+  describe('For free users', () => {
+    it('Personal templates are trials', () => {
+      const template = create('template', {plan: 'Personal'});
+      const component = mount(<Template template={ template } userType={ 'Free' }/>);
+
+      expect(component.find('.reactTemplateBrowser-Template.disabled-template').length).toBe(0);
+      expect(component.find('.reactTemplateBrowser-Template-trialRibbon').length).toBe(1);
+    });
+    it('Expert templates are trials', () => {
+      const template = create('template', {plan: 'Expert'});
+      const component = mount(<Template template={ template } userType={ 'Free' }/>);
+
+      expect(component.find('.reactTemplateBrowser-Template.disabled-template').length).toBe(0);
+      expect(component.find('.reactTemplateBrowser-Template-trialRibbon').length).toBe(1);
+    });
+    it('Business templates are disabled', () => {
+      const template = create('template', {plan: 'Business'});
+      const component = mount(<Template template={ template } userType={ 'Free' }/>);
+
+      expect(component.find('.reactTemplateBrowser-Template.disabled-template').length).toBe(1);
+      expect(component.find('.reactTemplateBrowser-Template-trialRibbon').length).toBe(0);
+    });
   });
 });
 
