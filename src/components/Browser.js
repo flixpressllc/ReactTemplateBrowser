@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { union } from 'lodash';
 import Filter from '../helpers/TemplateFilters';
 import TemplateSorter from '../helpers/TemplateSorter';
-import { PAYG_PLAN_NAMES, DEFAULT_PAGE_SIZE, TEMPLATE_TYPES_WITHOUT_FLASH } from '../stores/app-settings';
+import { PAYG_PLAN_NAMES, DEFAULT_PAGE_SIZE } from '../stores/app-settings';
 import { clone } from '../helpers/ObjectHelpers';
-import { flashUnavailable, flashUnavailableAsync } from '../helpers/flashAvailability';
 
 import CostSwitch from './CostSwitch';
 import TagPane from './TagPane';
@@ -12,7 +11,6 @@ import TemplatePane from './TemplatePane';
 import PlanChooser from './PlanChooser';
 import SortSelector from './SortSelector';
 import PaginationPane from './PaginationPane';
-import NoFlashFilter from './NoFlashFilter';
 
 import '../helpers/eventPolyfills';
 
@@ -34,19 +32,12 @@ class Browser extends Component {
     this.handleGroupClose = this.handleGroupClose.bind(this);
     this.handleChooseTag = this.handleChooseTag.bind(this);
     this.handleHashChange = this.handleHashChange.bind(this);
-    this.handleFlashFilterChange = this.handleFlashFilterChange.bind(this);
 
     let possibleTag = window.location.hash.slice(1);
     this.filter.setTagFromSlug(possibleTag);
     if (this.filter.runFilter().length === 0) {
       window.location = '#all-templates';
       this.filter.setFilter('tags','');
-    }
-
-    if (flashUnavailable()) {
-      this.filter.setFilter('type', TEMPLATE_TYPES_WITHOUT_FLASH[0]);
-    } else {
-      this.shouldCheckFlashAgain = true;
     }
 
     const userIsPAYG = PAYG_PLAN_NAMES.indexOf(props.userType) !== -1;
@@ -67,15 +58,6 @@ class Browser extends Component {
   componentDidMount () {
     this.openQueriedTemplate();
     this.navigateToQueriedTemplate();
-    this.checkFlashAgain();
-  }
-
-  checkFlashAgain () {
-    if (this.shouldCheckFlashAgain === true) {
-      flashUnavailableAsync().then( flashUnavailable => {
-        if (flashUnavailable) this.handleFlashBecameUnavailable();
-      })
-    }
   }
 
   getUrlSearch () {
@@ -151,11 +133,6 @@ class Browser extends Component {
     })
   }
 
-  handleFlashBecameUnavailable () {
-    this.filter.setFilter('type', TEMPLATE_TYPES_WITHOUT_FLASH[0]);
-    this.forceUpdate();
-  }
-
   handleChooseTag(tagName) {
     this.setFilterTagName(tagName);
   }
@@ -182,15 +159,6 @@ class Browser extends Component {
   handleHashChange (e) {
     let slug = e.newURL.slice(e.newURL.indexOf('#') + 1);
     this.setFilterTagNameFromSlug(slug);
-  }
-
-  handleFlashFilterChange (showOrHide) {
-    if (showOrHide == 'hide') {
-      this.filter.setFilter('type', TEMPLATE_TYPES_WITHOUT_FLASH[0]);
-    } else if (showOrHide == 'show') {
-      this.filter.setFilter('type', '');
-    }
-    this.forceUpdate();
   }
 
   handlePageChange (newPageData) {
@@ -224,13 +192,6 @@ class Browser extends Component {
       value={ this.state.templateOptions.costType } />
   }
 
-  renderNoFlashFilter () {
-    if (flashUnavailable()) {
-      return <NoFlashFilter onChange={ this.handleFlashFilterChange }/>
-    }
-    return null;
-  }
-
   renderSortSelectorOrGroupEscape () {
     if ( ! this.state.filter.templateGroup) {
       return [
@@ -259,7 +220,6 @@ class Browser extends Component {
     const page = this.state.page || 1;
     const templates = PaginationPane.paginate(filteredTemplates, page)
     const costSwitch = this.renderCostSwitch();
-    const noFlashFilter = this.renderNoFlashFilter();
     const sortAndPlanOrEscape = this.renderSortSelectorOrGroupEscape();
 
     return (
@@ -272,7 +232,6 @@ class Browser extends Component {
         <div className='reactTemplateBrowser-Browser-filterContainer'>
           { sortAndPlanOrEscape }
           { costSwitch }
-          { noFlashFilter }
         </div>
 
         <PaginationPane
