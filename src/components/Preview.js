@@ -8,7 +8,7 @@ class Preview extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      videoIsLoading: true
+      videoIsLoading: false
     };
 
     if (props.templateId) {
@@ -20,27 +20,55 @@ class Preview extends Component {
 
     this.handleVideoLoadEnd = this.handleVideoLoadEnd.bind(this);
     this.handleVideoLoadStart = this.handleVideoLoadStart.bind(this);
+    this.handleVideoOnPlaying = this.handleVideoOnPlaying.bind(this);
+    this.handleVideoOnPause = this.handleVideoOnPause.bind(this);
     this.videoMounted = this.videoMounted.bind(this);
+
+    this.videoReportsItselfAs = 'paused';
   }
 
   handleVideoLoadEnd () {
+    if (this.state.videoIsLoading === false) return;
     this.setState({videoIsLoading: false});
   }
 
   handleVideoLoadStart () {
+    if (this.state.videoIsLoading === true) return;
     this.setState({videoIsLoading: true});
   }
 
+  handleVideoOnPlaying () {
+    this.videoReportsItselfAs = 'playing';
+    this.handleVideoLoadEnd();
+  }
+
+  handleVideoOnPause () {
+    this.videoReportsItselfAs = 'paused';
+  }
+
   videoMounted (el) {
+    if (el === null) return;
     this.videoElement = el;
+  }
+
+  playVideo() {
+    if (this.videoElement.paused && this.videoReportsItselfAs === 'paused') {
+      this.videoElement.play();
+    }
+  }
+
+  pauseVideo() {
+    if (!this.videoElement.paused && this.videoReportsItselfAs === 'playing'){
+      this.videoElement.pause();
+    }
   }
 
   startOrStopVideo () {
     if (this.videoElement) {
       if (this.props.active) {
-        this.videoElement.play();
+        this.playVideo();
       } else {
-        this.videoElement.pause();
+        this.pauseVideo();
       }
     }
   }
@@ -61,11 +89,12 @@ class Preview extends Component {
           src={ this.imageSrc } />
         <LoadingSpinner active={ this.props.active && this.state.videoIsLoading } />
         <video className='reactTemplateBrowser-Preview-video'
+          onPlaying={ this.handleVideoOnPlaying }
+          onLoadStart={ this.handleVideoLoadStart }
+          onPause={ this.handleVideoOnPause }
           style={ styles.video }
           src={ this.videoSrc }
           preload="none"
-          onLoadStart={ this.handleVideoLoadStart }
-          onPlaying={ this.handleVideoLoadEnd }
           ref={ (el) => { this.videoMounted(el) } }
           loop={ true } />
       </div>

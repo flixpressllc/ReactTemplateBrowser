@@ -1,5 +1,8 @@
 # Change Log
 
+#### 1.6.1
+* fixes video [play/pause race condition](https://github.com/flixpressllc/ReactTemplateBrowser/issues/11)
+
 ### 1.6.0
 * Replaces flash filter for ribbons
 * Allows free users to trial up to Expert

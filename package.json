@@ -1,6 +1,6 @@
 {
   "name": "new-react-app",
-  "version": "1.6.0",
+  "version": "1.6.1-pre",
   "private": true,
   "devDependencies": {
     "classnames": "^2.2.5",
