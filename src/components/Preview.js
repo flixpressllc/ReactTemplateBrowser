@@ -8,7 +8,7 @@ class Preview extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      videoIsLoading: true
+      videoIsLoading: false
     };
 
     if (props.templateId) {
@@ -21,26 +21,54 @@ class Preview extends Component {
     this.handleVideoLoadEnd = this.handleVideoLoadEnd.bind(this);
     this.handleVideoLoadStart = this.handleVideoLoadStart.bind(this);
     this.videoMounted = this.videoMounted.bind(this);
+
+    this.videoReportsItselfAs = 'paused';
   }
 
   handleVideoLoadEnd () {
+    if (this.state.videoIsLoading === false) return;
     this.setState({videoIsLoading: false});
   }
 
   handleVideoLoadStart () {
+    if (this.state.videoIsLoading === true) return;
     this.setState({videoIsLoading: true});
   }
 
   videoMounted (el) {
+    if (el === null) return;
     this.videoElement = el;
+
+    this.videoElement.onloadstart = () => {
+      this.handleVideoLoadStart();
+    }
+    this.videoElement.onpause = () => {
+      this.videoReportsItselfAs = 'paused';
+    }
+    this.videoElement.onplaying = () => {
+      this.videoReportsItselfAs = 'playing';
+      this.handleVideoLoadEnd();
+    }
+  }
+
+  playVideo() {
+    if (this.videoElement.paused && this.videoReportsItselfAs === 'paused') {
+      this.videoElement.play();
+    }
+  }
+
+  pauseVideo() {
+    if (!this.videoElement.paused && this.videoReportsItselfAs === 'playing'){
+      this.videoElement.pause();
+    }
   }
 
   startOrStopVideo () {
     if (this.videoElement) {
       if (this.props.active) {
-        this.videoElement.play();
+        this.playVideo();
       } else {
-        this.videoElement.pause();
+        this.pauseVideo();
       }
     }
   }
@@ -64,8 +92,6 @@ class Preview extends Component {
           style={ styles.video }
           src={ this.videoSrc }
           preload="none"
-          onLoadStart={ this.handleVideoLoadStart }
-          onPlaying={ this.handleVideoLoadEnd }
           ref={ (el) => { this.videoMounted(el) } }
           loop={ true } />
       </div>
