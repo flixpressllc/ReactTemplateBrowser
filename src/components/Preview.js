@@ -20,6 +20,8 @@ class Preview extends Component {
 
     this.handleVideoLoadEnd = this.handleVideoLoadEnd.bind(this);
     this.handleVideoLoadStart = this.handleVideoLoadStart.bind(this);
+    this.handleVideoOnPlaying = this.handleVideoOnPlaying.bind(this);
+    this.handleVideoOnPause = this.handleVideoOnPause.bind(this);
     this.videoMounted = this.videoMounted.bind(this);
 
     this.videoReportsItselfAs = 'paused';
@@ -35,20 +37,18 @@ class Preview extends Component {
     this.setState({videoIsLoading: true});
   }
 
+  handleVideoOnPlaying () {
+    this.videoReportsItselfAs = 'playing';
+    this.handleVideoLoadEnd();
+  }
+
+  handleVideoOnPause () {
+    this.videoReportsItselfAs = 'paused';
+  }
+
   videoMounted (el) {
     if (el === null) return;
     this.videoElement = el;
-
-    this.videoElement.onloadstart = () => {
-      this.handleVideoLoadStart();
-    }
-    this.videoElement.onpause = () => {
-      this.videoReportsItselfAs = 'paused';
-    }
-    this.videoElement.onplaying = () => {
-      this.videoReportsItselfAs = 'playing';
-      this.handleVideoLoadEnd();
-    }
   }
 
   playVideo() {
@@ -89,6 +89,9 @@ class Preview extends Component {
           src={ this.imageSrc } />
         <LoadingSpinner active={ this.props.active && this.state.videoIsLoading } />
         <video className='reactTemplateBrowser-Preview-video'
+          onPlaying={ this.handleVideoOnPlaying }
+          onLoadStart={ this.handleVideoLoadStart }
+          onPause={ this.handleVideoOnPause }
           style={ styles.video }
           src={ this.videoSrc }
           preload="none"
