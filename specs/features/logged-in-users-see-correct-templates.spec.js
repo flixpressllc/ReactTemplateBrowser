@@ -15,7 +15,7 @@ describe('Feature: Logged in users see the correct templates', () => {
     ];
     const app = mount(<Browser userType={'Free'} templates={ templates } />);
 
-    expect(app.find('.reactTemplateBrowser-Template-trialRibbon').length).toBe(1);
+    expect(app.find('.reactTemplateBrowser-Template-trialRibbon').length).toBe(2);
   });
 
   it('shows no ribbons for Pay As You Go users', () => {
