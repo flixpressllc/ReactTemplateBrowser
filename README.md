@@ -2,6 +2,7 @@
 
 #### 1.6.1
 * fixes video [play/pause race condition](https://github.com/flixpressllc/ReactTemplateBrowser/issues/11)
+* fixes [unhandled promise rejections in specs](http://thecodebarbarian.com/unhandled-promise-rejections-in-node.js.html)
 
 ### 1.6.0
 * Replaces flash filter for ribbons
