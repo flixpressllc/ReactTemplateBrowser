@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { union } from 'lodash';
 import Filter from '../helpers/TemplateFilters';
 import TemplateSorter from '../helpers/TemplateSorter';
-import { PAYG_PLAN_NAMES, DEFAULT_PAGE_SIZE } from '../stores/app-settings';
+import { PAYG_PLAN_NAMES, DEFAULT_PAGE_SIZE, ALL_PLAN_NAMES } from '../stores/app-settings';
 import { clone } from '../helpers/ObjectHelpers';
 
 import CostSwitch from './CostSwitch';
@@ -16,6 +16,18 @@ import '../helpers/eventPolyfills';
 
 import './Browser.css';
 
+function determineCostType(userType, preferredCostType) {
+  const userIsPAYG = PAYG_PLAN_NAMES.indexOf(userType) !== -1;
+  const userIsGuest = ALL_PLAN_NAMES.indexOf(userType) === -1;
+  const costTypes = ['price', 'plan'];
+  const preferredIsAvailable = (costTypes.indexOf(preferredCostType) > -1);
+
+  if (userIsGuest) {
+    return preferredIsAvailable ? preferredCostType : 'plan';
+  } else {
+    return userIsPAYG ? 'price' : 'plan';
+  }
+}
 
 class Browser extends Component {
 
@@ -40,13 +52,11 @@ class Browser extends Component {
       this.filter.setFilter('tags','');
     }
 
-    const userIsPAYG = PAYG_PLAN_NAMES.indexOf(props.userType) !== -1;
-
     this.state = {
       filter: this.filter.getFilter(),
       sortTemplatesBy: props.userType === 'Free' ? 'free-first' : 'newest',
       templateOptions: {
-        costType: userIsPAYG ? 'price' : 'plan'
+        costType: determineCostType(props.userType, props.preferredCostType)
       }
     };
   }
@@ -189,7 +199,7 @@ class Browser extends Component {
     if (this.props.userType !== 'guest') {return null}
     return <CostSwitch
       onChange={ this.handleCostTypeChange }
-      value={ this.state.templateOptions.costType } />
+      costType={ this.state.templateOptions.costType } />
   }
 
   renderSortSelectorOrGroupEscape () {

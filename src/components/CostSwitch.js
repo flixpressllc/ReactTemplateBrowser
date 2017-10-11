@@ -3,7 +3,6 @@ import cx from 'classnames';
 import './CostSwitch.css';
 
 class CostSwitch extends Component {
-  
   constructor (props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -16,7 +15,7 @@ class CostSwitch extends Component {
   }
 
   render(){
-    const costType = this.props.value;
+    const { costType } = this.props;
     return (
       <div className='reactTemplateBrowser-CostSwitch'>
         <span>Pricing shown as </span>
@@ -38,7 +37,7 @@ class CostSwitch extends Component {
             Prices
           </label>
         </div>
-        </div>
+      </div>
     );
   }
 }
