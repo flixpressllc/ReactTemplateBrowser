@@ -69,10 +69,37 @@
     function openInCbox(id, type){
       alert('Would have opened in colorbox on server: ' + id + ' ' + type);
     }
-    initTemplateBrowser({
-      divId: 'root',
-      onTemplateOpen: openInCbox,
-      userType: 'Free'
-    })
+
+    function firstUpper(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    var userTypes = [
+      'guest',
+      'Free',
+      'Personal',
+      'Expert',
+      'Business',
+      'Enterprise',
+      'Pay As You Go',
+      'Reseller',
+    ];
+    var initFunctions = [];
+
+    userTypes.map( function (currentUserType) {
+      var functionName = 'initAs' + firstUpper(currentUserType.replace(/ /g, ''));
+      initFunctions.push(functionName);
+
+      window[functionName] = function () {
+        console.log('initializing as ' + currentUserType);
+        initTemplateBrowser({
+          divId: 'root',
+          onTemplateOpen: openInCbox,
+          userType: currentUserType,
+        });
+      };
+    });
+
+    initAsFree();
   </script>
 </html>
