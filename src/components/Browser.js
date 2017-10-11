@@ -189,7 +189,7 @@ class Browser extends Component {
     if (this.props.userType !== 'guest') {return null}
     return <CostSwitch
       onChange={ this.handleCostTypeChange }
-      value={ this.state.templateOptions.costType } />
+      costType={ this.state.templateOptions.costType } />
   }
 
   renderSortSelectorOrGroupEscape () {
