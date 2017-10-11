@@ -27,6 +27,7 @@ function initTemplateBrowser (options) {
     ReactDOM.render(
       <Browser templates={ templateData.getAll() }
         userType={ options.userType }
+        preferredCostType={ options.preferredCostType }
         onTemplateOpen={ options.onTemplateOpen } />,
       document.getElementById(options.divId)
     );
